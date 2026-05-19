@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janith Madumal | Professional Portfolio & Store</title>
+    <style>
+        /* Ultra Modern Dark Theme Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --bg-main: #090d16;
+            /* Deep Cyber Dark */
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --accent-cyan: #06b6d4;
+            --accent-pink: #d946ef;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --gradient-mesh: linear-gradient(135deg, #06b6d4 0%, #d946ef 100%);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(217, 70, 239, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* 3D Glassmorphism Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 25px;
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: var(--gradient-mesh);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 50px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1);
+        }
+
+        /* Multipage Pages System */
+        .page {
+            display: none;
+            padding-top: 130px;
+            padding-bottom: 60px;
+            min-height: 100vh;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .page.active-page {
+            display: block;
+            animation: pageTransition 0.5s ease-out forwards;
+        }
+
+        @keyframes pageTransition {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.99);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(180deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* HOME PAGE - HERO SECTION */
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            color: #fff;
+        }
+
+        .hero-text span {
+            background: var(--gradient-mesh);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            line-height: 1.6;
+            max-width: 550px;
+        }
+
+        /* Glowing 3D Cube Object */
+        .cube-container {
+            width: 280px;
+            height: 280px;
+            perspective: 1000px;
+            margin-right: 40px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 16s infinite linear;
+        }
+
+        .face {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(6, 182, 212, 0.03);
+            border: 1.5px solid rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #fff;
+            backdrop-filter: blur(4px);
+            border-radius: 4px;
+        }
+
+        .front {
+            transform: translateZ(140px);
+            background: rgba(217, 70, 239, 0.03);
+            border-color: rgba(217, 70, 239, 0.4);
+            box-shadow: 0 0 25px rgba(217, 70, 239, 0.15);
+        }
+
+        .back {
+            transform: rotateY(180deg) translateZ(140px);
+        }
+
+        .left {
+            transform: rotateY(-90deg) translateZ(140px);
+        }
+
+        .right {
+            transform: rotateY(90deg) translateZ(140px);
+            background: rgba(217, 70, 239, 0.03);
+            border-color: rgba(217, 70, 239, 0.4);
+        }
+
+        .top {
+            transform: rotateX(90deg) translateZ(140px);
+        }
+
+        .bottom {
+            transform: rotateX(-90deg) translateZ(140px);
+        }
+
+        @keyframes rotateCube {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        /* ABOUT PAGE - 3D Cards */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .card-3d {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 35px;
+            border-radius: 24px;
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s, box-shadow 0.4s;
+        }
+
+        .card-3d:hover {
+            transform: translateY(-8px) rotateY(6deg) rotateX(4deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.15);
+            border-color: rgba(6, 182, 212, 0.5);
+        }
+
+        .card-3d h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-cyan);
+        }
+
+        .card-3d p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-right: 5px;
+            color: #fff;
+        }
+
+        .rank-highlight {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--gradient-mesh);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 5px 0;
+        }
+
+        /* STORE / SERVICES PAGE */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            border-color: rgba(219, 70, 239, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-icon {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(145deg, #111827, #1f293d);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            margin: 15px 0;
+        }
+
+        /* Buttons Style */
+        .btn {
+            background: var(--gradient-mesh);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 70, 239, 0.4);
+        }
+
+        /* CONTACT PAGE & EMAIL INTEGRATION */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            margin-top: 35px;
+        }
+
+        .contact-info-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .email-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed rgba(6, 182, 212, 0.3);
+            padding: 15px 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .email-text {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-cyan);
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+            color: #4b5563;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* Responsive Mobile Layout */
+        @media (max-width: 850px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 20px;
+            }
+
+            .cube-container {
+                margin: 0 auto;
+                width: 220px;
+                height: 220px;
+            }
+
+            .face {
+                width: 220px;
+                height: 220px;
+                font-size: 1rem;
+            }
+
+            .front {
+                transform: translateZ(110px);
+            }
+
+            .back {
+                transform: rotateY(180deg) translateZ(110px);
+            }
+
+            .left {
+                transform: rotateY(-90deg) translateZ(110px);
+            }
+
+            .right {
+                transform: rotateY(90deg) translateZ(110px);
+            }
+
+            .top {
+                transform: rotateX(90deg) translateZ(110px);
+            }
+
+            .bottom {
+                transform: rotateX(-90deg) translateZ(110px);
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 12px;
+                border-radius: 25px;
+                padding: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">JANITH PREMASIRI</div>
+        <ul class="nav-links">
+            <li><a onclick="switchPage('home')" id="nav-home" class="active">Home</a></li>
+            <li><a onclick="switchPage('about')" id="nav-about">About</a></li>
+            <li><a onclick="switchPage('shop')" id="nav-shop">Store</a></li>
+            <li><a onclick="switchPage('contact')" id="nav-contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page active-page">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Hi, I'm <br><span>Janith Madumal</span></h1>
+                <p>An ambitious 19-year-old tech entrepreneur and commerce specialist. Harnessing digital trends to
+                    transform standard business into next-gen setups.</p>
+                <button class="btn" onclick="switchPage('shop')">View My Products</button>
+            </div>
+            <div class="cube-container">
+                <div class="cube">
+                    <div class="face front">Accounting</div>
+                    <div class="face back">Business</div>
+                    <div class="face left">ICT Specialist</div>
+                    <div class="face right">Janith 3D</div>
+                    <div class="face top">Commerce</div>
+                    <div class="face bottom">Rank 100</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="page">
+        <h2 class="section-title">Academic Profile</h2>
+        <p style="color: var(--text-secondary);">An overview of my qualifications and school performance.</p>
+
+        <div class="about-grid">
+            <div class="card-3d">
+                <h3>Alma Mater</h3>
+                <p>Studied Commerce stream and advanced tech applications at:</p>
+                <h4 style="margin-top: 15px; color: #fff; font-size: 1.2rem;">MO/Nissanka Central College</h4>
+                <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: 10px;">Advanced Level</p>
+            </div>
+
+            <div class="card-3d">
+                <h3>Exam Milestones</h3>
+                <p>Outstanding results combining both business calculations and computer science:</p>
+                <div style="margin-top: 15px;">
+                    <span class="result-badge" style="border-color: var(--accent-cyan);">Accounting - A</span>
+                    <span class="result-badge" style="border-color: var(--accent-pink);">Business Studies - B</span>
+                    <span class="result-badge">ICT - C</span>
+                </div>
+            </div>
+
+            <div class="card-3d">
+                <h3>Island Standing</h3>
+                <p>Proving excellence at a district level with top tier scoring:</p>
+                <div class="rank-highlight">#100</div>
+                <span class="result-badge"
+                    style="background: rgba(6, 182, 212, 0.2); color: #fff; border: none;">District Rank: 100</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="page">
+        <h2 class="section-title">Commercial Hub</h2>
+        <p style="color: var(--text-secondary);">Monetize your inventory or offer specialized freelance services.</p>
+
+        <div class="shop-grid">
+            <div class="product-card">
+                <div class="product-icon">💎</div>
+                <h3>E-Commerce Item</h3>
+                <p style="color: var(--text-secondary); font-size: 0.88rem; margin-top: 8px;">Describe your digital or
+                    physical item specs here.</p>
+                <div class="price">Rs. 4,950</div>
+                <button class="btn" onclick="redirectToEmail('E-Commerce Item Order')">Order Now</button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🖥️</div>
+                <h3>ICT Solution Suite</h3>
+                <p style="color: var(--text-secondary); font-size: 0.88rem; margin-top: 8px;">Modern business landing
+                    pages & technical architecture design.</p>
+                <div class="price">Rs. 18,500</div>
+                <button class="btn" onclick="redirectToEmail('ICT Solution Suite Service')">Inquire Project</button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">📈</div>
+                <h3>Financial Audit</h3>
+                <p style="color: var(--text-secondary); font-size: 0.88rem; margin-top: 8px;">Utilizing accounting
+                    models to maximize micro-startup scaling.</p>
+                <div class="price">Rs. 7,500</div>
+                <button class="btn" onclick="redirectToEmail('Financial Audit Consultation')">Book Session</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page">
+        <h2 class="section-title" style="text-align: center;">Let's Connect</h2>
+        <p style="color: var(--text-secondary); text-align: center; max-width: 500px; margin: 0 auto 30px auto;">Have an
+            inquiry or item order? Feel free to drop a message or reach me directly.</p>
+
+        <div class="contact-wrapper">
+            <div class="contact-info-card">
+                <h3 style="color: #fff; margin-bottom: 10px;">Direct Channels</h3>
+                <p>Click copy or trigger your email software instantly to talk business.</p>
+
+                <div class="email-box">
+                    <span class="email-text" id="myEmail">janithmadumal3@gmail.com</span>
+                    <button class="copy-btn" onclick="copyEmailAddress()">Copy</button>
+                </div>
+
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Typical response rate: Within 24 hours.</p>
+            </div>
+
+            <div class="contact-form">
+                <form id="mailForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" id="senderName" placeholder="Janith Perera" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject Topic</label>
+                        <input type="text" id="senderSubject" placeholder="Business Inquiry / Product Order" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Elaborate Message</label>
+                        <textarea id="senderMessage" rows="5" placeholder="Write down item details or project scope..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Launch Mail App</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 S.M.Janith Madumal Premasiri. Powered by Dark Glassmorphism Framework.
+    </footer>
+
+    <script>
+        // Multipage Core Engine
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active-page');
+            document.getElementById('nav-' + pageId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Email address string configuration
+        const targetEmail = "janithmadumal3@gmail.com";
+
+        // Action 1: Copy Text functionality
+        function copyEmailAddress() {
+            navigator.clipboard.writeText(targetEmail).then(() => {
+                alert("Email address copied successfully: " + targetEmail);
+            }).catch(err => {
+                console.error("Could not copy text: ", err);
+            });
+        }
+
+        // Action 2: Store Button automated redirection
+        function redirectToEmail(itemName) {
+            const subject = encodeURIComponent(`Order/Inquiry for ${itemName}`);
+            const body = encodeURIComponent(`Hi Janith,\n\nI am interested in your "${itemName}". Please let me know the process to move forward.`);
+            window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+        }
+
+        // Action 3: Contact Form validation and dynamic pipeline
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('senderName').value;
+            const subjectInput = document.getElementById('senderSubject').value;
+            const msg = document.getElementById('senderMessage').value;
+
+            const emailSubject = encodeURIComponent(`[Website] ${subjectInput}`);
+            const emailBody = encodeURIComponent(`Sender Name: ${name}\n\nMessage:\n${msg}`);
+
+            // Fires up default operating system mail system with formatted values
+            window.location.href = `mailto:${targetEmail}?subject=${emailSubject}&body=${emailBody}`;
+        }
+    </script>
+</body>
+
+</html>
