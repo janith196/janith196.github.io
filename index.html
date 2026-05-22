@@ -25,8 +25,6 @@
             --card-bg: rgba(20, 20, 20, 0.75);
             --white: #ffffff;
             --gray: #cfcfcf;
-            /* Chatbot Dynamic Variables */
-            --bot-theme: #ff0000;
         }
 
         * {
@@ -413,187 +411,6 @@
             margin-bottom: 10px;
         }
 
-        /* CHATBOT STYLES */
-        .chat-launcher {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--bot-theme);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-            z-index: 2000;
-            transition: transform 0.3s ease;
-        }
-
-        .chat-launcher:hover {
-            transform: scale(1.1);
-        }
-
-        .chat-container {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 360px;
-            height: 500px;
-            background: #111;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            z-index: 2000;
-            overflow: hidden;
-            transform: translateY(20px);
-            opacity: 0;
-            pointer-events: none;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .chat-container.active {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .chat-header {
-            background: var(--bot-theme);
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-        }
-
-        .chat-header-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .chat-header-info span {
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
-        .chat-actions {
-            display: flex;
-            gap: 12px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        /* CUSTOMIZER PANEL */
-        .chat-customizer {
-            background: #1a1a1a;
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 13px;
-        }
-
-        .customizer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .customizer-row select {
-            background: #222;
-            color: white;
-            border: 1px solid #333;
-            padding: 4px 8px;
-            border-radius: 6px;
-            outline: none;
-        }
-
-        .color-pickers {
-            display: flex;
-            gap: 6px;
-        }
-
-        .color-dot {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .color-dot.active {
-            border-color: white;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: #0a0a0a;
-        }
-
-        .msg {
-            max-width: 80%;
-            padding: 10px 14px;
-            border-radius: 15px;
-            font-size: 13px;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-
-        .msg.bot {
-            background: #222;
-            color: #eee;
-            align-self: flex-start;
-            border-bottom-left-radius: 3px;
-        }
-
-        .msg.user {
-            background: var(--bot-theme);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 3px;
-        }
-
-        .chat-input-area {
-            padding: 12px;
-            background: #111;
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            padding: 10px 14px;
-            background: #1a1a1a;
-            border: 1px solid #222;
-            color: white;
-            border-radius: 25px;
-            font-size: 13px;
-        }
-
-        .chat-input-area button {
-            width: 38px;
-            height: 38px;
-            padding: 0;
-            background: var(--bot-theme);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
         /* FOOTER */
         footer {
             text-align: center;
@@ -622,7 +439,6 @@
             .title { font-size: 38px; }
             .typing { font-size: 24px; }
             .cursor-glow { display: none; }
-            .chat-container { width: calc(100% - 40px); right: 20px; bottom: 90px; }
         }
     </style>
 </head>
@@ -798,54 +614,6 @@
         </div>
     </section>
 
-    <!-- CUSTOMIZABLE AI CHATBOT INTERFACE -->
-    <div class="chat-launcher" id="chatLauncher">
-        <i class="fa-solid fa-comments"></i>
-    </div>
-
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <div class="chat-header-info">
-                <h3 id="botName">Janiya AI</h3>
-                <span id="botStatus">Online | Custom Mode</span>
-            </div>
-            <div class="chat-actions">
-                <i class="fa-solid fa-sliders" id="toggleCustomizer" title="Customize Bot"></i>
-                <i class="fa-solid fa-xmark" id="closeChat"></i>
-            </div>
-        </div>
-
-        <!-- Customizer Panel Dropdown -->
-        <div class="chat-customizer" id="chatCustomizer">
-            <div class="customizer-row">
-                <label>Personality:</label>
-                <select id="botPersonality">
-                    <option value="friendly">😊 Friendly Pro</option>
-                    <option value="professional">💼 Strict Business</option>
-                    <option value="funny">🔥 Hype & Fun</option>
-                </select>
-            </div>
-            <div class="customizer-row">
-                <label>Theme Color:</label>
-                <div class="color-pickers">
-                    <div class="color-dot active" style="background: #ff0000;" data-color="#ff0000"></div>
-                    <div class="color-dot" style="background: #00bcd4;" data-color="#00bcd4"></div>
-                    <div class="color-dot" style="background: #4caf50;" data-color="#4caf50"></div>
-                    <div class="color-dot" style="background: #e91e63;" data-color="#e91e63"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="chat-messages" id="chatMessages">
-            <div class="msg bot">Hello there! I am Janith's AI Assistant. How can I help you today? Ask me about his education, skills, or achievements!</div>
-        </div>
-
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Type a message...">
-            <button id="sendChatBtn"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
     <!-- FOOTER -->
     <footer>
         <p>© 2026 Janith Madumal | ALL RIGHTS RESERVED 🔥</p>
@@ -869,7 +637,7 @@
             nav.classList.toggle('active');
         };
 
-        // OPTIMIZED CURSOR GLOW WITH requestAnimationFrame
+        // OPTIMIZED CURSOR GLOW
         const glow = document.querySelector('.cursor-glow');
         let mouseX = 0, mouseY = 0;
         let updateGlow = false;
@@ -888,10 +656,9 @@
             updateGlow = false;
         }
 
-        // OPTIMIZED PROGRESS BAR ON SCROLL
+        // PROGRESS BAR
         let ticking = false;
         const progressBar = document.getElementById('progress-bar');
-
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
@@ -905,7 +672,7 @@
             }
         });
 
-        // PARTICLES CONFIG (LIGHTER FOR BETTER PERFORMANCE)
+        // PARTICLES
         particlesJS("particles-js", {
             particles: {
                 number: { value: 50 },
@@ -922,116 +689,11 @@
                 move: { enable: true, speed: 1.5 }
             }
         });
-
-        // ================= CUSTOMIZABLE AI CHATBOT SYSTEM =================
-        const chatLauncher = document.getElementById('chatLauncher');
-        const chatContainer = document.getElementById('chatContainer');
-        const closeChat = document.getElementById('closeChat');
-        const toggleCustomizer = document.getElementById('toggleCustomizer');
-        const chatCustomizer = document.getElementById('chatCustomizer');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendChatBtn = document.getElementById('sendChatBtn');
-        const botPersonality = document.getElementById('botPersonality');
-        const colorDots = document.querySelectorAll('.color-dot');
-
-        // Data Storage for local context response
-        const janithData = {
-            name: "S.M. Janith Madumal Premasiri",
-            age: 19,
-            location: "Badalkumbura, Sri Lanka",
-            education: "Finshed A/Ls in 2025 (Commerce Stream). Currently following CA Level 1 (Chartered Accounting). Waiting for University admission.",
-            results: "Accounting: A, Business Studies: B, ICT: C. Monaragala District Rank is 100.",
-            skills: "Accounting, Business Management, ICT, and Leadership.",
-            socials: "Instagram: @_itz._.janiya_, TikTok: @_itz._.janiya, Facebook: Janith Madumal",
-            aim: "To become a highly successful Entrepreneur and Leader in the Finance and Tech industries."
-        };
-
-        // Chatbot UI Toggle
-        chatLauncher.addEventListener('click', () => chatContainer.classList.add('active'));
-        closeChat.addEventListener('click', () => chatContainer.classList.remove('active'));
-        toggleCustomizer.addEventListener('click', () => {
-            chatCustomizer.style.display = chatCustomizer.style.display === 'flex' ? 'none' : 'flex';
-        });
-
-        // Customizer: Color Theme Change
-        colorDots.forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                colorDots.forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
-                const selectedColor = e.target.getAttribute('data-color');
-                document.documentElement.style.setProperty('--bot-theme', selectedColor);
-                chatLauncher.style.background = selectedColor;
-                chatLauncher.style.boxShadow = `0 4px 15px ${selectedColor}4d`;
-            });
-        });
-
-        // Chat Logic
-        function handleChat() {
-            const query = chatInput.value.trim().toLowerCase();
-            if (!query) return;
-
-            // Render User Message
-            renderMessage(chatInput.value, 'user');
-            chatInput.value = '';
-
-            // Generate AI Response with custom personality
-            setTimeout(() => {
-                const response = getAIResponse(query, botPersonality.value);
-                renderMessage(response, 'bot');
-            }, 600);
-        }
-
-        sendChatBtn.addEventListener('click', handleChat);
-        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
-
-        function renderMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('msg', sender);
-            msgDiv.innerText = text;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Rule-Based AI Engine adapting to Selected Personality
-        function getAIResponse(query, personality) {
-            let topic = "general";
-            if (query.includes('result') || query.includes('rank') || query.includes('al')) topic = "results";
-            else if (query.includes('education') || query.includes('study') || query.includes('ca')) topic = "education";
-            else if (query.includes('skill') || query.includes('capable')) topic = "skills";
-            else if (query.includes('contact') || query.includes('social') || query.includes('instagram') || query.includes('facebook')) topic = "socials";
-            else if (query.includes('age') || query.includes('old') || query.includes('where') || query.includes('live')) topic = "bio";
-            
-            // Response Packets based on Personality Mode
-            const responses = {
-                friendly: {
-                    general: "Hey there! 😊 Janith is a great guy. You can ask me about his A/L results, skills, or what he is studying right now!",
-                    results: `Janith did awesome in 2025 A/Ls! He got an A for Accounting, B for Business, and C for ICT. He's also District Rank 100 in Monaragala! 🎉`,
-                    education: `Right now, Janith is leveling up by studying CA Level 1! He's also waiting to get into university soon. 🚀`,
-                    skills: `He is super skilled in Accounting, Business Studies, and ICT, plus he has amazing Leadership qualities! 💡`,
-                    socials: `You can catch him on Instagram (@_itz._.janiya_) or TikTok (@_itz._.janiya). Hit him up! 📲`,
-                    bio: `Janith is 19 years old and comes from the beautiful town of Badalkumbura! 🌍`
-                },
-                professional: {
-                    general: "Welcome. I am structured to deliver verified information regarding S.M. Janith Madumal. Please specify if you require details on his credentials, metrics, or core skills.",
-                    results: "Academic Statement (2025 GCE A/L): Accounting: Distinction (A), Business Studies: Very Good Pass (B), ICT: Credit (C). Ranked 100th within the Monaragala District.",
-                    education: "Current Academic Track: Preparing for Chartered Accountancy (CA) Level 1 examinations, alongside pending state university placement protocols.",
-                    skills: "Core technical proficiencies include Advanced Financial Accounting, Business Analytics, Information Technology fundamentals, and Strategic Leadership.",
-                    socials: "Official communication pathways and networking handlers are documented under the names '_itz._.janiya_' on Instagram/TikTok and 'Janith Madumal' on Facebook.",
-                    bio: "Subject Identification: Age 19. Registered domicile location: Badalkumbura, Monaragala District, Sri Lanka."
-                },
-                funny: {
-                    general: "Yo! What's up? 🔥 You are talking to the smartest bot on this site. Ask me anything about the future boss, Janith!",
-                    results: "My bro Janith absolutely smashed it! A for Accounting (easy peasy), B for Business, and C for ICT. Top 100 in the whole Monaragala district! Absolute legend behavior. 👑",
-                    education: "He isn't chilling at home! He is grinding for CA Level 1 and waiting for the uni to open its gates for him. 🚀",
-                    skills: "He can balance account books like a pro, run a business, code a bit, and lead a whole squad. He's got the full package! ⚡",
-                    socials: "Go follow him right now or your code will get bugs! 😂 Insta: @_itz._.janiya_ | TikTok: @_itz._.janiya",
-                    bio: "He's 19, full of energy, and repping Badalkumbura proudly! 👑"
-                }
-            };
-
-            return responses[personality][topic];
-        }
     </script>
+
+    <!-- 🌟 REAL LIVE AI CHATBOT CODE INTEGRATION 🌟 -->
+    <!-- පියවර: www.tidio.com එකට ගොස් නොමිලේ ගිණුමක් සාදා, එතනින් ලැබෙන කේතය (Script Link) පහතින් මාරු කරන්න -->
+    <script src="//code.tidio.co/ilsoxn7xvgduzxjgb911yjafva9joqhh.js" async></script>
+
 </body>
 </html>
