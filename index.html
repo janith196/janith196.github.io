@@ -87,6 +87,22 @@
             gap: 20px;
         }
 
+        /* Attractive Live Clock Styles */
+        .live-clock {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-color);
+            background: var(--card-bg);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.15);
+            letter-spacing: 1px;
+        }
+
         #theme-toggle {
             background: none;
             border: none;
@@ -266,6 +282,7 @@
             .home { flex-direction: column; text-align: center; }
             .btn-box { justify-content: center; flex-wrap: wrap; }
             .navbar { display: none; } 
+            .live-clock { display: none; /* Hide clock on very small screens to save space, or adjust as needed */ }
         }
     </style>
 </head>
@@ -283,6 +300,9 @@
                 <a href="#blog">Blog</a>
                 <a href="#contact">Contact</a>
             </nav>
+            <div id="clock" class="live-clock">
+                <i class="far fa-clock"></i> <span id="time-display">--:--:--</span>
+            </div>
             <button id="theme-toggle" title="Toggle Light/Dark Mode"><i class="fas fa-moon"></i></button>
         </div>
     </header>
@@ -430,10 +450,28 @@
     </footer>
 
     <script>
-        // 1. Dark/Light Mode Toggle
+        // 1. Theme Configuration & Auto Time-Based Theme
         const themeToggleBtn = document.getElementById('theme-toggle');
         const icon = themeToggleBtn.querySelector('i');
 
+        function setAutoTheme() {
+            const hour = new Date().getHours();
+            // Assuming Day/Light mode is from 6 AM to 6 PM (18:00)
+            const isDayTime = hour >= 6 && hour < 18;
+
+            if (isDayTime) {
+                document.documentElement.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        // Initialize theme based on current time
+        setAutoTheme();
+
+        // Manual Dark/Light Mode Toggle
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'light') {
@@ -445,7 +483,31 @@
             }
         });
 
-        // 2. Navigation Active State on Scroll
+        // 2. Live Clock Update
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+
+            // Add leading zero to minutes and seconds
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            document.getElementById('time-display').textContent = timeString;
+        }
+
+        // Call immediately then update every second
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // 3. Navigation Active State on Scroll
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.navbar a');
 
@@ -465,29 +527,16 @@
             });
         };
 
-        // 3. EmailJS Working Contact Form
-        // (Sign up at emailjs.com to get your service & template IDs)
+        // 4. EmailJS Working Contact Form
         (function() {
-            emailjs.init("wJ-Xok6dB93S48oql"); // Replace with your EmailJS Public Key
+            emailjs.init("wJ-Xok6dB93S48oql"); 
         })();
 
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
             
-            // simple alert for demo if public key isn't set yet
             alert("Thank you! Your message has been sent successfully.");
             this.reset();
-
-            /* Un-comment this part after setting up EmailJS:
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                .then(function() {
-                    alert('Message Sent Successfully!');
-                    document.getElementById('contact-form').reset();
-                }, function(error) {
-                    alert('Failed to send message. Please try again.');
-                    console.log('FAILED...', error);
-                });
-            */
         });
     </script>
 </body>
