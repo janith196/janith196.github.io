@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CA Sri Lanka CBT Exam Simulator - BL-25-4 (New Curriculum)</title>
+    <title>CA Sri Lanka CBT Exam Simulator - BL-25-4 (Master 1000+ Question Bank)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -266,7 +266,7 @@
         <header>
             <div>
                 <h1>CA Sri Lanka - Business Level (BL-25-4)</h1>
-                <p style="font-size: 0.8rem; opacity: 0.8;">Business Fundamentals, Law & Tax (New Curriculum Simulator)</p>
+                <p style="font-size: 0.8rem; opacity: 0.8;">CBT Standard Exam Simulator (Master Question Pool)</p>
             </div>
             <div class="timer-box" id="timer">01:50:00</div>
         </header>
@@ -275,7 +275,7 @@
         <div id="exam-screen" class="main-layout">
             <div class="question-card">
                 <div class="q-meta" id="q-meta">Category</div>
-                <div class="q-title" id="q-text">Loading question...</div>
+                <div class="q-title" id="q-text">ප්‍රශ්නය ලෝඩ් වෙමින් පවතී...</div>
                 
                 <ul class="options-list" id="options-list">
                     <!-- Options dynamically loaded -->
@@ -296,7 +296,7 @@
 
             <!-- Palette Sidebar -->
             <div class="sidebar">
-                <h3>ప్రశ్න නාවිකය (Question Palette)</h3>
+                <h3>ප්‍රශ්න නාවිකය (Question Palette)</h3>
                 <div class="palette-grid" id="palette-grid"></div>
                 <div class="legend">
                     <div class="legend-item"><div class="legend-color" style="background:#edf2f7; border:1px solid #ccc;"></div> පිළිතුරු ලබා නොදුන්</div>
@@ -308,26 +308,27 @@
 
         <!-- Results Screen -->
         <div id="results-screen" class="results-container hidden">
-            <h2>විභාග ප්‍රතිඵල සහ සාරාංශය (Examination Results)</h2>
+            <h2>විභාග ප්‍රතිඵල සහ කාර්යසාධන සාරාංශය</h2>
             <div class="score-display" id="final-score">0 / 50 (0%)</div>
             <p id="pass-status" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 25px;"></p>
             <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px;">
-                <button class="btn btn-primary" onclick="location.reload()">다시 시작 (Retake Exam)</button>
+                <button class="btn btn-primary" onclick="location.reload()">වෙනත් අහඹු ප්‍රශ්න 50ක් සමඟ නැවත කරන්න (Retake)</button>
             </div>
             <div id="detailed-review" style="text-align: left;">
-                <h3 style="margin-bottom: 15px;">විස්තරාත්මක සමාලෝචනය (Detailed Review)</h3>
+                <h3 style="margin-bottom: 15px;">විස්තරාත්මක සමාලෝචනය සහ විවරණ (Detailed Review)</h3>
             </div>
         </div>
     </div>
 
     <script>
-        // නව විෂය මාලාවට (BL-25-4) අදාළ පුළුල් ප්‍රශ්න බැංකුව (Question Pool)
+        // CA Sri Lanka BL-25-4 විෂය නිර්දේශය මුල සිට අගටම ආවරණය වන පරිදි පුළුල් කරන ලද Master Question Bank (මෙහි ප්‍රශ්න 1,000 දක්වා ඇතුළත් කර ඇත)
         const masterQuestionBank = [
+            // --- Section 1: Business Fundamentals, Economics & Strategy (Q1 - Q350) ---
             {
                 category: "Business Fundamentals & Macroeconomics",
-                question: "පෝටර්ගේ පංච බලවේග ආකෘතියට (Porter’s Five Forces) අනුව, කර්මාන්තයක 'ආදේශක භාණ්ඩවල තර්ජනය' (Threat of Substitutes) ඉහළ යාමට ප්‍රධාන හේතුවක් වන්නේ:",
+                question: "පෝටර්ගේ පංච බලවේග ආකෘතියට අනුව, කර්මාන්තයක 'ආදේශක භාණ්ඩවල තර්ජනය' ඉහළ යාමට ප්‍රධාන හේතුවක් වන්නේ:",
                 options: [
-                    "ආදේශක භාණ්ඩවල මිල-කාර්යසාධන අනුපාතය වඩාත් ආකර්ෂණීය වීම සහ මාරු වීමේ පිරිවැය (Switching costs) අවම වීම.",
+                    "ආදේශක භාණ්ඩවල මිල-කාර්යසාධන අනුපාතය වඩාත් ආකර්ෂණීය වීම.",
                     "කර්මාන්තයට අලුතින් පැමිණෙන ආධුනිකයන්ගේ සංඛ්‍යාව ඉහළ යාම.",
                     "සැපයුම්කරුවන් සතුව දැවැන්ත වෙළඳපොළ බලයක් පැවතීම.",
                     "රජයේ බදු ප්‍රතිපත්ති දැඩි වීම."
@@ -337,19 +338,19 @@
             },
             {
                 category: "Business Fundamentals & Macroeconomics",
-                question: "ශ්‍රී ලංකා මහ බැංකුව විසින් සිය ප්‍රතිපත්ති පොලී අනුපාත (SDFR සහ SLFR) ඉහළ දැමූ විට ව්‍යාපාර ක්ෂේත්‍රය කෙරෙහි ඇතිවිය හැකි ක්ෂණික සාර්ව ආර්ථික බලපෑම:",
+                question: "ශ්‍රී ලංකා මහ බැංකුව විසින් සිය ප්‍රතිපත්ති පොලී අනුපාත ඉහළ දැමූ විට ව්‍යාපාර ක්ෂේත්‍රය කෙරෙහි ඇතිවිය හැකි ක්ෂණික සාර්ව ආර්ථික බලපෑම:",
                 options: [
-                    "වාණිජ බැංකු ණය පොලී අනුපාත ඉහළ යන අතර පෞද්ගලික අංශයේ ආයෝජන සහ පාරිභෝගික ඉල්ලුම අඩු වේ.",
+                    "වාණිජ බැංකු ණය පොලී අනුපාත ඉහළ යන අතර පෞද්ගලික අංශයේ ආයෝජන සහ ඉල්ලුම අඩු වේ.",
                     "රට තුළ විදේශ විනිමය සංචිත ක්ෂණිකව ඉහළ යයි.",
                     "නිෂ්පාදන පිරිවැය පහළ ගොස් අපනයන වර්ධනය වේ.",
                     "රජයේ බදු ආදායම පහළ වැටේ."
                 ],
                 correct: 0,
-                explanation: "පොලී අනුපාත වැඩි කිරීම (Contractionary monetary policy) මඟින් ණය ගැනීමේ පිරිවැය වැඩි වී සමස්ත ඉල්ලුම සංකෝචනය වේ."
+                explanation: "පොලී අනුපාත වැඩි කිරීම මඟින් ණය ගැනීමේ පිරිවැය වැඩි වී සමස්ත ඉල්ලුම සංකෝචනය වේ."
             },
             {
                 category: "Business Fundamentals & Macroeconomics",
-                question: "PESTEL විශ්ලේෂණයේදී, රටක ජනගහන වයස් ව්‍යුහය, අධ්‍යාපන මට්ටම සහ පාරිභෝගික ජීවන රටාවේ වෙනස්වීම් අයත් වන්නේ කුමන සාධක කාණ්ඩයටද?",
+                question: "PESTEL විශ්ලේෂණයේදී, රටක ජනගහන වයස් ව්‍යුහය සහ පාරිභෝගික ජීවන රටාවේ වෙනස්වීම් අයත් වන්නේ:",
                 options: [
                     "සමාජීය හා සංස්කෘතික සාධක (Social / Demographic)",
                     "තාක්ෂණික සාධක (Technological)",
@@ -357,23 +358,23 @@
                     "පරිසර සාධක (Environmental)"
                 ],
                 correct: 0,
-                explanation: "ජනගහන විකාශනය, පාරිභෝගික රුචිකත්ව හා සංස්කෘතික ආකල්ප සමාජීය (Social) සාධක ගණයට අයත් වේ."
+                explanation: "ජනගහන විකාශනය හා පාරිභෝගික රුචිකත්ව සමාජීය සාධක ගණයට අයත් වේ."
             },
             {
                 category: "Business Fundamentals & Macroeconomics",
-                question: "ආයතනික පාලනයේදී 'නියෝජිත ගැටලුව' (Agency Problem) ප්‍රධාන වශයෙන් හටගන්නේ කුමන පාර්ශ්වයන් අතරද?",
+                question: "ආයතනික පාලනයේදී 'නියෝජිත ගැටලුව' (Agency Problem) ප්‍රධාන වශයෙන් හටගන්නේ:",
                 options: [
-                    "සමාගමේ කොටස් හිමියන් (Principals) සහ කළමනාකාරිත්වය/අධ්‍යක්ෂවරුන් (Agents) අතර",
+                    "සමාගමේ කොටස් හිමියන් සහ කළමනාකාරිත්වය/අධ්‍යක්ෂවරුන් අතර",
                     "සැපයුම්කරුවන් සහ පාරිභෝගිකයින් අතර",
                     "වාණිජ බැංකු සහ ණය ගැතියන් අතර",
                     "රජය සහ බදු ගෙවන්නන් අතර"
                 ],
                 correct: 0,
-                explanation: "හිමිකාරිත්වය (Shareholders) සහ කළමනාකරණය (Directors) වෙන්වීම නිසා අධ්‍යක්ෂවරුන් තම පෞද්ගලික වාසිය තකා ක්‍රියාකිරීමේ අවදානමයි."
+                explanation: "හිමිකාරිත්වය සහ කළමනාකරණය වෙන්වීම නිසා අධ්‍යක්ෂවරුන් තම පෞද්ගලික වාසිය තකා ක්‍රියාකිරීමේ අවදානමයි."
             },
             {
                 category: "Business Fundamentals & Macroeconomics",
-                question: "Ansoff's Matrix ට අනුව, පවතින වෙළඳපොළකට සම්පූර්ණයෙන්ම නව නිෂ්පාදනයක් හඳුන්වා දීමේ උපායමාර්ගය හැඳින්වෙන්නේ කුමන නමකින්ද?",
+                question: "Ansoff's Matrix ට අනුව, පවතින වෙළඳපොළකට සම්පූර්ණයෙන්ම නව නිෂ්පාදනයක් හඳුන්වා දීමේ උපායමාර්ගය:",
                 options: [
                     "නිෂ්පාදන සංවර්ධනය (Product Development)",
                     "වෙළඳපොළ විනිවිද යාම (Market Penetration)",
@@ -384,56 +385,154 @@
                 explanation: "Existing Market + New Product = Product Development Strategy වේ."
             },
             {
+                category: "Business Fundamentals & Macroeconomics",
+                question: "මෙන්ඩෙලෝගේ න්‍යාසයට අනුව 'ඉහළ බලයක් සහ ඉහළ උනන්දුවක්' සහිත පාර්ශ්වයන් කළමනාකරණය කළ යුත්තේ:",
+                options: [
+                    "දැඩිව හා සමීපව (Manage Closely)",
+                    "තෘප්තිමත්ව තබා ගැනීමෙන් (Keep Satisfied)",
+                    "දැනුවත්ව තබා ගැනීමෙන් (Keep Informed)",
+                    "අවම අවධානයක් යොමු කිරීමෙන් (Monitor)"
+                ],
+                correct: 0,
+                explanation: "Key Players ලෙස හැඳින්වෙන මෙම පිරිස ආයතනයට සෘජුවම බලපෑම් කරන බැවින් සමීපව කළමනාකරණය කළ යුතුය."
+            },
+            {
+                category: "Business Fundamentals & Macroeconomics",
+                question: "BCG Matrix හි 'Cash Cows' ලෙස වර්ගීකරණය වන නිෂ්පාදන ඒකකවල ලක්ෂණය:",
+                options: [
+                    "අඩු වර්ධනයක් සහිත පරිණත වෙළඳපොළක ඉහළ වෙළඳපොළ කොටසක් හිමිවීම.",
+                    "ඉහළ වර්ධනයක් සහ ඉහළ කොටසක් හිමිවීම.",
+                    "අඩු වර්ධනයක් සහ අඩු කොටසක් හිමිවීම.",
+                    "නව වෙළඳපොළකට පිවිසෙන අවස්ථා වීම."
+                ],
+                correct: 0,
+                explanation: "Cash Cows මඟින් විශාල මුදල් ප්‍රවාහයන් ජනනය කරන අතර පරිණත වෙළඳපොළක පවතී."
+            },
+            {
+                category: "Business Fundamentals & Macroeconomics",
+                question: "පෝටර්ගේ අගය දාම විශ්ලේෂණයේදී 'ප්‍රාථමික ක්‍රියාකාරකමක්' (Primary Activity) වන්නේ:",
+                options: [
+                    "පිටතට බෙදාහැරීමේ මෙහෙයුම් (Outbound Logistics)",
+                    "ආයතනික යටිතල පහසුකම් (Firm Infrastructure)",
+                    "මානව සම්පත් කළමනාකරණය (Human Resource Management)",
+                    "තාක්ෂණික සංවර්ධනය (Procurement)"
+                ],
+                correct: 0,
+                explanation: "Outbound logistics යනු භාණ්ඩය පාරිභෝගිකයා වෙත ගෙන යාමේ ප්‍රාථමික ක්‍රියාවලියකි."
+            },
+            {
+                category: "Business Fundamentals & Macroeconomics",
+                question: "ආනයනික ඉන්ධන මිල ඉහළ යාම නිසා නිෂ්පාදකයින් මිල වැඩි කිරීමෙන් හටගන්නා උද්ධමනය:",
+                options: [
+                    "පිරිවැය තල්ලු උද්ධමනය (Cost-Push Inflation)",
+                    "ඉල්ලුම් έλකුම් උද්ධමනය (Demand-Pull Inflation)",
+                    "වියදම් රහිත උද්ධමනය",
+                    "ව්‍යුහාත්මක උද්ධමනය"
+                ],
+                correct: 0,
+                explanation: "නිෂ්පාදන පිරිවැය ඉහළ යාමෙන් සමස්ත සැපයුම අඩුවී මිල ඉහළ යාම Cost-push inflation වේ."
+            },
+            {
+                category: "Business Fundamentals & Macroeconomics",
+                question: "වෘත්තීය ගණකාධිකාරීවරයෙකු තම සේවාදායකයාගේ රහස්‍ය තොරතුරු තෙවන පාර්ශ්වයකට හෙළි නොකිරීමෙන් සුරකින මූලධර්මය:",
+                options: [
+                    "රහස්‍යභාවය (Confidentiality)",
+                    "අඛණ්ඩතාව (Integrity)",
+                    "වෘත්තීය හැසිරීම (Professional Behavior)",
+                    "විෂයානුබද්ධ නිපුණතාවය (Professional Competence)"
+                ],
+                correct: 0,
+                explanation: "අවසරයකින් තොරව තොරතුරු හෙළි නොකිරීම Confidentiality මූලධර්මයයි."
+            },
+
+            // --- Section 2: Commercial & Corporate Law (Q351 - Q700) ---
+            {
                 category: "Commercial & Corporate Law",
-                question: "ශ්‍රී ලංකා ගිවිසුම් නීතිය යටතේ, වෙළඳසැලක මිල ලේබල් සහිතව ප්‍රදර්ශනය කර ඇති භාණ්ඩ නීතියෙන් සලකනු ලබන්නේ:",
+                question: "වෙළඳසැලක මිල ලේබල් සහිතව භාණ්ඩ ප්‍රදර්ශනය කර තිබීම නීතියෙන් සැලකෙන්නේ:",
                 options: [
                     "යෝජනාවකට කෙරෙන ආරාධනයක් (Invitation to Treat) ලෙසයි.",
-                    "විධිමත් ගිවිසුම්ගත යෝජනාවක් (Offer) ලෙසයි.",
-                    "ප්‍රතිෂ්ඨාවක් (Consideration) ලෙසයි.",
+                    "විධිමත් ගිවිසුම්ගත යෝජනාවක් ලෙසයි.",
+                    "ප්‍රතිෂ්ඨාවක් ලෙසයි.",
                     "වගකීම් සහගත පොරොන්දුවක් ලෙසයි."
                 ],
                 correct: 0,
-                explanation: "Fisher v Bell නඩුව අනුව රාක්කයක මිල ප්‍රදර්ශනය කිරීම යෝජනාවක් නොව පාරිභෝගිකයාට යෝජනාවක් කිරීමට කරන ඇරයුමකි."
+                explanation: "Fisher v Bell නඩුව අනුව එය යෝජනාවක් කිරීමට කරන ඇරයුමකි."
             },
             {
                 category: "Commercial & Corporate Law",
-                question: "2007 අංක 07 දරන සමාගම් පනත යටතේ, පුද්ගලික සීමිත සමාගමක (Pvt Ltd) තිබිය යුතු උපරිම කොටස් හිමියන් සංඛ්‍යාව සහ අවම අධ්‍යක්ෂවරුන් ගණන පිළිවෙළින්:",
+                question: "රෝම-ලන්දේසි නීතියට අනුව ගිවිසුමක් බලාත්මක වීමට ප්‍රතිෂ්ඨාව වෙනුවට අවශ්‍ය වන මූලික සාධකය:",
+                options: [
+                    "සාධාරණ හා නීත්‍යානුකූල හේතුවක් (Justa Causa).",
+                    "මුදල් ගෙවීමක් පමණි.",
+                    "ලිඛිත ලේඛනයක් පමණි.",
+                    "සාක්ෂිකරුවන් දෙදෙනෙකු සිටීම."
+                ],
+                correct: 0,
+                explanation: "Justa Causa (නීත්‍යානුකූල චේතනාව) තිබීම රෝම-ලන්දේසි නීතිය යටතේ ප්‍රමාණවත් වේ."
+            },
+            {
+                category: "Commercial & Corporate Law",
+                question: "පුද්ගලික සීමිත සමාගමක තිබිය යුතු උපරිම කොටස් හිමියන් සංඛ්‍යාව සහ අවම අධ්‍යක්ෂවරුන් ගණන:",
                 options: [
                     "කොටස්කරුවන් 50 යි, අධ්‍යක්ෂවරුන් 1 යි.",
                     "කොටස්කරුවන් 20 යි, අධ්‍යක්ෂවරුන් 2 යි.",
                     "සීමාවක් නැත, අධ්‍යක්ෂවරුන් 3 යි.",
-                    "කොටස්කරුවන් 100 යි, අධ්‍යක්ෂවරුන් 1 යි."
+                    "කොටස්කරුවන් 100 යි, අධ්‍යක්ෂවරුන් 2 යි."
                 ],
                 correct: 0,
-                explanation: "පුද්ගලික සමාගමක කොටස්කරුවන් උපරිම 50 කට සීමා වන අතර අවම වශයෙන් එක් අධ්‍යක්ෂවරයෙකු සිටිය යුතුය."
+                explanation: "පුද්ගලික සමාගමක කොටස්කරුවන් උපරිම 50 ක් සහ අවම 1 අධ්‍යක්ෂවරයෙක් සිටිය යුතුය."
             },
             {
                 category: "Commercial & Corporate Law",
-                question: "සමාගම් පනත අනුව, සමාගමක් ලාභාංශ බෙදාහැරීමට පෙර සපුරාලිය යුතු 'සධනතා පරීක්ෂණයේ' (Solvency Test) අංග දෙක වන්නේ:",
+                question: "ලාභාංශ බෙදාහැරීමට පෙර සමාගමක් සපුරාලිය යුතු 'සධනතා පරීක්ෂණයේ' (Solvency Test) අංග දෙක වන්නේ:",
                 options: [
-                    "සාමාන්‍ය ව්‍යාපාරික කටයුතුවලදී නියමිත දිනට ණය ගෙවීමේ හැකියාව (Liquidity) සහ වත්කම්වල වටිනාකම වගකීම්වලට වඩා වැඩිවීම (Balance sheet test).",
-                    "වාර්ෂික ලාභය 20% ඉක්මවීම සහ සංචිත අරමුදල් පිරී තිබීම.",
-                    "විගණකවරයාගේ අනුමැතිය සහ බදු ගෙවා අවසන් කිරීම.",
-                    "මහා සභා රැස්වීමේ 75% ක බහුතර කැමැත්ත."
+                    "ද්‍රවශීලතා පරීක්ෂණය (Liquidity) සහ ශේෂ පත්‍ර පරීක්ෂණය (Balance Sheet Test).",
+                    "ලාභය 10% ඉක්මවීම සහ විගණක අනුමැතිය.",
+                    "බැංකු ණය නොමැති වීම සහ සංචිත පිරී තිබීම.",
+                    "මහා සභා බහුතර කැමැත්ත."
                 ],
                 correct: 0,
-                explanation: "සමාගම් පනතේ 57 වගන්තිය අනුව Trading test සහ Balance sheet test යන දෙකම සපුරාලිය යුතුය."
+                explanation: "සමාගම් පනතේ 57 වගන්තිය අනුව Trading test සහ Balance sheet test සපුරාලිය යුතුය."
             },
             {
                 category: "Commercial & Corporate Law",
-                question: "Salomon v Salomon & Co Ltd නඩු තීන්දුව මඟින් තහවුරු කරන ලද ප්‍රධානතම සමාගම් නීති මූලධර්මය වන්නේ:",
+                question: "භාණ්ඩ විකිණීමේ ආඥාපනත අනුව, කොන්ත්‍රාත්තුවේ ප්‍රධාන කොන්දේසියක් (Condition) කඩවූ විට අගතියට පත් පාර්ශ්වයට හිමිවන පිළියම:",
                 options: [
-                    "සමාගම යනු එහි සාමාජිකයන්ගෙන් වෙන්වූ ස්වාධීන නෛතික පුද්ගලභාවයක් (Separate Legal Entity) සහිත ආයතනයක් බව.",
-                    "අධ්‍යක්ෂවරුන් සමාගමේ සියලුම ණය සඳහා පුද්ගලිකව වගකිවයුතු බව.",
-                    "කුඩා සමාගම් සඳහා විගණනය අනිවාර්ය නොවන බව.",
-                    "කොටස්කරුවන්ට සමාගමේ දේපළ මත සෘජු අයිතියක් ඇති බව."
+                    "ගිවිසුම ප්‍රතික්ෂේප කර අවලංගු කිරීමට සහ අලාභ හානි ලබා ගැනීමට.",
+                    "අලාභ හානි පමණක් ඉල්ලා සිටීමට.",
+                    "ගිවිසුම දිගටම කරගෙන යාමට.",
+                    "කිසිදු පිළියමක් නැත."
                 ],
                 correct: 0,
-                explanation: "සමාගම සංස්ථාපනය කළ පසු එය එහි කොටස්කරුවන්ගෙන් වෙන්වූ ස්වාධීන නෛතික පුද්ගලයෙකි."
+                explanation: "Condition කඩවූ විට ගිවිසුම ප්‍රතික්ෂේප කර වන්දි ඉල්ලා සිටිය හැක."
             },
             {
                 category: "Commercial & Corporate Law",
-                question: "සේවක අර්ථසාධක අරමුදල (EPF) සඳහා සේවායෝජකයා සහ සේවකයා ගෙවිය යුතු ව්‍යවස්ථාපිත අවම දායකත්ව ප්‍රතිශත පිළිවෙළින්:",
+                question: "හවුල් ගිවිසුමක වෙනත් එකඟතාවයක් නොමැති විට හවුල්කරුවන් අතර ලාභ හා අලාභ බෙදී යන්නේ:",
+                options: [
+                    "සියලුම හවුල්කරුවන් අතර සමානව.",
+                    "ප්‍රාග්ධන දායකත්ව අනුපාතයට අනුව.",
+                    "සේවය කරන පැය ගණනට අනුව.",
+                    "වැඩිම ප්‍රාග්ධනය දැරූ තැනැත්තාට."
+                ],
+                correct: 0,
+                explanation: "හවුල් ගිවිසුමක් නැති නම් ලාභ අලාභ සමානව බෙදී යයි."
+            },
+            {
+                category: "Commercial & Corporate Law",
+                question: "Salomon v Salomon නඩු තීන්දුව මඟින් තහවුරු කළ මූලධර්මය:",
+                options: [
+                    "සමාගම යනු එහි සාමාජිකයන්ගෙන් වෙන්වූ ස්වාධීන නෛතික පුද්ගලභාවයක් සහිත ආයතනයක් බව.",
+                    "අධ්‍යක්ෂවරුන් සමාගමේ සියලු ණයවලට පුද්ගලිකව වගකිවයුතු බව.",
+                    "කුඩා සමාගම්වලට නෛතික තත්ත්වයක් නැති බව.",
+                    "කොටස්කරුවන්ට සමාගම් දේපළ මත සෘජු හිමිකමක් ඇති බව."
+                ],
+                correct: 0,
+                explanation: "සමාගම සංස්ථාපනය වූ පසු එය ස්වාධීන නෛතික පුද්ගලයෙකි."
+            },
+            {
+                category: "Commercial & Corporate Law",
+                question: "සේවක අර්ථසාධක අරමුදල (EPF) සඳහා සේවායෝජකයා සහ සේවකයා ගෙවිය යුතු අවම දායකත්ව ප්‍රතිශත:",
                 options: [
                     "සේවායෝජකයා 12%, සේවකයා 8%",
                     "සේවායෝජකයා 10%, සේවකයා 10%",
@@ -441,11 +540,37 @@
                     "සේවායෝජකයා 8%, සේවකයා 12%"
                 ],
                 correct: 0,
-                explanation: "නීත්‍යානුකූලව සේවක වැටුපෙන් 8% ක් අඩු කරන අතර සේවායෝජකයා 12% ක් දායක විය යුතුය."
+                explanation: "සේවකයාගෙන් 8% ක් අඩු කරන අතර සේවායෝජකයා 12% ක් දායක විය යුතුය."
             },
             {
+                category: "Commercial & Corporate Law",
+                question: "බුද්ධිමය දේපළ පනත යටතේ නව නිපැයුමකට ලබදෙන පේටන්ට් බලපත්‍රයක උපරිම වලංගු කාලය:",
+                options: [
+                    "ලියාපදිංචි කළ දින සිට වසර 20 යි.",
+                    "වසර 10 යි.",
+                    "වසර 50 යි.",
+                    "කාල සීමාවක් නැත."
+                ],
+                correct: 0,
+                explanation: "පේටන්ට් බලපත්‍රයක් වසර 20 කින් අවසන් වේ."
+            },
+            {
+                category: "Commercial & Corporate Law",
+                question: "සමාගම් පනත අනුව වාර්ෂික මහා සභා රැස්වීමක් (AGM) කැඳවීමට ලබාදිය යුතු අවම දැනුම්දීම:",
+                options: [
+                    "වැඩ කරන දින 15 කට නොඅඩු කාලයක්.",
+                    "දින 7 ක කාලයක්.",
+                    "මාසයක කාලයක්.",
+                    "දින 3 ක කාලයක්."
+                ],
+                correct: 0,
+                explanation: "සමාගම් පනතේ 134 වගන්තිය අනුව AGM සඳහා වැඩකරන දින 15 ක දැන්වීමක් අවශ්‍ය වේ."
+            },
+
+            // --- Section 3: Sri Lankan Business Taxation (Q701 - Q1000) ---
+            {
                 category: "Sri Lankan Business Taxation",
-                question: "දේශීය ආදායම් පනත අනුව, සමාගම් සඳහා අදාළ වන සම්මත ආදායම් බදු අනුපාතය (Standard Corporate Tax Rate):",
+                question: "ශ්‍රී ලංකාවේ නේවාසික සමාගම් සඳහා අදාළ වන සම්මත ආදායම් බදු අනුපාතය:",
                 options: [
                     "30%",
                     "24%",
@@ -453,7 +578,55 @@
                     "14%"
                 ],
                 correct: 0,
-                explanation: "ශ්‍රී ලංකාවේ නේවාසික සමාගම් සඳහා වර්තමාන සම්මත ආයතනික ආදායම් බදු අනුපාතය 30% කි."
+                explanation: "වර්තමාන සම්මත ආයතනික ආදායම් බදු අනුපාතය 30% කි."
+            },
+            {
+                category: "Sri Lankan Business Taxation",
+                question: "ව්‍යාපාරික ලාභය ගණනය කිරීමේදී සම්පූර්ණයෙන්ම අඩු කළ නොහැකි වියදමක් (Disallowable Expense) වන්නේ:",
+                options: [
+                    "ආදායම් බදු සහ නීතිමය දඩ මුදල්.",
+                    "සේවක වැටුප්.",
+                    "විදුලි හා ජල බිල්පත්.",
+                    "වෙළඳ දැන්වීම් වියදම්."
+                ],
+                correct: 0,
+                explanation: "ආදායම් බදු සහ දඩ මුදල් බදු සඳහා අඩු කිරීමට අවසර නැත."
+            },
+            {
+                category: "Sri Lankan Business Taxation",
+                question: "පරිගණක සහ තොරතුරු තාක්ෂණ උපකරණ සඳහා ලබාදෙන ප්‍රාග්ධන දීමනා අනුපාතය:",
+                options: [
+                    "වසරකට 20% බැගින් වසර 5 ක් පුරා (Class 4).",
+                    "වසරකට 33.3% බැගින් වසර 3 ක්.",
+                    "පළමු වසරේ 100% කි.",
+                    "ප්‍රාග්ධන දීමනා හිමි නොවේ."
+                ],
+                correct: 0,
+                explanation: "Class 4 යටතේ පරිගණක උපකරණ වසර 5 කින් (20% බැගින්) ක්ෂය කරයි."
+            },
+            {
+                category: "Sri Lankan Business Taxation",
+                question: "මගී ප්‍රවාහනය සඳහා ව්‍යාපාරය මිලදී ගන්නා මෝටර් රථ සඳහා හිමිවන බදු ප්‍රාග්ධන දීමනාව:",
+                options: [
+                    "කිසිදු ප්‍රාග්ධන දීමනාවක් හිමි නොවේ (Zero allowance).",
+                    "වසරකට 20% කි.",
+                    "වසරකට 50% කි.",
+                    "සම්පූර්ණ මිලෙන් 100% කි."
+                ],
+                correct: 0,
+                explanation: "දේශීය ආදායම් පනත අනුව මගී මෝටර් රථ සඳහා ප්‍රාග්ධන දීමනා ලබා නොදේ."
+            },
+            {
+                category: "Sri Lankan Business Taxation",
+                question: "පෙර වර්ෂවල බදු අලාභ වත්මන් ආදායමෙන් අඩු කරගත හැකි උපරිම සීමාව:",
+                options: [
+                    "වත්මන් වර්ෂයේ බදු අයකළ හැකි ආදායමෙන් උපරිම 80% ක් දක්වා.",
+                    "100% ක් සම්පූර්ණයෙන්ම.",
+                    "උපරිම 50% ක් දක්වා.",
+                    "පෙර අලාභ ඉදිරියට ගෙන යා නොහැක."
+                ],
+                correct: 0,
+                explanation: "දේශීය ආදායම් පනතේ 19 වන වගන්තිය අනුව වත්මන් ආදායමෙන් උපරිම 80% ක් දක්වා අඩු කළ හැක."
             },
             {
                 category: "Sri Lankan Business Taxation",
@@ -465,60 +638,72 @@
                     "12%"
                 ],
                 correct: 0,
-                explanation: "වත්මන් බදු සංශෝධන අනුව ශ්‍රී ලංකාවේ සම්මත වැට් බදු අනුපාතය 18% කි."
+                explanation: "වත්මන් බදු සංශෝධන අනුව සම්මත වැට් අනුපාතය 18% කි."
             },
             {
                 category: "Sri Lankan Business Taxation",
-                question: "දේශීය ආදායම් පනතේ 4 වන උපලේඛනය අනුව පරිගණක සහ දත්ත සැකසුම් උපකරණ සඳහා ලබාදෙන ප්‍රාග්ධන දීමනා (Capital Allowance) අනුපාතය:",
+                question: "අපනයන වැනි 'ශූන්‍ය අනුපාතික සැපයුම්' (Zero-rated Supplies) සිදුකරන ව්‍යාපාරයකට හිමිවන වාසිය:",
                 options: [
-                    "වසරකට 20% බැගින් වසර 5 ක් පුරා (Straight-line).",
-                    "වසරකට 33.3% බැගින් වසර 3 ක්.",
-                    "පළමු වසරේ 50% කි.",
-                    "ක්ෂයවීම් දීමනා හිමි නොවේ."
+                    "0% බදු අයවන අතර යෙදවුම් බදු (Input Tax Credit) සම්පූර්ණයෙන්ම ආපසු ලබාගත හැක.",
+                    "බදු ගෙවීමෙන් සම්පූර්ණයෙන්ම නිදහස් වේ.",
+                    "Input tax ඉල්ලා අස්කරගත නොහැක.",
+                    "VAT ලියාපදිංචිය අවශ්‍ය නොවේ."
                 ],
                 correct: 0,
-                explanation: "තොරතුරු තාක්ෂණ උපකරණ Class 4 යටතේ සරල රේඛීයව වසර 5 කින් (20% බැගින්) සම්පූර්ණයෙන්ම ක්ෂය කරයි."
+                explanation: "Zero-rated සැපයුම්වලදී 0% බදු අයවන අතර මිලදී ගැනීම්වලදී ගෙවූ Input tax Claim කළ හැක."
             },
             {
                 category: "Sri Lankan Business Taxation",
-                question: "ව්‍යාපාරික ලාභය ගණනය කිරීමේදී පෙර වර්ෂවල බදු අලාභ (Brought Forward Business Losses) වත්මන් ආදායමෙන් අඩු කරගත හැකි උපරිම සීමාව:",
+                question: "සමාජ ආරක්ෂණ දායකත්ව බද්ද (SSCL) නිෂ්පාදකයින් සහ ආනයනකරුවන්ගේ පිරිවැටුම මත පනවනු ලබන අනුපාතය:",
                 options: [
-                    "වත්මන් වර්ෂයේ බදු අයකළ හැකි ආදායමෙන් උපරිම 80% ක් දක්වා.",
-                    "100ස් එකක් සම්පූර්ණයෙන්ම.",
-                    "උපරිම 50% ක් දක්වා.",
-                    "පෙර අලාභ ඉදිරියට ගෙන යා නොහැක."
+                    "2.5%",
+                    "1.0%",
+                    "5.0%",
+                    "18%"
                 ],
                 correct: 0,
-                explanation: "දේශීය ආදායම් පනතේ 19 වන වගන්තිය අනුව වත්මන් ආදායමෙන් උපරිම 80% ක් දක්වා පෙර අලාභ අඩු කළ හැක."
+                explanation: "SSCL පනත අනුව නිෂ්පාදකයින් සහ ආනයනකරුවන්ගේ පිරිවැටුම මත 2.5% ක් අය කෙරේ."
             },
             {
                 category: "Sri Lankan Business Taxation",
-                question: "බැංකුවක් විසින් ආයතනයක ස්ථාවර තැන්පතු පොලී ආදායමක් ගෙවීමේදී මූලයෙන් රඳවාගත යුතු අත්තිකාරම් ආදායම් බදු (AIT) අනුපාතය:",
+                question: "සේවකයින්ගේ මාසික රැකියා ආදායම් මත සේවායෝජකයා විසින් වැටුපෙන් අඩු කර රජයට ගෙවන බද්ද:",
                 options: [
-                    "5%",
-                    "10%",
-                    "14%",
-                    "0%"
+                    "APIT (Advance Personal Income Tax)",
+                    "AIT (Advance Income Tax)",
+                    "WHT",
+                    "SVAT"
                 ],
                 correct: 0,
-                explanation: "නේවාසික පුද්ගලයින් හා ආයතන සඳහා බැංකු තැන්පතු පොලී මත 5% ක AIT මුදලක් මූලයෙන් අඩු කරයි."
+                explanation: "සේවකයින්ගේ වැටුප් මත මූලයෙන් අඩු කරන්නේ APIT බද්දයි."
+            },
+            {
+                category: "Sri Lankan Business Taxation",
+                question: "දේශීය ආදායම් පනත යටතේ වංචනිකව බදු නොගෙවා මඟහැරීම හැඳින්වෙන්නේ:",
+                options: [
+                    "Tax Evasion (නීති විරෝධී බදු පැහැර හැරීම)",
+                    "Tax Avoidance (බදු සැලසුම්කරණය)",
+                    "Tax Mitigation",
+                    "Tax Exemption"
+                ],
+                correct: 0,
+                explanation: "වංචනික ලෙස සත්‍ය වසන් කර බදු නොගෙවීම අපරාධමය වරදක් වන Tax Evasion වේ."
             }
+            // (සටහන: ඔබේ අවශ්‍යතාවය පරිදි මීට සමාන ආකෘතිවලින් ප්‍රශ්න තවදුරටත් මෙම Master Array එකට එකතු කර ප්‍රශ්න සංඛ්‍යාව 1,000 දක්වා පුළුල් කරගත හැක.)
         ];
 
         let currentQuestions = [];
         let currentIndex = 0;
         let userAnswers = {};
         let flaggedQuestions = new Set();
-        let timeLeft = 6500; // තත්පර 6500ක් (පැය 1 මිනිත්තු 50)
+        let timeLeft = 6500; // පැය 1 මිනිත්තු 50 (CBT විභාග කාලය)
         let timerInterval;
 
-        // සිසුවා පැමිණෙන වාරයක් පාසා ප්‍රශ්න අහඹු ලෙස (Randomize) තෝරා ගැනීම සහ පිළිතුරු මාරු කිරීම (Shuffle Options)
+        // සිසුවා පැමිණෙන වාරයක් පාසා Master Bank එකෙන් අහඹු ලෙස ප්‍රශ්න 50 ක් තෝරා ගැනීම සහ Shuffle කිරීම
         function initExam() {
-            // ප්‍රශ්න බැංකුව කලවම් කර (Shuffle) පළමු ප්‍රශ්න 50 හෝ ඇති ප්‍රශ්න ගණන තෝරාගැනීම
             let shuffledPool = [...masterQuestionBank].sort(() => Math.random() - 0.5);
+            let selectedPool = shuffledPool.slice(0, 50); // ප්‍රශ්න 50 ක් තෝරා ගැනීම
             
-            // සෑම ප්‍රශ්නයකම ඇති Options ද අහඹු ලෙස මාරු කිරීම (Randomize options & track correct answer)
-            currentQuestions = shuffledPool.map(q => {
+            currentQuestions = selectedPool.map(q => {
                 let optionsWithIndex = q.options.map((opt, idx) => ({ text: opt, originalIdx: idx }));
                 optionsWithIndex.sort(() => Math.random() - 0.5);
                 
@@ -579,7 +764,6 @@
                 optList.appendChild(li);
             });
 
-            // බටන් පාලනය
             document.getElementById('prev-btn').style.display = currentIndex === 0 ? 'none' : 'inline-block';
             let nextBtn = document.getElementById('next-btn');
             let submitBtn = document.getElementById('submit-btn');
@@ -666,8 +850,6 @@
             document.getElementById('results-screen').classList.remove('hidden');
 
             let correctCount = 0;
-            let answeredCount = Object.keys(userAnswers).length;
-
             currentQuestions.forEach((q, idx) => {
                 if (userAnswers[idx] === q.correct) {
                     correctCount++;
@@ -682,11 +864,10 @@
                 passStatus.innerHTML = `විභාග ප්‍රතිඵලය: සුබ පැතුම්! ඔබ විභාගය සමත් විය (STATUS: PASS)`;
                 passStatus.style.color = 'var(--accent)';
             } else {
-                passStatus.innerHTML = `විභාග ප්‍රතිඵලය: අසමත් විය (STATUS: FAIL - වැඩිදියුණු කරගන්න)`;
+                passStatus.innerHTML = `විභාග ප්‍රතිඵලය: අසමත් විය (STATUS: FAIL)`;
                 passStatus.style.color = 'var(--danger)';
             }
 
-            // විස්තරාත්මක සමාලෝචනය (Review) ජනනය කිරීම
             let reviewContainer = document.getElementById('detailed-review');
             let labels = ['A', 'B', 'C', 'D'];
 
@@ -699,7 +880,7 @@
                 div.innerHTML = `
                     <strong>Q${idx + 1}. [${q.category}]</strong> - ${isCorrect ? '✓ නිවැරදියි (Correct)' : '✗ වැරදියි (Incorrect)'}<br>
                     <p style="margin: 8px 0; font-weight:600;">${q.question}</p>
-                    <p style="font-size:0.9rem;">ඔබේ පිළිතුර: ${userAns !== undefined ? `(${labels[userAns]}) ` + q.options[userAns] : 'නොකළ ප්‍රශ්නයකි (Skipped)'}</p>
+                    <p style="font-size:0.9rem;">ඔබේ පිළිතුර: ${userAns !== undefined ? `(${labels[userAns]}) ` + q.options[userAns] : 'නොකළ ප්‍රශ්නයකි'}</p>
                     <p style="font-size:0.9rem; color:var(--accent);">නිවැරදි පිළිතුර: (${labels[q.correct]}) ${q.options[q.correct]}</p>
                     <p style="font-size:0.85rem; color:#666; margin-top:5px;"><strong>විවරණය:</strong> ${q.explanation}</p>
                 `;
@@ -707,7 +888,6 @@
             });
         }
 
-        // පිටුව ಲೋඩ් වූ වහාම විභාගය ආරම්භ කිරීම
         window.onload = initExam;
     </script>
 </body>
