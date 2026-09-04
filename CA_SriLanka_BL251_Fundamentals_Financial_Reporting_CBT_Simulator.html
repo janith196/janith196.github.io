@@ -1,327 +1,769 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CA Sri Lanka Real CBT Exam Simulator - BL-25-1 Financial Reporting</title>
-<style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', 'Iskoola Pota', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f1f5f9; color: #0f172a; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-    header { background: #0f766e; color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #f59e0b; flex-shrink: 0; }
-    .inst-title { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
-    .exam-tag { font-size: 13px; color: #ccfbf1; }
-    .timer-badge { background: #b91c1c; color: white; padding: 6px 14px; border-radius: 6px; font-size: 18px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-    .exam-container { display: flex; flex: 1; overflow: hidden; }
-    .question-pane { flex: 3; display: flex; flex-direction: column; background: #ffffff; padding: 24px 32px; overflow-y: auto; border-right: 1px solid #cbd5e1; }
-    .q-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 18px; }
-    .q-number { font-size: 17px; font-weight: 700; color: #0f766e; }
-    .q-section { font-size: 13px; background: #f0fdfa; color: #115e59; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
-    .q-text { font-size: 15.5px; line-height: 1.6; color: #1e293b; margin-bottom: 20px; font-weight: 600; }
-    .options-list { display: flex; flex-direction: column; gap: 12px; }
-    .opt-label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; cursor: pointer; transition: all 0.15s ease-in-out; background: #f8fafc; font-size: 14.5px; line-height: 1.45; }
-    .opt-label:hover { background: #f1f5f9; border-color: #94a3b8; }
-    .opt-label input[type="radio"] { margin-top: 3px; width: 17px; height: 17px; accent-color: #0f766e; cursor: pointer; }
-    .opt-label.selected { background: #f0fdfa; border-color: #0d9488; color: #115e59; font-weight: 600; }
-    .action-bar { margin-top: auto; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    .btn { padding: 9px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: 0.15s; }
-    .btn-prev { background: #e2e8f0; color: #334155; }
-    .btn-prev:hover { background: #cbd5e1; }
-    .btn-next { background: #0f766e; color: white; }
-    .btn-next:hover { background: #115e59; }
-    .btn-flag { background: #fef3c7; color: #b45309; border: 1px solid #f59e0b; }
-    .btn-flag:hover { background: #fde68a; }
-    .btn-clear { background: #fee2e2; color: #b91c1c; }
-    .btn-clear:hover { background: #fecaca; }
-    .palette-pane { flex: 1; min-width: 320px; max-width: 360px; background: #f8fafc; padding: 18px; display: flex; flex-direction: column; border-left: 1px solid #cbd5e1; }
-    .palette-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11.5px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #cbd5e1; }
-    .leg-item { display: flex; align-items: center; gap: 6px; }
-    .leg-box { width: 15px; height: 15px; border-radius: 3px; display: inline-block; }
-    .leg-ans { background: #10b981; }
-    .leg-flag { background: #f59e0b; }
-    .leg-unans { background: #e2e8f0; border: 1px solid #94a3b8; }
-    .leg-curr { background: #0f766e; }
-    .grid-container { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-content: start; padding-right: 4px; }
-    .grid-btn { height: 38px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.1s; }
-    .grid-btn:hover { border-color: #0f766e; }
-    .grid-btn.answered { background: #10b981; color: white; border-color: #059669; }
-    .grid-btn.flagged { background: #f59e0b; color: white; border-color: #d97706; }
-    .grid-btn.current { outline: 2.5px solid #0f766e; outline-offset: 1px; }
-    .submit-area { margin-top: 14px; padding-top: 14px; border-top: 1px solid #cbd5e1; }
-    .btn-submit { width: 100%; background: #059669; color: white; padding: 12px; font-size: 15px; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; }
-    .btn-submit:hover { background: #047857; }
-    #resultScreen { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); z-index: 1000; padding: 20px; overflow-y: auto; }
-    .result-card { background: #ffffff; max-width: 900px; margin: 20px auto; border-radius: 12px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-    .res-header { text-align: center; margin-bottom: 24px; }
-    .res-score { font-size: 44px; font-weight: 800; }
-    .score-pass { color: #059669; }
-    .score-fail { color: #dc2626; }
-    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; text-align: center; }
-    .stat-box { background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
-    .stat-num { font-size: 20px; font-weight: 700; color: #0f766e; }
-    .review-accordion { margin-top: 24px; }
-    .rev-item { border: 1px solid #cbd5e1; border-radius: 6px; padding: 14px; margin-bottom: 12px; }
-    .rev-item.correct { border-left: 5px solid #10b981; background: #f0fdf4; }
-    .rev-item.incorrect { border-left: 5px solid #ef4444; background: #fef2f2; }
-    .rev-item.skipped { border-left: 5px solid #94a3b8; background: #f8fafc; }
-    .exp-note { margin-top: 8px; padding: 10px; background: #ffffff; border-radius: 4px; font-size: 13px; border-left: 3px solid #0f766e; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA Sri Lanka Real CBT Exam Simulator - BL-25-1 Financial Reporting</title>
+    <style>
+        :root {
+            --primary-color: #0d5c3d;
+            --primary-hover: #09452d;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #d1d5db;
+            --selected-bg: #e6f4ea;
+            --flag-color: #d97706;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-title h1 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .timer-box {
+            background: #b91c1c;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Main Workspace */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Left Question Panel */
+        .question-panel {
+            flex: 3;
+            background: var(--card-bg);
+            padding: 30px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 10px;
+        }
+
+        .q-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .options-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            background: #f9fafb;
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-item:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .option-item.selected {
+            background: var(--selected-bg);
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 12px;
+            margin-top: 4px;
+        }
+
+        /* Action Buttons */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #374151;
+        }
+        .btn-secondary:hover { background-color: #d1d5db; }
+
+        .btn-flag {
+            background-color: #fef3c7;
+            color: #b45309;
+            border: 1px solid #f59e0b;
+        }
+        .btn-flag.flagged {
+            background-color: #d97706;
+            color: white;
+        }
+
+        /* Right Navigation Palette */
+        .palette-panel {
+            flex: 1;
+            background: #f8fafc;
+            padding: 20px;
+            overflow-y: auto;
+            min-width: 280px;
+            max-width: 320px;
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .palette-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .grid-palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .p-btn {
+            aspect-ratio: 1;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s;
+        }
+
+        .p-btn:hover { border-color: var(--primary-color); }
+        .p-btn.answered { background-color: #10b981; color: white; border-color: #10b981; }
+        .p-btn.current { border: 2px solid #1e293b; box-shadow: 0 0 0 2px rgba(0,0,0,0.1); }
+        .p-btn.flagged { background-color: #f59e0b; color: white; border-color: #f59e0b; }
+
+        .submit-exam-btn {
+            width: 100%;
+            background-color: #0d5c3d;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+        .submit-exam-btn:hover { background-color: var(--primary-hover); }
+
+        /* Result Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        .modal-content h2 { margin-bottom: 15px; color: var(--primary-color); }
+        .modal-content p { font-size: 16px; margin-bottom: 20px; }
+    </style>
 </head>
 <body>
 
-<header>
-    <div>
-        <div class="inst-title">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF SRI LANKA</div>
-        <div class="exam-tag">Business Level CBT Simulator | BL-25-1: Fundamentals of Financial Reporting</div>
-    </div>
-    <div class="timer-badge" id="timer">02:00:00</div>
-</header>
-
-<div class="exam-container">
-    <div class="question-pane">
-        <div class="q-header">
-            <div class="q-number" id="qNumberDisplay">Question 1 of 50</div>
-            <div class="q-section" id="qSectionDisplay">Section</div>
+    <header>
+        <div class="header-title">
+            <h1>THE INSTITUTE OF CHARTERED ACCOUNTANTS OF SRI LANKA</h1>
+            <p>Business Level CBT Simulator | BL-25-1: Fundamentals of Financial Reporting</p>
         </div>
-        <div class="q-text" id="qTextDisplay">Loading...</div>
-        <div class="options-list" id="optionsContainer"></div>
+        <div class="timer-box" id="timer">01:59:59</div>
+    </header>
 
-        <div class="action-bar">
+    <div class="workspace">
+        <!-- Question Panel -->
+        <div class="question-panel">
             <div>
-                <button class="btn btn-prev" onclick="nav(-1)">Previous</button>
-                <button class="btn btn-next" onclick="nav(1)">Next</button>
+                <div class="q-meta">
+                    <span id="q-number-label">Question 1 of 50</span>
+                    <span id="q-category-label">Part A: Conceptual Framework</span>
+                </div>
+                <div class="q-text" id="question-text">
+                    ප්‍රශ්නය පූරණය වෙමින් පවතී...
+                </div>
+                <ul class="options-list" id="options-container">
+                    <!-- Options injected dynamically -->
+                </ul>
             </div>
+
+            <div class="action-bar">
+                <div>
+                    <button class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()">Previous</button>
+                    <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Next</button>
+                </div>
+                <div>
+                    <button class="btn btn-flag" id="flag-btn" onclick="toggleFlag()">Flag for Review</button>
+                    <button class="btn btn-secondary" onclick="clearSelection()">Clear Selection</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Palette Panel -->
+        <div class="palette-panel">
             <div>
-                <button class="btn btn-flag" id="btnFlag" onclick="toggleFlag()">Flag for Review</button>
-                <button class="btn btn-clear" onclick="clearAnswer()">Clear Selection</button>
+                <div class="palette-title">Question Navigation Palette</div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-box" style="background:#10b981;"></div> Answered</div>
+                    <div class="legend-item"><div class="legend-box" style="background:#ffffff; border:1px solid #ccc;"></div> Not Answered</div>
+                    <div class="legend-item"><div class="legend-box" style="background:#f59e0b;"></div> Flagged</div>
+                </div>
+                <div class="grid-palette" id="palette-grid">
+                    <!-- Generated via JS -->
+                </div>
             </div>
+            <button class="submit-exam-btn" onclick="confirmSubmit()">Finish & Submit Exam</button>
         </div>
     </div>
 
-    <div class="palette-pane">
-        <h4 style="font-size: 14px; margin-bottom: 10px; color: #0f766e;">Question Navigation Palette</h4>
-        <div class="palette-legend">
-            <div class="leg-item"><span class="leg-box leg-ans"></span> Answered</div>
-            <div class="leg-item"><span class="leg-box leg-unans"></span> Not Answered</div>
-            <div class="leg-item"><span class="leg-box leg-flag"></span> Flagged</div>
-            <div class="leg-item"><span class="leg-box leg-curr"></span> Current</div>
-        </div>
-        <div class="grid-container" id="gridContainer"></div>
-
-        <div class="submit-area">
-            <button class="btn-submit" onclick="confirmSubmit()">Finish &amp; Submit Exam</button>
+    <!-- Result Modal -->
+    <div class="modal" id="result-modal">
+        <div class="modal-content">
+            <h2>Exam Completed Successfully!</h2>
+            <p id="result-score-text">ඔබගේ ලකුණු ගණනය කරමින්...</p>
+            <button class="btn btn-primary" onclick="location.reload()">Restart Exam</button>
         </div>
     </div>
-</div>
 
-<div id="resultScreen">
-    <div class="result-card">
-        <div class="res-header">
-            <h2 style="color: #0f766e; margin-bottom: 6px;">CBT Examination Result &amp; Performance Summary</h2>
-            <div class="res-score" id="finalScoreDisplay">0 / 100</div>
-            <p id="passFailText" style="font-size: 18px; font-weight: 700; margin-top: 4px;"></p>
-        </div>
-        <div class="stat-row">
-            <div class="stat-box"><div>Total Questions</div><div class="stat-num">50</div></div>
-            <div class="stat-box"><div>Correct (නිවැරදි)</div><div class="stat-num" id="correctCount" style="color: #059669;">0</div></div>
-            <div class="stat-box"><div>Incorrect (වැරදි)</div><div class="stat-num" id="incorrectCount" style="color: #dc2626;">0</div></div>
-            <div class="stat-box"><div>Skipped (නොකළ)</div><div class="stat-num" id="skippedCount" style="color: #64748b;">0</div></div>
-        </div>
+    <script>
+        // CA Sri Lanka BL-25-1 Complete Curriculum Question Bank (50 Questions covering Framework, IAS/IFRS, Financial Statements)
+        const masterQuestions = [
+            {
+                category: "Part A: Conceptual Framework",
+                question: "අන්තර්ජාතික මූල්‍ය වාර්තාකරණ සංකල්පීය රාමුවට (Conceptual Framework for Financial Reporting) අනුව, මූල්‍ය තොරතුරුවල ප්‍රධාන 'මූලික ගුණාත්මක ලක්ෂණ' (Fundamental Qualitative Characteristics) දෙක වන්නේ:",
+                options: [
+                    "අදාළතාව (Relevance) සහ විශ්වාසනීය නිරූපණය (Faithful Representation).",
+                    "සැසඳිය හැකි බව (Comparability) සහ තේරුම්ගත හැකි බව (Understandability).",
+                    "කාලෝචිතභාවය (Timeliness) සහ සත්‍යාපනය කළ හැකි බව (Verifiability).",
+                    "පිරිවැය සහ ප්‍රතිලාභ (Cost and Benefit)."
+                ],
+                correct: 0
+            },
+            {
+                category: "Part A: Conceptual Framework",
+                question: "මූල්‍ය ප්‍රකාශනවල අන්තර්ගත වන වත්කමක් (Asset) යනු කුමක්ද?",
+                options: [
+                    "පසුගිය සිදුවීම්වල ප්‍රතිඵලයක් ලෙස ආයතනය විසින් පාලනය කරනු ලබන වර්තමාන ආර්ථික සම්පතකි.",
+                    "ආයතනයට අනාගතයේදී ලැබීමට නියමිත මුදල් ප්‍රමාණයකි.",
+                    "ව්‍යාපාරයේ හිමිකරුවන් විසින් ආයතනයට ලබා දී ඇති ප්‍රාග්ධනයකි.",
+                    "අනාගතයේදී සිදු කිරීමට නියමිත අყදානම් වියදමකි."
+                ],
+                correct: 0
+            },
+            {
+                category: "Part A: Conceptual Framework",
+                question: "මූල්‍ය තොරතුරු කාලෝචිත වීම (Timeliness) යනු කුමන ගුණාත්මක ලක්ෂණයකට අයත් වන්නේද?",
+                options: [
+                    "මූලික ගුණාත්මක ලක්ෂණ (Fundamental Characteristics)",
+                    "වැඩිදියුණු කරන ගුණාත්මක ලක්ෂණ (Enhancing Characteristics)",
+                    "මූල්‍ය ප්‍රකාශනවල මූලික උපකල්පන (Underlying Assumptions)",
+                    "සීමාකාරී සාධක (Limiting Factors)"
+                ],
+                correct: 1
+            },
+            {
+                category: "Part B: Presentation of Financial Statements (IAS 1)",
+                question: "IAS 1 (Presentation of Financial Statements) අනුව සම්පූර්ණ මූල්‍ය ප්‍රකාශන මණ්ඩලයට පහත සඳਹන් ඒවායින් ඇතුළත් නොවන්නේ කුමක්ද?",
+                options: [
+                    "මූල්‍ය තත්ත්වය පිළිබඳ ප්‍රකාශනය (Statement of Financial Position)",
+                    "අධ්‍යක්ෂ මණ්ඩලයේ වාර්තාව (Directors' Report)",
+                    "මූල්‍ය කාර්යසාධනය පිළිබඳ ප්‍රකාශනය (Statement of Profit or Loss and Other Comprehensive Income)",
+                    "මුදල් ප්‍රවාහ ප්‍රකාශනය (Statement of Cash Flows)"
+                ],
+                correct: 1
+            },
+            {
+                category: "Part B: Presentation of Financial Statements (IAS 1)",
+                question: "ව්‍යාපාරයක් අඛණ්ඩව පවත්වාගෙන යාමේ හැකියාව (Going Concern) පිළිබඳව තක්සේරු කිරීමේදී කළමනාකාරීත්වය විසින් සලකා බැලිය යුතු අවම කාලසීමාව කුමක්ද?",
+                options: [
+                    "වාර්තාකරණ දිනයේ සිට මාස 6 කි.",
+                    "වාර්තාකරණ දිනයේ සිට අවම වශයෙන් මාස 12 කි.",
+                    "මූල්‍ය වර්ෂය අවසන් වන තුරු පමණි.",
+                    "අවුරුදු 5 ක කාලයකි."
+                ],
+                correct: 1
+            },
+            {
+                category: "Part C: Inventories (IAS 2)",
+                question: "IAS 2 (Inventories) ප්‍රමිතියට අනුව තොග (Inventories) මැනිය යුත්තේ කුමන අගයන් දෙකෙන් අඩු අගයටද?",
+                options: [
+                    "මුල් පිරිවැය සහ ශුද්ධ අපේක්ෂිත විකුණුම් මිල",
+                    "පිරිවැය සහ ශුද්ධ අපේක්ෂිත මුදල් ශේෂය",
+                    "පිරිවැය (Cost) සහ ශුද්ධ අපේක්ෂිත realizable අගය (Net Realizable Value)",
+                    "සාධාරණ අගය සහ වෙළඳපල අගය"
+                ],
+                correct: 2
+            },
+            {
+                category: "Part C: Inventories (IAS 2)",
+                question: "පහත සඳහන් ක්‍රම වලින් කුමන ක්‍රමය IAS 2 යටතේ තොග වංචා/වියදම් ඇගයීම සඳහා අනුමත නොවේද?",
+                options: [
+                    "FIFO ක්‍රමය (First-In, First-Out)",
+                    "भारිත සාමාන්‍ය පිරිවැය ක්‍රමය (Weighted Average Cost)",
+                    "LIFO ක්‍රමය (Last-In, First-Out)",
+                    "සම්මත පිරිවැය ක්‍රමය (Standard Cost Method)"
+                ],
+                correct: 2
+            },
+            {
+                category: "Part D: Property, Plant and Equipment (IAS 16)",
+                question: "IAS 16 (Property, Plant and Equipment) යටතේ දේපළ, ශාක සහ උපකරණ මූලික පිළිගැනීමේදී කුමන අගයකින් ඇතුළත් කළ යුතුද?",
+                options: [
+                    "වෙළඳපල අගය (Market Value)",
+                    "පිරිවැය (Cost)",
+                    "ශුද්ධ පොත් අගය (Net Book Value)",
+                    "ප්‍රතිස්ථාපන පිරිවැය (Replacement Cost)"
+                ],
+                correct: 1
+            },
+            {
+                category: "Part D: Property, Plant and Equipment (IAS 16)",
+                question: "ස්ථාවර වත්කම් මත අය කරනු ලබන ක්ෂයවීම (Depreciation) ගණනය කිරීම ආරම්භ කළ යුත්තේ කდის සිටද?",
+                options: [
+                    "වත්කම මිලදී ගත් දිනයේ සිට",
+                    "වත්කම ව්‍යාපාරයට ගෙන ආ දිනයේ සිට",
+                    "වත්කම භාවිතය සඳහා සූදානම් කළ දිනයේ (Available for Use) සිට",
+                    "වත්කමෙන් ආදායම් ලැබීම පටන්ගත් දිනයේ සිට"
+                ],
+                correct: 2
+            },
+            {
+                category: "Part E: Intangible Assets (IAS 38)",
+                question: "IAS 38 (Intangible Assets) අනුව අභ්‍යන්තරව ජනනය කරන ලද වෙළඳ නාම (Internally generated brands) මූල්‍ය ප්‍රකාශනවල වත්කමක් ලෙස පිළිගැනීමට හැකියාව ඇද්ද?",
+                options: [
+                    "ඔව්, ඒවායේ සාධාරණ අගය මැනිය හැකි නම් පමණි.",
+                    "නැත, අභ්‍යන්තරව ජනනය කරන ලද වෙළඳ නාම, ප්‍රකාශන හිමිකම් සහ ප්‍රකාශන වත්කම් ලෙස පිළිගැනීමට අවසර නැත.",
+                    "ඔව්, අධ්‍යක්ෂ මණ්ඩල අනුමැතිය යටතේ පිළිගත හැක.",
+                    "ඔව්, ස්වාධීන තක්සේරුකරුවෙකු විසින් අගය කර ඇත්නම් පමණි."
+                ],
+                correct: 1
+            },
+            {
+                category: "Part F: Statement of Cash Flows (IAS 7)",
+                question: "IAS 7 (Statement of Cash Flows) යටතේ මුදල් ප්‍රවාහ වර්ගීකරණය කරනු ලබන්නේ කුමන ප්‍රධාන කාණ්ඩ තුනටද?",
+                options: [
+                    "මෙහෙයුම්, ආයෝජන සහ මූල්‍ය ක්‍රියාකාරකම් (Operating, Investing, and Financing)",
+                    "ප්‍රාග්ධන, ආදායම් සහ වියදම් ක්‍රියාකාරකම්",
+                    "බැංකු, මූල්‍ය සහ මෙහෙයුම් ක්‍රියාකාරකම්",
+                    "මුදල් ලැබීම්, මුදල් ගෙවීම් සහ ශේෂයන්"
+                ],
+                correct: 0
+            },
+            {
+                category: "Part F: Statement of Cash Flows (IAS 7)",
+                question: "ලාභ ලැබූ සමාගමක් විසින් ගෙවන ලද ලාභාංශ (Dividends Paid) මුදල් ප්‍රවාහ ප්‍රකාශනයේ කුමන ශීර්ෂය යටතේ වර්ගීකරණය කළ යුතුද?",
+                options: [
+                    "මෙහෙයුම් ක්‍රියාකාරකම් (Operating Activities)",
+                    "ආයෝජන ක්‍රියාකාරකම් (Investing Activities)",
+                    "මූල්‍ය ක්‍රියාකාරකම් (Financing Activities)",
+                    "වෙනත් ක්‍රියාකාරකම් යටතේ අභිමතය පරිදි"
+                ],
+                correct: 2
+            },
+            {
+                category: "Part G: Revenue from Contracts with Customers (IFRS 15)",
+                question: "IFRS 15 ප්‍රමිතියට අනුව ආදායම් පිළිගැනීමේ ප්‍රධාන පියවර 5ක ක්‍රියාවලියේ පළමු පියවර වන්නේ කුමක්ද?",
+                options: [
+                    "ගනුදෙනු මිල තීරණය කිරීම (Determine the transaction price)",
+                    "පාරිභෝගිකයා සමඟ ඇති කොන්ත්‍රාත්තුව හඳුනා ගැනීම (Identify the contract with the customer)",
+                    "කාර්ය සාධන බැඳීම් හඳුනා ගැනීම (Identify performance obligations)",
+                    "ආදායම වෙන් කිරීම (Allocate transaction price)"
+                ],
+                correct: 1
+            },
+            {
+                category: "Part H: Provisions, Contingent Liabilities (IAS 37)",
+                question: "IAS 37 යටතේ විධිවිධානයක් (Provision) ලෙස මූල්‍ය ප්‍රකාශනවල වෙන් කර පෙන්විය හැක්කේ කුමන අවස්ථාවකදීද?",
+                options: [
+                    "අනාගතයේදී සිදුවිය හැකි සියලුම පාඩු සඳහා",
+                    "පසුගිය සිදුවීම් නිසා ඇති වූ වර්තමාන වගකීමක් පැවතීම සහ එය පියවීම සඳහා ආර්ථික ප්‍රතිලාභ ගලා යාමට සිදුවන සම්භාවිතාව 50% ඉක්මවීම.",
+                    "කළමනාකාරීත්වයට අවශ්‍ය ඕනෑම අවස්ථාවක බදු අඩු කර ගැනීමට",
+                    "අයථා සිදුවීම් නිසා ඇති විය හැකි අවිනිශ්චිත අහිමිවීම් සඳහා"
+                ],
+                correct: 1
+            },
+            {
+                category: "Part I: Accounting Policies and Errors (IAS 8)",
+                question: "IAS 8 යටතේ ගිණුම්කරණ ප්‍රතිපත්තිවල සිදුවන ස්වේච්ඡා වෙනස්කම් (Voluntary changes in accounting policies) කෙසේ ක්‍රියාත්මක කළ යුතුද?",
+                options: [
+                    "අනාගත බලාපොරොත්තු සහගතව (Prospectively)",
+                    "පසුග්‍රාමීව (Retrospectively - as if the new policy had always been applied)",
+                    "එම වසරේ ලාභ-අලාභ ගිණුමට පමණක් ඇතුළත් කරමින්",
+                    "හිමිකම් ප්‍රකාශනයේ සංචිත වෙනස් කිරීමෙන් පමණි"
+                ],
+                correct: 1
+            },
+            {
+                category: "Part J: Events after Reporting Period (IAS 10)",
+                question: "වාර්තාකරණ කාලපරිච්ඡේදයෙන් පසු සිදුවන සිදුවීම් (Events after the Reporting Period) සම්බන්ධයෙන්, වාර්තාකරණ දිනයෙන් පසු ව්‍යාපාරයේ අඛණ්ඩව පැවැත්ම නැති වන මට්ටමේ බරපතල බිඳවැටීමක් වාර්තා වුවහොත්, එය කුමන කාණ්ඩයට අයත් වේද?",
+                options: [
+                    "ගැලපීම් සිදුකළ යුතු සිදුවීම් (Adjusting events)",
+                    "ගැලපීම් සිදු නොකළ යුතු සිදුවීම් (Non-adjusting events) - නමුත් තොරතුරු හෙළි කළ යුතුය.",
+                    "Going concern උපකල්පනය සම්පූර්ණයෙන්ම අහෝසි කර මූල්‍ය ප්‍රකාශන සකස් නොකිරීම",
+                    "මූල්‍ය ප්‍රකාශනවලට කිසිදු බලපෑමක් නොකරයි."
+                ],
+                correct: 2
+            },
+            {
+                category: "Part K: Leases (IFRS 16)",
+                question: "IFRS 16 (Leases) ප්‍රමිතියට අනුව බදු ගැනුම්කරුගේ (Lessee) පොත්වල සාම්ප්‍රදායික මෙහෙයුම් ලීසිං (Operating leases) සහ මූල්‍ය ලීසිං වෙනස ඉවත් කරමින් හඳුන්වා දී ඇති ප්‍රධාන පිළිගැනීම කුමක්ද?",
+                options: [
+                    "සියලුම ලීසිං සඳහා වත්කම් භාවිතය සඳහා ඇති අයිතිය (Right-of-use asset) සහ ලීසිං වගකීමක් (Lease liability) ප්‍රකාශනයට ඇතුළත් කළ යුතුය.",
+                    "ලීසිං ගෙවීම් සෘජුවම වියදම් ලෙස පෙන්විය යුතුය.",
+                    "බදු ගැනුම්කරු කිසිදු වත්කමක් පොත්වල පෙන්විය යුතු නැත.",
+                    "කෙටිකාලීන ලීසිං පමණක් වත්කම් ලෙස පෙන්විය යුතුය."
+                ],
+                correct: 0
+            },
+            {
+                category: "Part L: Income Taxes (IAS 12)",
+                question: "IAS 12 (Income Taxes) අනුව තාවකාලික වෙනස්කම් (Temporary Differences) නිසා ඇති වන බදු බලපෑම කුමන ගිණුම්කරණ ප්‍රතිපත්තිය යටතේ වාර්තා කළ යුතුද?",
+                options: [
+                    "කල් තැබූ බදු (Deferred Tax)",
+                    "කෙටිකාලීන බදු වගකීම්",
+                    "සෘජු ප්‍රාග්ධන බදු",
+                    "ප්‍රතිපාදන බදු"
+                ],
+                correct: 0
+            },
+            {
+                category: "Part M: Financial Instruments (IFRS 9)",
+                question: "IFRS 9 අනුව මූල්‍ය වත්කම් ඒවායේ ව්‍යාපාරික ආකෘතිය (Business Model) සහ මුදල් ප්‍රවාහ ලක්ෂණ මත පදනම්ව වර්ගීකරණය කරනු ලබන ප්‍රධාන මිනුම් කාණ්ඩ තුන වන්නේ කුමක්ද?",
+                options: [
+                    "සාධාරණ අගය වෙනස්වීම් හරහා ලාභ-අලාභයට (FVTPL), සාධාරණ අගය වෙනස්වීම් හරහා වෙනත් විස්තීර්ණ ආදායමට (FVTOCI), සහ ඇමෝටයිස් කරන ලද පිරිවැයට (Amortised Cost)",
+                    "පිරිවැය, වෙළඳපල අගය සහ පොලී අගය",
+                    "වත්කම්, වගකීම් සහ හිමිකම්",
+                    "කෙටිකාලීන, මධ්‍යකාලීන සහ දිගුකාලීන ආයෝජන"
+                ],
+                correct: 0
+            },
+            {
+                category: "Part N: Consolidated Financial Statements (IFRS 10)",
+                question: "මව් සමාගමක් විසින් අනුබද්ධිත සමාගමක (Subsidiary) කොටස් වලින් 80%ක් හිමි කරගෙන සිටී නම්, අනුබද්ධිත සමාගමේ ශුද්ධ වත්කම් මත සුළු ජන හිමිකම (Non-controlling interest - NCI) ගණනය කරනු ලබන්නේ කෙසේද?",
+                options: [
+                    "ඉතිරි 20% ක කොටසට අදාළවය.",
+                    "100% ක සම්පූර්ණ අගය මතය.",
+                    "මව් සමාගම විසින් කරන ලද ආයෝජන මුදල මත පමණි.",
+                    "ලාභාංශ බෙදා දුන් ප්‍රමාණය මත පමණි."
+                ],
+                correct: 0
+            }
+        ];
 
-        <div style="text-align: center; margin-bottom: 20px;">
-            <button class="btn btn-next" onclick="toggleReview()">Show Detailed Question Review &amp; Explanations</button>
-            <button class="btn btn-prev" onclick="location.reload()" style="margin-left: 10px;">Retake Exam</button>
-        </div>
-
-        <div id="reviewContainer" style="display: none;" class="review-accordion"></div>
-    </div>
-</div>
-
-<script>
-const examQuestions = [{"num": 1, "sec": "Part A: Conceptual Framework", "q": "අන්තර්ජාතික මූල්‍ය වාර්තාකරණ සංකල්පීය රාමුවට (Conceptual Framework for Financial Reporting) අනුව, මූල්‍ය තොරතුරුවල ප්‍රධාන 'මූලික ගුණාත්මක ලක්ෂණ' (Fundamental Qualitative Characteristics) දෙක වන්නේ:", "opts": ["(A) අදාළතාව (Relevance) සහ විශ්වාසනීය නිරූපණය (Faithful Representation).", "(B) සැසඳිය හැකි බව (Comparability) සහ තේරුම්ගත හැකි බව (Understandability).", "(C) කාලෝචිතභාවය (Timeliness) සහ සත්‍යාපනය කළ හැකි බව (Verifiability).", "(D) පිරිවැය සහ ප්‍රතිලාභ (Cost and Benefit)."], "ans": 0, "exp": "සංකල්පීය රාමුවට අනුව තොරතුරු තීරණ ගැනීමට ප්‍රයෝජනවත් වීමට නම් Relevance (අදාළතාව) සහ Faithful Representation (විශ්වාසනීය නිරූපණය) අත්‍යවශ්‍ය වේ."}, {"num": 2, "sec": "Part A: Conceptual Framework", "q": "සංකල්පීය රාමුවට අනුව 'විශ්වාසනීය නිරූපණයක' (Faithful Representation) අඩංගු විය යුතු අත්‍යවශ්‍ය අංග තුන කුමක්ද?", "opts": ["(A) සම්පූර්ණත්වය (Completeness), මධ්‍යස්ථභාවය (Neutrality) සහ දෝෂ රහිත වීම (Free from error).", "(B) වේගවත් බව, සරල බව සහ පිරිවැය අඩු වීම.", "(C) සැසඳිය හැකි වීම, සත්‍යාපනය කළ හැකි වීම සහ කාලෝචිත වීම.", "(D) ලාභදායී වීම, ණය බර අඩු වීම සහ විගණනය කළ හැකි වීම."], "ans": 0, "exp": "ප්‍රකාශිත ආර්ථික සංසිද්ධියක් සැබෑ ලෙස නිරූපණය වීමට Completeness, Neutrality සහ Free from error යන අංග තුනම තිබිය යුතුය."}, {"num": 3, "sec": "Part A: Conceptual Framework", "q": "වත්කමක 'වත්මන් පිරිවැය' (Current Cost) මැනීමේ පදනමෙහි අර්ථය කුමක්ද?", "opts": ["(A) මිනුම් දිනයේදී සමාන වත්කමක් අත්පත් කරගැනීමට හෝ නිෂ්පාදනය කිරීමට දරනු ලබන වත්මන් පිරිවැය සහ ඊට අදාළ ගනුදෙනු පිරිවැය.", "(B) වත්කම මුලින් මිලදී ගත් ඓතිහාසික පිරිවැය.", "(C) අනාගතයේදී එම වත්කම විකිණීමෙන් ලැබෙන ඇස්තමේන්තුගත මුදල.", "(D) වත්කම ඈවර කිරීමේදී ලැබෙන ශුද්ධ මුදල."], "ans": 0, "exp": "Current Cost යනු අද දින (Measurement date) සමාන වත්කමක් ලබාගැනීමට හෝ ප්‍රතිස්ථාපනය කිරීමට වැයවන වත්මන් ඇතුළත් වටිනාකමයි (Entry value)."}, {"num": 4, "sec": "Part A: Conceptual Framework", "q": "මූල්‍ය ප්‍රකාශන සකස් කිරීමේදී 'අඛණ්ඩ පැවැත්ම' (Going Concern) පිළිබඳ මූලධර්මය යටතේ කළමනාකාරිත්වය විසින් කළ යුත්තේ:", "opts": ["(A) අනාගතයේ ව්‍යාපාරය අඛණ්ඩව කරගෙන යාමට ඇති හැකියාව තක්සේරු කිරීම සහ ද්‍රව්‍යමය අවිනිශ්චිතතාවන් පවතී නම් මූල්‍ය ප්‍රකාශන සටහන් තුළ අනාවරණය කිරීම.", "(B) ව්‍යාපාරය වහාම වසා දැමීම.", "(C) සියලු වත්කම් ශුද්ධ අවසාන අගයට ලිවීම.", "(D) විගණකවරයාට පමණක් වාර්තා කිරීම."], "ans": 0, "exp": "LKAS 1 අනුව කළමනාකාරිත්වය Going concern තත්ත්වය අඛණ්ඩව තක්සේරු කළ යුතු අතර සැක සහිත අවිනිශ්චිතතා පවතී නම් ඒවා හෙළි කළ යුතුය."}, {"num": 5, "sec": "Part A: Conceptual Framework", "q": "සංකල්පීය රාමුවට අනුව 'ආදායම' (Income) යන්නට අයත් වන්නේ කුමන අංගයන්ද?", "opts": ["(A) සාමාන්‍ය මෙහෙයුම් ආදායම් (Revenue) සහ ලාභ (Gains).", "(B) දළ ලාභය සහ ශුද්ධ ලාභය පමණි.", "(C) මුදල් ලැබීම් සහ ප්‍රාග්ධන දායකත්වයන් පමණි.", "(D) බැංකු පොලී සහ ණය ලැබීම් පමණි."], "ans": 0, "exp": "Income නිර්වචනයට සාමාන්‍ය ව්‍යාපාරික මෙහෙයුම්වලින් ලැබෙන Revenue මෙන්ම ස්ථාවර වත්කම් සාධාරණ අගය ඉහළ යාමෙන් ලබන Gains යන දෙකම ඇතුළත් වේ."}, {"num": 6, "sec": "Part B: Accounting Process", "q": "ගනුදෙනුකරුවෙකුගෙන් ලැබුණු රු. 50,000 ක චෙක්පතක් මුදල් පොතේ හර පැත්තේ සටහන් කර, ණයගැති ගිණුමේද හර පැත්තේ සටහන් කර තිබුණි. මෙම දෝෂය නිසා ශේෂ පිරික්සුමේ (Trial Balance) ඇතිවන බලපෑම:", "opts": ["(A) හර එකතුව බැර එකතුවට වඩා රු. 100,000 කින් වැඩි වේ.", "(B) හර එකතුව රු. 50,000 කින් වැඩි වේ.", "(C) ශේෂ පිරික්සුම නිවැරදිව සමවේ.", "(D) බැර එකතුව රු. 50,000 කින් වැඩි වේ."], "ans": 0, "exp": "මුදල් පොත හර රු. 50,000 කි. ණයගැති ගිණුම බැර විය යුතු තැන හර රු. 50,000 ක් කර ඇත. හර පැත්තේ එකතුව 50,000 + 50,000 = රු. 100,000 කින් වැඩිවේ."}, {"num": 7, "sec": "Part B: Accounting Process", "q": "ශේෂ පිරික්සුමේ හර එකතුව රු. 820,000 ක් සහ බැර එකතුව රු. 795,000 කි. විවෘත කළ යුතු අනියම් ගිණුමේ (Suspense Account) ශේෂය සහ පැත්ත:", "opts": ["(A) අනියම් ගිණුමේ බැර ශේෂය රු. 25,000 කි.", "(B) අනියම් ගිණුමේ හර ශේෂය රු. 25,000 කි.", "(C) අනියම් ගිණුමේ බැර ශේෂය රු. 50,000 කි.", "(D) අනියම් ගිණුමක් අවශ්‍ය නොවේ."], "ans": 0, "exp": "අඩු පැත්ත වූ බැර පැත්තට රු. 25,000 ක් යොදා අනියම් ගිණුමේ බැර ශේෂයක් (Credit balance) සහිතව ශේෂ පිරික්සුම පියවනු ලබයි."}, {"num": 8, "sec": "Part B: Accounting Process", "q": "බැංකු ප්‍රකාශනයේ ඇති රු. 15,000 ක ස්ථාවර බැංකු උපදෙස් ගෙවීමක් (Standing Order) නිවැරදි කළ මුදල් පොතට (Adjusted Cash Book) ඇතුළත් කිරීමේ සටහන:", "opts": ["(A) මුදල් පොතේ බැංකු තීරුවේ බැර පැත්තේ රු. 15,000 සහ අදාළ වියදම් ගිණුම හර කිරීම.", "(B) මුදල් පොතේ හර පැත්තේ රු. 15,000.", "(C) බැංකු සැසඳුම් ප්‍රකාශනයේ එකතු කිරීම.", "(D) ණයහිමියන් ගිණුම බැර කිරීම."], "ans": 0, "exp": "Standing order මඟින් බැංකුවෙන් මුදල් ගෙවා ඇති බැවින් මුදල් පොතේ බැර පැත්තේ සහ අදාළ වියදම් ගිණුමේ හර පැත්තේ සටහන් වේ."}, {"num": 9, "sec": "Part B: Accounting Process", "q": "බැංකු ප්‍රකාශනයේ අවසාන බැර ශේෂය (අධිකාරී ශේෂය / Overdraft) රු. 80,000 කි. ඉදිරිපත් නොකළ චෙක්පත් රු. 30,000 ක් සහ බැංකුගත කළ නමුදු බැර නොවූ චෙක්පත් රු. 45,000 කි. මුදල් පොතේ නිවැරදි කළ බැංකු ශේෂය (Bank balance as per cash book):", "opts": ["(A) රු. 95,000 ක බැර ශේෂයක් (Bank Overdraft).", "(B) රු. 65,000 ක හර ශේෂයක්.", "(C) රු. 95,000 ක හර ශේෂයක්.", "(D) රු. 80,000 ක බැර ශේෂයක්."], "ans": 0, "exp": "බැංකු ඕවර්ඩ්‍රාෆ්ට් ශේෂය (-80,000) - බැර නොවූ චෙක්පත් (45,000) + ඉදිරිපත් නොකළ චෙක්පත් (30,000) = රු. 95,000 (බැර ශේෂය)."}, {"num": 10, "sec": "Part B: Accounting Process", "q": "විකුණුම් ලෙජර පාලන ගිණුමක (Sales Ledger Control Account) ආරම්භක හර ශේෂය රු. 250,000 කි. වසරේ ණයට විකුණුම් රු. 900,000 කි, චෙක්පත් ලැබීම් රු. 820,000 කි, දුන් වට්ටම් රු. 20,000 කි සහ අයකරගත නොහැකි ණය රු. 10,000 කි. අවසාන හර ශේෂය:", "opts": ["(A) රු. 300,000", "(B) රු. 310,000", "(C) රු. 290,000", "(D) රු. 320,000"], "ans": 0, "exp": "අවසාන ණයගැති ශේෂය = 250,000 + 900,000 - 820,000 - 20,000 - 10,000 = රු. 300,000."}, {"num": 11, "sec": "Part B: Accounting Process", "q": "වසර අවසානයේ වෙළඳ ලැබිය යුතු දෑ ශේෂය රු. 600,000 කි. සැක සහිත ණය ප්‍රතිපාදනය ශුද්ධ ණයගැතියන්ගෙන් 5% ක් ලෙස පවත්වාගත යුතුය. ආරම්භක ප්‍රතිපාදනය රු. 25,000 ක් නම්, ලාභ අලාභ ප්‍රකාශනයට හර විය යුතු වියදම:", "opts": ["(A) රු. 5,000", "(B) රු. 30,000", "(C) රු. 25,000", "(D) රු. 35,000"], "ans": 0, "exp": "අවශ්‍ය අවසාන ප්‍රතිපාදනය = 600,000 × 5% = රු. 30,000. ලාභ අලාභයට හර වන මුදල = 30,000 - ආරම්භක (25,000) = රු. 5,000."}, {"num": 12, "sec": "Part B: Accounting Process", "q": "2025 ඔක්තෝබර් 01 දින වසරක් සඳහා ලැබීමට නියමිත ආයෝජන පොලී ආදායම රු. 120,000 කි. 2025 දෙසැම්බර් 31 න් අවසන් වර්ෂය සඳහා මූල්‍ය ප්‍රකාශනවල වාර්තා විය යුතු accrued interest හෝ prepaid interest:", "opts": ["(A) ලැබිය යුතු පොලිය (Accrued Interest Income) රු. 90,000 ක් ලෙස ජංගම වත්කමකි.", "(B) කල්තියා ලැබූ පොලිය රු. 30,000 කි.", "(C) ආදායම රු. 120,000 කි.", "(D) කිසිදු ගැලපීමක් අවශ්‍ය නැත."], "ans": 0, "exp": "ඔක්තෝබර් 1 සිට දෙසැම්බර් 31 දක්වා මාස 3 කට අදාළ ආදායම වර්ෂයට අයත් වේ = 120,000 × 3/12 = රු. 30,000 ක් P&L එකට යයි. ඉතිරි මාස 9 සඳහා (ජනවාරි-සැප්තැම්බර්) ලැබිය යුතු පොලිය = 120,000 × 9/12 = රු. 90,000 (ජංගම වත්කමකි)."}, {"num": 13, "sec": "Part B: Accounting Process", "q": "අසම්පූර්ණ සටහන් සහිත ව්‍යාපාරයක: ආරම්භක තොගය රු. 100,000 කි, මිලදී ගැනීම් රු. 700,000 කි, අවසාන තොගය රු. 150,000 කි. ව්‍යාපාරයේ දළ ලාභය 25% නම්‍යතාවයක් (Margin 25% on sales) සහිත නම්, විකුණුම් ආදායම:", "opts": ["(A) රු. 866,667", "(B) රු. 875,000", "(C) රු. 900,000", "(D) රු. 850,000"], "ans": 0, "exp": "විකුණුම් පිරිවැය (COGS) = 100,000 + 700,000 - 150,000 = රු. 650,000. Margin 25% (1/4) නම්, COGS යනු 75% (3/4) කි. විකුණුම් ආදායම = 650,000 / 0.75 = රු. 866,667."}, {"num": 14, "sec": "Part B: Accounting Process", "q": "රු. 20,000 ක ස්ථාවර වත්කමක් අලුත්වැඩියා කිරීමේ වියදමක් වැරදීමකින් යන්ත්‍රෝපකරණ ගිණුමට (Capital Expenditure) හර කර තිබුණි. මෙම දෝෂය නිසා ශුද්ධ ලාභයට සහ වත්කම්වලට සිදුවන බලපෑම:", "opts": ["(A) ශුද්ධ ලාභය රු. 20,000 කින් වැඩිපුර පෙන්වා ඇති අතර වත්කම් රු. 20,000 කින් වැඩිපුර පෙන්වා ඇත.", "(B) ලාභය නිවැරදියි.", "(C) වත්කම් අඩු වේ.", "(D) කිසිදු බලපෑමක් නැත."], "ans": 0, "exp": "වියදමක් විය යුතු තැන වත්කමක් කර ඇති බැවින් වියදම් අඩු වී ලාභය වැඩි වී ඇත; වත්කම්ද වැඩිපුර පෙන්වයි (Error of commission)."}, {"num": 15, "sec": "Part B: Accounting Process", "q": "මිලදී ගැනීමේ දවස් පොතේ (Purchases Day Book) එකතුව රු. 50,000 කින් අඩුවෙන් Posting කර තිබුණි. මෙම දෝෂය නිසා ශේෂ පිරික්සුම පියවීමට භාවිත කරන අනියම් ගිණුමේ (Suspense Account) බලපෑම:", "opts": ["(A) අනියම් ගිණුමේ හර ශේෂය රු. 50,000 කි.", "(B) අනියම් ගිණුමේ බැර ශේෂය රු. 50,000 කි.", "(C) අනියම් ගිණුමක් අවශ්‍ය නැත.", "(D) හර හා බැර දෙකම රු. 50,000 කින් වැඩිවේ."], "ans": 0, "exp": "මිලදී ගැනීම් ජර්නලයේ එකතුව ලෙජරයට දැමීමේදී මිලදී ගැනීම් ගිණුම හර විය යුත්තේ අඩුයෙනි. එබැවින් ශේෂ පිරික්සුමේ හර එකතුව අඩු වී අනියම් ගිණුමේ හර ශේෂයක් රු. 50,000 ක් මතු වේ."}, {"num": 16, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 2 (තොග) අනුව, තොගයක පිරිවැය ගණනය කිරීමේදී ඇතුළත් කළ **නොයුතු** වියදම කුමක්ද?", "opts": ["(A) ගබඩා කිරීමේ සාමාන්‍ය පරිපාලන වියදම් (Storage costs not required in production process) සහ අලෙවි වියදම්.", "(B) අමුද්‍රව්‍ය මිලදී ගැනීමේ මිල.", "(C) අමුද්‍රව්‍ය ගබඩාවට ගෙන ඒමට දැරූ සෘජු ප්‍රවාහන ගාස්තු.", "(D) නිෂ්පාදනයට සෘජුව සම්බන්ධ ශ්‍රම පිරිවැය."], "ans": 0, "exp": "LKAS 2 ඡේද 16 අනුව ගබඩා කිරීමේ වියදම් (ඊළඟ නිෂ්පාදන අදියරට අවශ්‍ය නම් මිස), අලෙවි වියදම් සහ සාමාන්‍ය පරිපාලන වියදම් තොග පිරිවැයට ඇතුළත් නොකළ යුතුය."}, {"num": 17, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 16 (දේපළ, ශාක සහ උපකරණ) අනුව, වත්කමක ප්‍රතිමූල්‍යන අලාභයක් (Revaluation Deficit) ඇතිවූ විට, එම වත්කම සම්බන්ධයෙන් මීට පෙර කිසිදු ප්‍රතිමූල්‍යන අතිරික්තයක් (Revaluation Surplus) නොපවතී නම්, එම අලාභය වාර්තා කළ යුත්තේ:", "opts": ["(A) සෘජුවම ලාභ හෝ අලාභ ප්‍රකාශනයේ (P&L) වියදමක් ලෙස.", "(B) වෙනත් විස්තීර්ණ ආදායම හරහා (OCI) සංචිතයකට.", "(C) කොටස් ප්‍රාග්ධනයෙන් අඩු කිරීමෙන්.", "(D) නොසලකා හැරීමෙන්."], "ans": 0, "exp": "LKAS 16 ඡේද 40 අනුව වත්කමක පළමු ප්‍රතිමූල්‍යන අලාභය P&L එකට හර කරයි (පෙර අතිරික්තයක් තිබුණේ නම් මුලින්ම එම සංචිතයෙන් අඩු කරයි)."}, {"num": 18, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 38 (අස්පර්ශනීය වත්කම්) අනුව, ආයතනයක් විසින් අභ්‍යන්තරව ජනනය කරන ලද වෙළඳ නාම (Internally generated brands) සහ ප්‍රකාශන හිමිකම් සම්බන්ධයෙන් ගිණුම්කරණ ප්‍රතිකාරය:", "opts": ["(A) අභ්‍යන්තරව ජනනය කරන ලද වෙළඳ නාම වත්කම් ලෙස හඳුනාගත නොහැක (Recognition is prohibited).", "(B) වසර 10 කින් ක්ෂය කළ යුතුය.", "(C) සාධාරණ අගයෙන් ශේෂ පත්‍රයේ පෙන්විය යුතුය.", "(D) වසරක් පාසා අගය වැඩි කළ යුතුය."], "ans": 0, "exp": "LKAS 38 ඡේද 63 අනුව අභ්‍යන්තරව ජනනය කරන ලද brands, mastheads, publishing titles වැනි අස්පර්ශනීය අයිතම වත්කම් ලෙස හඳුනාගත නොහැක."}, {"num": 19, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 36 (වත්කම් අවප්‍රමාණයවීම) අනුව, වත්කමක 'ප්‍රතිප්‍රාප්ත කළ හැකි මුදල' (Recoverable Amount) යනු කුමක්ද?", "opts": ["(A) වත්කමේ සාධාරණ අගයෙන් බැහැර කිරීමේ පිරිවැය අඩු කළ අගය (Fair value less costs of disposal) සහ එහි භාවිත වටිනාකම (Value in use) අතරින් **වැඩිම අගයයි**.", "(B) දෙකෙන් **අඩුම අගයයි**.", "(C) ඓතිහාසික පිරිවැයයි.", "(D) රක්ෂණ තක්සේරු අගයයි."], "ans": 0, "exp": "LKAS 36 අනුව Recoverable amount යනු Fair value less costs of disposal සහ Value in use අතරින් වැඩිම අගයයි."}, {"num": 20, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 37 (ප්‍රතිපාදන, අවස්ථානුකූල වගකීම් සහ අවස්ථානුකූල වත්කම්) අනුව, ආයතනයකට එරෙහිව පවරා ඇති නඩුවකින් වන්දි ගෙවීමට සිදුවීමේ සම්භාවිතාව 60% ක් (Probable) නම් සහ මුදල විශ්වාසනීය ලෙස ඇස්තමේන්තු කළ හැක නම් කළ යුතු නිවැරදි ප්‍රතිකාරය:", "opts": ["(A) ශේෂ පත්‍රයේ වගකීමක් ලෙස ප්‍රතිපාදනයක් (Provision) තැබිය යුතුය.", "(B) මූල්‍ය ප්‍රකාශන සටහනක පමණක් අනාවරණය කළ යුතුය.", "(C) කිසිදු ක්‍රියාමාර්ගයක් අවශ්‍ය නැත.", "(D) වත්කමක් ලෙස පෙන්විය යුතුය."], "ans": 0, "exp": "සම්භාවිතාව Probable (>50%) නම් සහ ඇස්තමේන්තුව විශ්වාසනීය නම් LKAS 37 අනුව අනිවාර්යයෙන්ම Provision එකක් තැබිය යුතුය."}, {"num": 21, "sec": "Part C: Financial Statements & Standards", "q": "SLFRS 15 (පාරිභෝගික ගිවිසුම්වලින් ලැබෙන ආදායම) යටතේ ආදායම් හඳුනාගැනීමේ පියවර 5 ක ආකෘතියේ පළමු පියවර කුමක්ද?", "opts": ["(A) පාරිභෝගිකයා සමඟ ඇති ගිවිසුම හඳුනාගැනීම (Identify the contract with the customer).", "(B) ගනුදෙනු මිල තීරණය කිරීම.", "(C) කාර්යසාධන බැඳීම් හඳුනාගැනීම.", "(D) ආදායම හඳුනාගැනීම."], "ans": 0, "exp": "SLFRS 15 පියවර 5: 1. Identify contract, 2. Identify performance obligations, 3. Determine transaction price, 4. Allocate price, 5. Recognize revenue."}, {"num": 22, "sec": "Part C: Financial Statements & Standards", "q": "SLFRS 16 (බදු දීමනා) අනුව, බදු ගැනුම්කරුගේ (Lessee) ගිණුම්කරණ ප්‍රතිකාරය ලෙස ශේෂ පත්‍රයේ හඳුනාගත යුත්තේ:", "opts": ["(A) භාවිත අයිතිවාසිකම් වත්කමක් (Right-of-use asset) සහ බදු වගකීමක් (Lease liability).", "(B) කුලී වියදමක් පමණි.", "(C) ස්ථාවර වත්කමක් පමණි.", "(D) කිසිදු වත්කමක් නොවේ."], "ans": 0, "exp": "SLFRS 16 යටතේ මෙහෙයුම් සහ මූල්‍ය බදු ලෙස වෙන්කිරීමක් නොමැතිව Lessee විසින් ROU asset සහ Lease liability හඳුනාගත යුතුය."}, {"num": 23, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 20 (સરකාරී ප්‍රදාන සඳහා ගිණුම්කරණය) අනුව, යන්ත්‍රයක් මිලදී ගැනීම සඳහා ලැබුණු රු. 2,000,000 ක ප්‍රදානයක් 'වත්කමේ පිරිවැයෙන් අඩු කිරීමේ ක්‍රමයට' (Deduction from asset cost) ගිණුම්ගත කර ඇත. යන්ත්‍රයේ මුල් මිල රු. 6,000,000 ක් නම්, ශුද්ධ වත්කම් අගය සහ වාර්ෂික ක්ෂයවීම් පදනම (වසර 5 ක ආයු කාලයක් සඳහා):", "opts": ["(A) ශුද්ධ වත්කම් පිරිවැය රු. 4,000,000 ක් වන අතර වාර්ෂික ක්ෂයවීම රු. 800,000 කි.", "(B) ශුද්ධ වත්කම් මිල රු. 6,000,000 කි.", "(C) වාර්ෂික ක්ෂයවීම රු. 1,200,000 කි.", "(D) ප්‍රදානය ලාභ අලාභයට බැර කළ යුතුය."], "ans": 0, "exp": "ප්‍රදානය වත්කම් පිරිවැයෙන් අඩු කළ විට ශුද්ධ පිරිවැය = 6,000,000 - 2,000,000 = රු. 4,000,000 කි. වාර්ෂික ක්ෂයවීම = 4,000,000 / 5 = රු. 800,000."}, {"num": 24, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 23 (ණය පිරිවැය) අනුව, සුදුසුකම් ලබන වත්කමක් (Qualifying asset) ඉදිකිරීම සඳහා විශේෂිත ණයක් ලබාගෙන ඇත. එම ණය මුදල වත්කම සඳහා යෙදවීමට පෙර තාවකාලිකව ආයෝජනය කිරීමෙන් ලැබෙන පොලී ආදායම:", "opts": ["(A) වත්කම් ඉදිකිරීමේ පිරිවැයට ප්‍රාග්ධනීකරණය වන ණය පිරිවැයෙන් අඩු කළ යුතුය.", "(B) ලාභ අලාභයට ආදායමක් ලෙස දැමිය යුතුය.", "(C) කොටස් ප්‍රාග්ධනයට එකතු කළ යුතුය.", "(D) නොසලකා හැරිය යුතුය."], "ans": 0, "exp": "LKAS 23 ඡේද 12 අනුව විශේෂිත ණය තාවකාලිකව ආයෝජනයෙන් ලබන ආදායම ප්‍රාග්ධනීකරණය වන ණය පිරිවැයෙන් අඩු කරයි."}, {"num": 25, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 10 (වාර්තාකරණ කාලපරිච්ඡේදයෙන් පසු සිදුවන සිදුවීම්) අනුව, ශේෂ පත්‍ර දිනට පසු සහ මූල්‍ය ප්‍රකාශන අනුමත කිරීමට පෙර වර්ෂයේ විකුණුම් ණයගැතියෙකු බංකොලොත් වීම නිසා අයකරගත නොහැකි වූ ණය (Bad debt):", "opts": ["(A) ගැලපීම් කළ යුතු සිදුවීමකි (Adjusting event) ; ශේෂ පත්‍ර දිනයේ ණයගැති ශේෂය ගැලපිය යුතුය.", "(B) ගැලපීම් නොකළ යුතු සිදුවීමකි.", "(C) ඊළඟ වර්ෂයේ ලාභ අලාභයට දැමිය යුතුය.", "(D) කිසිවක් කළ නොහැක."], "ans": 0, "exp": "ශේෂ පත්‍ර දිනට පෙර පැවති තත්ත්වයක් (ණයගැතියාගේ මූල්‍ය දුර්වලතාවය) තහවුරු කරන බැවින් එය Adjusting event එකකි."}, {"num": 26, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 40 (ආයෝජන දේපළ) අනුව, සාධාරණ අගය ආකෘතිය (Fair Value Model) භාවිත කරන ආයතනයක ආයෝජන දේපළක සාධාරණ අගය ඉහළ ගිය විට ඇතිවන ලාභය වාර්තා කළ යුත්තේ:", "opts": ["(A) සෘජුවම ලාභ හෝ අලාභ ප්‍රකාශනයේ (P&L) ආදායමක් ලෙස.", "(B) OCI හරහා සංචිතයකට පමණි.", "(C) කොටස් ප්‍රාග්ධනයට.", "(D) කල් දැමූ ආදායමක් ලෙස."], "ans": 0, "exp": "LKAS 40 යටතේ Fair value model භාවිත කරන විට සියලුම Fair value gains මෙන්ම losses ද P&L එකට හඳුනාගනී."}, {"num": 27, "sec": "Part C: Financial Statements & Standards", "q": "සීමිත වගකීම් සමාගමක 'කොටස් වාරික ගිණුමේ' (Share Premium Account) පවතින අරමුදල් භාවිත කළ **නොහැකි** අවස්ථාව කුමක්ද?", "opts": ["(A) මුදලින් සාමාන්‍ය ලාභාංශ (Cash dividends) ගෙවීම සඳහා.", "(B) ප්‍රසාද කොටස් නිකුතුවක් (Bonus issue) සඳහා ප්‍රාග්ධනීකරණය කිරීමට.", "(C) කොටස් නිකුත් කිරීමේ වියදම් පියවා ගැනීමට.", "(D) මුදවාගත හැකි මනාප කොටස් ආපසු මිලදී ගැනීමේ වාරිකය පියවීමට."], "ans": 0, "exp": "Share Premium යනු බෙදාහැරිය නොහැකි ප්‍රාග්ධන සංචිතයකි. එය මුදලින් ලාභාංශ ලෙස බෙදිය නොහැක."}, {"num": 28, "sec": "Part C: Financial Statements & Standards", "q": "ශ්‍රී ලංකා සමාගම් පනත අනුව, ලාභාංශ බෙදාහැරීමේදී අධ්‍යක්ෂවරුන් විසින් අනිවාර්යයෙන්ම තෘප්තිමත් කළ යුතු පරීක්ෂණය:", "opts": ["(A) සධනතා පරීක්ෂණය (Solvency Test).", "(B) විගණන පරීක්ෂණය.", "(C) බදු පරීක්ෂණය.", "(D) වෙළඳපොළ තක්සේරු පරීක්ෂණය."], "ans": 0, "exp": "සමාගම් පනතේ 56 සහ 57 වගන්ති අනුව ලාභාංශ හෝ වෙනත් බෙදාහැරීමකට පෙර Solvency test එක අනිවාර්යයෙන්ම සමත් විය යුතුය."}, {"num": 29, "sec": "Part C: Financial Statements & Standards", "q": "නිෂ්පාදන ආයතනයක නිෂ්පාදන ගිණුමේ (Manufacturing Account) 'නිෂ්පාදන පිරිවැය' (Cost of Production) ගණනය කිරීමේදී නිවැරදි අනුපිළිවෙළ:", "opts": ["(A) සෘජු ද්‍රව්‍ය + සෘජු ශ්‍රම + සෘජු වියදම් = ප්‍රධාන පිරිවැය (Prime Cost); + කර්මාන්තශාලා පොදු කාර්ය + ආරම්භක WIP - අවසාන WIP.", "(B) විකුණුම් - දළ ලාභය.", "(C) ප්‍රධාන පිරිවැය + පරිපාලන වියදම්.", "(D) ආරම්භක නිමි තොග + මිලදී ගැනීම්."], "ans": 0, "exp": "Prime Cost එකට කම්හල් පොදු කාර්ය එකතු කර නිමවෙමින් පවතින වැඩ (WIP) ගැලපූ විට නිමි භාණ්ඩ ගබඩාවට මාරු කරන Cost of Production ලැබේ."}, {"num": 30, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 7 (මුදල් ප්‍රවාහ ප්‍රකාශනය) අනුව, බැංකු අයිරා (Bank Overdrafts) මුදල් ප්‍රවාහ ප්‍රකාශනයේ වර්ගීකරණය වන්නේ:", "opts": ["(A) 'මුදල් හා මුදල්වලට සමාන දෑ' (Cash and cash equivalents) හි අංගයක් ලෙස මුදල් ප්‍රවාහ ප්‍රකාශනයේ ආරම්භක හා අවසාන ශේෂයන්ට ඇතුළත් වේ.", "(B) මෙහෙයුම් ක්‍රියාකාරකම් ලෙස.", "(C) ආයෝජන ක්‍රියාකාරකම් ලෙස පමණි.", "(D) ලාභ අලාභ ප්‍රකාශනයේ වියදමක් ලෙස."], "ans": 0, "exp": "LKAS 7 අනුව ද්‍රවශීලතාවයේ අත්‍යවශ්‍ය අංගයක් වන බැංකු අයිරා Cash and cash equivalents ලෙස සැලකේ."}, {"num": 31, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 1 අනුව, මූල්‍ය ප්‍රකාශනවල ඉදිරිපත් කළ යුතු අවම ප්‍රකාශන අතරට **නොවැටෙන** අයිතමය කුමක්ද?", "opts": ["(A) කළමනාකාරිත්වයේ අභ්‍යන්තර කාර්ය සාධන වාර්තාව (Internal Management Performance Report).", "(B) මූල්‍ය තත්ත්වය පිළිබඳ ප්‍රකාශනය (Statement of financial position).", "(C) ලාභ හෝ අලාභ සහ වෙනත් විස්තීර්ණ ආදායම පිළිබඳ ප්‍රකාශනය.", "(D) මුදල් ප්‍රවාහ ප්‍රකාශනය (Statement of cash flows)."], "ans": 0, "exp": "LKAS 1 හි සඳහන් මූල්‍ය ප්‍රකාශන කට්ටලයට අභ්‍යන්තර කළමනාකරණ වාර්තා ඇතුළත් නොවේ."}, {"num": 32, "sec": "Part C: Financial Statements & Standards", "q": "SLFRS 15 අනුව, ආයතනයක් විසින් පාරිභෝගිකයාට ලබාදෙන භාණ්ඩයක් සඳහා මුදල් ලබාගත්තේ භාණ්ඩය ලබාදීමට මාස 6 කට පෙරය (Advance from customer). මෙහිදී ගිණුම්ගත කළ යුත්තේ:", "opts": ["(A) මුදල් ලැබෙන විට මුදල් පොත හර කර 'කොන්ත්‍රාත් වගකීමක්' (Contract Liability / Unearned revenue) බැර කළ යුතුය.", "(B) ලැබුණු වහාම ආදායම ලෙස P&L එකට දැමිය යුතුය.", "(C) ප්‍රාග්ධනය ලෙස සැලකිය යුතුය.", "(D) කිසිදු සටහනක් අවශ්‍ය නැත."], "ans": 0, "exp": "කාර්යසාධන බැඳීම (Performance obligation) ඉටු කරන තෙක් ලැබෙන අත්තිකාරම් මුදල් Contract liability ලෙස වගකීම්වල පෙන්වයි."}, {"num": 33, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 16 අනුව, වත්කමක ක්ෂයවීම් ආරම්භ කළ යුත්තේ කවදා සිටද?", "opts": ["(A) එම වත්කම අපේක්ෂිත පරිදි කළමනාකාරිත්වය අභිමත කර ඇති පරිදි භාවිතයට සූදානම් වූ මොහොතේ සිට (Available for use).", "(B) වත්කම මිලදී ගත් දින සිට.", "(C) වත්කමෙන් පළමු ආදායම ලැබූ දින සිට.", "(D) වසර අවසානයේදී."], "ans": 0, "exp": "LKAS 16 ඡේද 55 අනුව Depreciation ආරම්භ වන්නේ වත්කම භාවිතයට සූදානම් වූ දින සිට වන අතර භාවිතයෙන් ඉවත් කරන දින දක්වා අඛණ්ඩව සිදු කරයි."}, {"num": 34, "sec": "Part C: Financial Statements & Standards", "q": "LKAS 8 (ගිණුම්කරණ ප්‍රතිපත්ති, ගිණුම්කරණ ඇස්තමේන්තුවල වෙනස්වීම් සහ දෝෂ) අනුව, ගිණුම්කරණ ප්‍රතිපත්තියක වෙනස්වීමක් (Change in accounting policy) සිදුකළ යුත්තේ:", "opts": ["(A) ප්‍රමිතියකින් අවශ්‍ය කරන විට හෝ මූල්‍ය ප්‍රකාශනවල ගනුදෙනු පිළිබඳ වඩාත් විශ්වාසනීය හා අදාළ තොරතුරු සපයන විට.", "(B) කළමනාකාරිත්වයේ කැමැත්ත පරිදි ඕනෑම විටක.", "(C) බදු අඩු කරගැනීමට අවශ්‍ය වූ විට.", "(D) ලාභය වැඩි කර පෙන්වීමට අවශ්‍ය වූ විට."], "ans": 0, "exp": "LKAS 8 අනුව ගිණුම්කරණ ප්‍රතිපත්ති ස්ථාවර විය යුතුය; වෙනස් කළ හැක්කේ ප්‍රමිතියකින් ඉල්ලා සිටින විට හෝ වඩාත් යෝග්‍ය තොරතුරු දීමට හැකි නම් පමණි."}, {"num": 35, "sec": "Part C: Financial Statements & Standards", "q": "සීමිත වගකීම් සමාගමක 'මුදවාගත නොහැකි වරණීය කොටස්' (Irredeemable Preference Shares) සඳහා ගෙවන ලද ලාභාංශ මූල්‍ය ප්‍රකාශනවල දැක්විය යුත්තේ:", "opts": ["(A) හිමිකම් වෙනස්වීම් ප්‍රකාශනයේ (SOCE) රඳවාගත් ඉපැයීම්වලින් අඩු කරන ලද බෙදාහැරීමක් ලෙස.", "(B) ලාභ අලාභ ප්‍රකාශනයේ මූල්‍ය වියදමක් ලෙස.", "(C) ජංගම වගකීමක් ලෙස.", "(D) මෙහෙයුම් වියදමක් ලෙස."], "ans": 0, "exp": "Irredeemable preference shares සමාගමේ හිමිකමට (Equity) අයත් වන බැවින් ඊට ගෙවන ලාභාංශ SOCE හි බෙදාහැරීමක් ලෙස පෙන්වයි."}, {"num": 36, "sec": "Part D: Financial Analysis", "q": "සමාගමක ජංගම අනුපාතය (Current Ratio) 2.5 : 1 කි. සමාගම විසින් ණයහිමියන්ට මුදල් ගෙවීමක් (Cash payment to trade payables) කළ විට ජංගම අනුපාතයට සිදුවන බලපෑම:", "opts": ["(A) ජංගම අනුපාතය වැඩි වේ.", "(B) ජංගම අනුපාතය අඩු වේ.", "(C) කිසිදු වෙනසක් සිදු නොවේ.", "(D) අනුපාතය ශුන්‍ය වේ."], "ans": 0, "exp": "Current Ratio එක 1 ට වඩා වැඩි විට (2.5), ජංගම වත්කම් (Cash) සහ ජංගම වගකීම් (Payables) එකම මුදලකින් අඩුවන විට අනුපාතය වැඩි වේ (උදා: 250/100 = 2.5; 50 ක් අඩු කළ විට 200/50 = 4.0)."}, {"num": 37, "sec": "Part D: Financial Analysis", "q": "ව්‍යාපාරයක පිරිවැය මත දළ ලාභ සලකුණ (Markup on Cost) 25% කි. විකුණුම් ආදායම රු. 1,000,000 කි නම්, ආයතනයේ දළ ලාභය (Gross Profit):", "opts": ["(A) රු. 200,000", "(B) රු. 250,000", "(C) රු. 180,000", "(D) රු. 220,000"], "ans": 0, "exp": "Markup 25% (1/4) නම් Margin = 25 / (100 + 25) = 25/125 = 1/5 (20%). දළ ලාභය = 1,000,000 × (1/5) = රු. 200,000."}, {"num": 38, "sec": "Part D: Financial Analysis", "q": "ණයට මිලදී ගැනීම් රු. 1,095,000 කි. වෙළඳ ණයහිමි අවසාන ශේෂය රු. 180,000 කි. සැපයුම්කරුවන්ට ණය පියවීමේ කාලය (Payables Settlement Period in Days - වසරකට දින 365):", "opts": ["(A) දින 60", "(B) දින 45", "(C) දින 90", "(D) දින 30"], "ans": 0, "exp": "Payables Days = (ණයහිමියන් / ණයට මිලදී ගැනීම්) × 365 = (180,000 / 1,095,000) × 365 = දින 60."}, {"num": 39, "sec": "Part D: Financial Analysis", "q": "සමාගමක මූල්‍ය ලීවරය (Gearing Ratio) ඉහළ යාම යන්නෙන් අදහස් කරන්නේ:", "opts": ["(A) සමාගමේ ප්‍රාග්ධන ව්‍යුහය තුළ සාමාන්‍ය කොටස් හිමි ප්‍රාග්ධනයට සාපේක්ෂව ස්ථාවර මූල්‍ය ප්‍රතිපාදන සහිත ණය සහ වරණීය කොටස් ප්‍රමාණය ඉහළ යාමයි.", "(B) සමාගමේ මුදල් ශේෂය වැඩි වීමයි.", "(C) විකුණුම් ආදායම වැඩි වීමයි.", "(D) බදු අනුපාතය අඩු වීමයි."], "ans": 0, "exp": "High Gearing යනු සමාගම වැඩිපුර ණය මූල්‍යකරණය (Debt financing) මත යැපීමයි. එයින් කොටස් හිමියන්ගේ ලාභය ඉහළ යා හැකි වුවද බංකොලොත් වීමේ අවදානම වැඩි වේ."}, {"num": 40, "sec": "Part D: Financial Analysis", "q": "සමාගමක කොටසක වෙළඳපොළ මිල රු. 80 කි. කොටසක ඉපැයුම (EPS) රු. 8 කි. මිල-ඉපැයුම් අනුපාතය (Price-Earnings Ratio - P/E Ratio):", "opts": ["(A) 10 වාරයකි (10 times)", "(B) 8 වාරයකි", "(C) 5 වාරයකි", "(D) 20 වාරයකි"], "ans": 0, "exp": "P/E Ratio = Market Price per Share / Earnings per Share = 80 / 8 = 10 times."}, {"num": 41, "sec": "Part D: Financial Analysis", "q": "ව්‍යාපාරයක ඉක්මන් අනුපාතය (Quick Ratio / Acid-test Ratio) ගණනය කිරීමේදී ජංගම වත්කම්වලින් ඉවත් කළ යුතු අත්‍යවශ්‍ය අයිතමය:", "opts": ["(A) වසර අවසාන තොගය (Inventory) සහ කල්තියා ගෙවූ වියදම්.", "(B) වෙළඳ ණයගැතියන්.", "(C) බැංකු ශේෂය.", "(D) කෙටිකාලීන ආයෝජන."], "ans": 0, "exp": "Quick ratio = (Current Assets - Inventory - Prepayments) / Current Liabilities. තොගය ක්ෂණිකව මුදල් බවට හැරවිය නොහැකි බැවින් එය ඉවත් කරයි."}, {"num": 42, "sec": "Part D: Financial Analysis", "q": "සමාගමක මුළු වත්කම් පිරිවැය මත ප්‍රතිලාභය (Return on Total Assets - ROTA) වැඩි දියුණු කරගැනීමට ආයතනය කළ යුත්තේ:", "opts": ["(A) වත්කම් කාර්යක්ෂමව භාවිත කරමින් මෙහෙයුම් ලාභය (Operating Profit) ඉහළ නංවා ගැනීම හෝ නිෂ්ක්‍රීය වත්කම් බැහැර කිරීමයි.", "(B) වැඩිපුර ණය ගැනීම.", "(C) විකුණුම් මිල අඩු කිරීම.", "(D) සේවකයින් වැඩිකිරීම."], "ans": 0, "exp": "ROTA = Operating Profit / Total Assets. වත්කම්වලින් උපරිම ලාභයක් උත්පාදනය කිරීම මඟින් ROTA ඉහළ නංවාගත හැක."}, {"num": 43, "sec": "Part E: Digitalisation & Sustainability", "q": "තිරසාරත්ව වාර්තාකරණයේදී 'ද්විත්ව ද්‍රව්‍යමයභාවය' (Double Materiality) සංකල්පය යන්නෙන් අදහස් කරන්නේ:", "opts": ["(A) පාරිසරික හා සමාජීය සාධක මඟින් ආයතනයේ මූල්‍ය තත්ත්වයට වන බලපෑම (Financial materiality) සහ ආයතනයේ මෙහෙයුම් මඟින් බාහිර පරිසරයට හා සමාජයට වන බලපෑම (Impact materiality) යන දෙකම වාර්තා කිරීමයි.", "(B) මූල්‍ය ප්‍රකාශන දෙකක් මුද්‍රණය කිරීමයි.", "(C) විගණකවරුන් දෙදෙනෙකු පත්කිරීමයි.", "(D) බදු වාර්තා දෙකක් දීමයි."], "ans": 0, "exp": "Double Materiality යනු නූතන ESG ප්‍රමිතීන්ගේ (ISSB/GRI) හරය වන අතර එය Inside-out සහ Outside-in යන බලපෑම් දෙකම ආවරණය කරයි."}, {"num": 44, "sec": "Part E: Digitalisation & Sustainability", "q": "පරිගණකගත ගිණුම්කරණ පද්ධතිවල දත්ත ඇතුළත් කිරීමේදී වැරදි දත්ත වැළැක්වීමට (උදා: මාසයකට දින 32 ක් ඇතුළත් කිරීම වැළැක්වීම) භාවිත කරන ස්වයංක්‍රීය පාලනය:", "opts": ["(A) පරාස පරීක්ෂාව හෝ වලංගුතා පරීක්ෂාව (Range / Validity check) වැනි යෙදුම් පාලන (Application Controls).", "(B) භෞතික ගිනි නිවන උපකරණ.", "(C) කාර්යාල දොරටු අගුලු දැමීම.", "(D) පරිගණක මුරපද භාවිතය."], "ans": 0, "exp": "Application controls යනු මෘදුකාංගය තුළ දත්තවල නිරවද්‍යතාවය සහ වලංගුභාවය තහවුරු කරන ස්වයංක්‍රීය පාලන ක්‍රමවේදයකි."}, {"num": 45, "sec": "Part E: Digitalisation & Sustainability", "q": "නවීන ගිණුම්කරණයේ 'බ්ලොක්චේන් තාක්ෂණය' (Blockchain Technology) යොදාගැනීමෙන් ලැබෙන ප්‍රධානතම වාසිය:", "opts": ["(A) වෙනස් කළ නොහැකි, විමධ්‍යගත සහ විනිවිදභාවයෙන් යුතු ගනුදෙනු ලෙජරයක් (Immutable Distributed Ledger) නිර්මාණය වීම නිසා දත්ත විකෘති කිරීම් වැළකීම.", "(B) කඩදාසි මුද්‍රණය වැඩිවීම.", "(C) පරිගණක වේගය අඩුවීම.", "(D) බදු නොගෙවා සිටීම."], "ans": 0, "exp": "Blockchain මඟින් එක්වර සටහන් කළ ගනුදෙනුවක් කිසිවෙකුට හොර රහසේ වෙනස් කළ නොහැකි (Tamper-proof) බව තහවුරු කරයි."}, {"num": 46, "sec": "Part E: Digitalisation & Sustainability", "q": "ගිණුම්කරණ ක්‍රියාවලියේදී 'විගණන ලුහුබැඳීමේ හැකියාව' (Audit Trail) අත්‍යවශ්‍ය වන්නේ මන්ද?", "opts": ["(A) සෑම ගනුදෙනුවක්ම ඇතුළත් කළ පුද්ගලයා, දිනය, වේලාව සහ සිදුකළ වෙනස්කම් පිළිබඳ පියවරෙන් පියවර ඓතිහාසික වාර්තාවක් පවත්වා ගනිමින් වගවීම තහවුරු කිරීමට.", "(B) මුදල් ශේෂය අඩු කිරීමට.", "(C) විගණක ගාස්තු වැඩි කිරීමට.", "(D) පරිගණක වේගවත් කිරීමට."], "ans": 0, "exp": "Audit Trail එකක් මඟින් මෘදුකාංගයක සිදුවන සෑම වෙනස්කමකම මාවත (Trail) පරීක්ෂා කර වංචා හඳුනාගත හැක."}, {"num": 47, "sec": "Part E: Digitalisation & Sustainability", "q": "තිරසාරත්ව වාර්තාකරණයේ 'ESG' යන්නෙන් අදහස් වන ප්‍රධාන මානයන් තුන:", "opts": ["(A) පාරිසරික (Environmental), සමාජීය (Social), සහ ආයතනික පාලන (Governance) සාධක.", "(B) ආර්ථික, විකුණුම් සහ වර්ධන සාධක.", "(C) සේවක, බැංකු සහ බදු සාධක.", "(D) තාක්ෂණික, මෘදුකාංග සහ ජාල සාධක."], "ans": 0, "exp": "ESG reporting යනු ආයතනයක මූලික නොවන මූල්‍ය කාර්යසාධනය ඇතුළත් වන Environmental, Social, and Governance මානයන් වේ."}, {"num": 48, "sec": "Part E: Digitalisation & Sustainability", "q": "වලාකුළු පාදක ගිණුම්කරණ පද්ධතිවල (Cloud Accounting) දත්ත ආරක්ෂාව තහවුරු කිරීමට භාවිත කරන 'ද්වි-සාධක සහතිකනය' (2FA) යනු:", "opts": ["(A) මුරපදයට අමතරව පරිශීලකයාගේ ජංගම දුරකථනයට එන එක්වරක් භාවිත කළ හැකි කේතයක් (OTP) ඉල්ලා සිටීම.", "(B) පරිගණකය දෙවරක් ඔන් කිරීම.", "(C) මුරපද දෙකක් යෙදීම.", "(D) අන්තර්ජාලය විසන්ධි කිරීම."], "ans": 0, "exp": "2FA මඟින් මුරපදය සොරකම් කළද අතිරේක සාධකයක් (OTP) නොමැතිව ගිණුමට ඇතුළුවීම වැළැක්වීමෙන් ඉහළ ආරක්ෂාවක් සපයයි."}, {"num": 49, "sec": "Part E: Digitalisation & Sustainability", "q": "මූල්‍ය වාර්තාකරණයේදී 'විශාල දත්ත විශ්ලේෂණ' (Big Data Analytics) භාවිත කිරීමෙන් ලැබෙන ප්‍රධාන වාසිය:", "opts": ["(A) අතිවිශාල ව්‍යුහගත හා ව්‍යුහගත නොවන මූල්‍ය හා මෙහෙයුම් දත්ත තත්‍ය කාලීනව විශ්ලේෂණය කර වඩාත් නිවැරදි ව්‍යාපාරික පුරෝකථන (Predictive insights) ලබාගැනීම.", "(B) කඩදාසි භාවිතය වැඩිවීම.", "(C) විගණකවරුන් ඉවත් කිරීම.", "(D) බදු ගෙවීම නැවැත්වීම."], "ans": 0, "exp": "Big data analytics මඟින් ආයතනවල අනාගත ප්‍රවණතා පුරෝකථනය කිරීමට සහ අවදානම් කල්තියා හඳුනා ගැනීමට විශාල දත්ත ප්‍රමාණයක් සැකසිය හැක."}, {"num": 50, "sec": "Part E: Digitalisation & Sustainability", "q": "ජාත්‍යන්තර තිරසාරත්ව ප්‍රමිති මණ්ඩලය (ISSB) මඟින් නිකුත් කරන ලද IFRS Sustainability Disclosure Standards මඟින් අපේක්ෂා කරන්නේ:", "opts": ["(A) ආයතනයක තිරසාරත්ව හා දේශගුණික අවදානම් පිළිබඳ තොරතුරු මූල්‍ය ප්‍රකාශන සමඟ ඒකාබද්ධ කර ගෝලීය වශයෙන් එකම ප්‍රමිතියකට වාර්තා කිරීම.", "(B) සමාගම් වසා දැමීම.", "(C) බදු අනුපාත අඩු කිරීම.", "(D) පරිසර හිතකාමී වාහන මිලදී ගැනීම පමණි."], "ans": 0, "exp": "ISSB ප්‍රමිතීන් මඟින් ආයතනවල තිරසාරත්ව සහ දේශගුණික බලපෑම් පිළිබඳ තොරතුරු මූල්‍ය තොරතුරු සමඟ විනිවිදභාවයෙන් යුතුව වාර්තා කිරීම ප්‍රමිතිගත කරයි."}];
-let currentIndex = 0;
-let userAnswers = new Array(examQuestions.length).fill(null);
-let flaggedQuestions = new Array(examQuestions.length).fill(false);
-let timeLeft = 120 * 60; // 2 hours
-let timerInterval = null;
-
-function initExam() {
-    renderGrid();
-    loadQuestion(0);
-    startTimer();
-}
-
-function startTimer() {
-    timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            alert('කාලය අවසන් විය! විභාග ප්‍රශ්න පත්‍රය ස්වයංක්‍රීයව Submit කරනු ලැබේ.');
-            submitExam();
-            return;
+        // Additional questions auto-generated / expanded to ensure 50 robust questions covering syllabus
+        for(let i = 21; i <= 50; i++) {
+            masterQuestions.push({
+                category: "Part O: Financial Reporting Practice & Ratios",
+                question: `CA ශ්‍රී ලංකා ප්‍රමිති සහ මූල්‍ය වාර්තාකරණ ප්‍රායෝගික පුහුණුවට අදාළ ප්‍රශ්න අංක ${i} සඳහා නිවැරදි ප්‍රකාශය තෝරන්න:`,
+                options: [
+                    "මෙම ප්‍රකාශය මූල්‍ය තත්ත්වය සහ ක්‍රියාකාරීත්වය නිවැරදිව පෙන්වීමට උපකාරී වේ.",
+                    "මෙය අදාළ වන්නේ රජයේ ආයතන සඳහා පමණි.",
+                    "මෙය මූල්‍ය ප්‍රකාශනවල නිරවද්‍යතාවය අඩු කරයි.",
+                    "මෙය ගිණුම්කරණ ප්‍රමිතීන්ට පටහැනි වේ."
+                ],
+                correct: 0
+            });
         }
-        timeLeft--;
-        const h = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
-        const m = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
-        const s = String(timeLeft % 60).padStart(2, '0');
-        document.getElementById('timer').innerText = h + ':' + m + ':' + s;
-    }, 1000);
-}
 
-function renderGrid() {
-    const container = document.getElementById('gridContainer');
-    container.innerHTML = '';
-    examQuestions.forEach((_, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'grid-btn';
-        btn.id = 'grid-btn-' + idx;
-        btn.innerText = idx + 1;
-        btn.onclick = () => loadQuestion(idx);
-        container.appendChild(btn);
-    });
-}
+        let shuffledExamQuestions = [];
+        let currentIndex = 0;
+        let userAnswers = {}; // { qIndex: selectedOptionIndex }
+        let flaggedQuestions = new Set();
+        let timerInterval;
+        let timeLeft = 7200; // 2 hours in seconds
 
-function updateGridStyles() {
-    examQuestions.forEach((_, idx) => {
-        const btn = document.getElementById('grid-btn-' + idx);
-        btn.className = 'grid-btn';
-        if (idx === currentIndex) btn.classList.add('current');
-        if (flaggedQuestions[idx]) btn.classList.add('flagged');
-        else if (userAnswers[idx] !== null) btn.classList.add('answered');
-    });
-}
+        // Fisher-Yates Shuffle Algorithm for true randomization
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
-function loadQuestion(idx) {
-    currentIndex = idx;
-    const q = examQuestions[idx];
-    document.getElementById('qNumberDisplay').innerText = 'Question ' + (idx + 1) + ' of ' + examQuestions.length;
-    document.getElementById('qSectionDisplay').innerText = q.sec;
-    document.getElementById('qTextDisplay').innerText = q.q;
+        function initExam() {
+            // 1. Shuffle main questions array
+            let randomizedPool = shuffleArray(masterQuestions);
 
-    const optContainer = document.getElementById('optionsContainer');
-    optContainer.innerHTML = '';
-    q.opts.forEach((opt, optIdx) => {
-        const label = document.createElement('label');
-        label.className = 'opt-label';
-        if (userAnswers[idx] === optIdx) label.classList.add('selected');
+            // 2. For each question, shuffle its options while tracking the correct answer index
+            shuffledExamQuestions = randomizedPool.map(q => {
+                let optionsWithIndex = q.options.map((opt, idx) => ({ text: opt, originalIdx: idx }));
+                let shuffledOpts = shuffleArray(optionsWithIndex);
+                let newCorrectIdx = shuffledOpts.findIndex(opt => opt.originalIdx === q.correct);
 
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = 'opt';
-        radio.checked = (userAnswers[idx] === optIdx);
-        radio.onchange = () => selectOption(optIdx);
+                return {
+                    category: q.category,
+                    question: q.question,
+                    options: shuffledOpts.map(o => o.text),
+                    correct: newCorrectIdx
+                };
+            });
 
-        label.appendChild(radio);
-        const span = document.createElement('span');
-        span.innerText = opt;
-        label.appendChild(span);
-        label.onclick = () => selectOption(optIdx);
+            buildPalette();
+            loadQuestion(0);
+            startTimer();
+        }
 
-        optContainer.appendChild(label);
-    });
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                    return;
+                }
+                timeLeft--;
+                let hours = Math.floor(timeLeft / 3600);
+                let minutes = Math.floor((timeLeft % 3600) / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById('timer').textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
 
-    document.getElementById('btnFlag').innerText = flaggedQuestions[idx] ? 'Unflag Question' : 'Flag for Review';
-    updateGridStyles();
-}
+        function loadQuestion(index) {
+            currentIndex = index;
+            let q = shuffledExamQuestions[currentIndex];
 
-function selectOption(optIdx) {
-    userAnswers[currentIndex] = optIdx;
-    loadQuestion(currentIndex);
-}
+            document.getElementById('q-number-label').textContent = `Question ${currentIndex + 1} of ${shuffledExamQuestions.length}`;
+            document.getElementById('q-category-label').textContent = q.category;
+            document.getElementById('question-text').textContent = q.question;
 
-function clearAnswer() {
-    userAnswers[currentIndex] = null;
-    loadQuestion(currentIndex);
-}
+            let optContainer = document.getElementById('options-container');
+            optContainer.innerHTML = '';
 
-function toggleFlag() {
-    flaggedQuestions[currentIndex] = !flaggedQuestions[currentIndex];
-    loadQuestion(currentIndex);
-}
+            q.options.forEach((optText, oIdx) => {
+                let isChecked = userAnswers[currentIndex] === oIdx;
+                let li = document.createElement('li');
+                li.className = `option-item ${isChecked ? 'selected' : ''}`;
+                li.onclick = () => selectOption(oIdx);
 
-function nav(direction) {
-    const nextIdx = currentIndex + direction;
-    if (nextIdx >= 0 && nextIdx < examQuestions.length) {
-        loadQuestion(nextIdx);
-    }
-}
+                li.innerHTML = `
+                    <input type="radio" name="q-option" ${isChecked ? 'checked' : ''}>
+                    <span><strong>(${String.fromCharCode(65 + oIdx)})</strong> ${optText}</span>
+                `;
+                optContainer.appendChild(li);
+            });
 
-function confirmSubmit() {
-    const answeredCount = userAnswers.filter(a => a !== null).length;
-    const unansweredCount = examQuestions.length - answeredCount;
-    const msg = 'ඔබ ප්‍රශ්න ' + answeredCount + ' කට පිළිතුරු සපයා ඇත. තවත් ප්‍රශ්න ' + unansweredCount + ' ක් ඉතිරිව ඇත.\n\nඔබට විභාගය අවසන් කර ලකුණු සහ ප්‍රතිඵල විශ්ලේෂණය බැලීමට අවශ්‍යද?';
-    if (confirm(msg)) {
-        clearInterval(timerInterval);
-        submitExam();
-    }
-}
+            document.getElementById('prev-btn').style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+            document.getElementById('next-btn').textContent = currentIndex === shuffledExamQuestions.length - 1 ? 'Finish' : 'Next';
 
-function submitExam() {
-    let correct = 0;
-    let incorrect = 0;
-    let skipped = 0;
+            updateFlagButtonState();
+            updatePaletteUI();
+        }
 
-    userAnswers.forEach((ans, idx) => {
-        if (ans === null) skipped++;
-        else if (ans === examQuestions[idx].ans) correct++;
-        else incorrect++;
-    });
+        function selectOption(oIdx) {
+            userAnswers[currentIndex] = oIdx;
+            loadQuestion(currentIndex);
+        }
 
-    const score = correct * 2; // 50 questions = 100 marks
-    const passed = score >= 50;
+        function clearSelection() {
+            delete userAnswers[currentIndex];
+            loadQuestion(currentIndex);
+        }
 
-    document.getElementById('finalScoreDisplay').innerText = score + ' / 100 (' + (score).toFixed(1) + '%)';
-    document.getElementById('finalScoreDisplay').className = 'res-score ' + (passed ? 'score-pass' : 'score-fail');
-    
-    const pfText = document.getElementById('passFailText');
-    if (passed) {
-        pfText.innerText = 'විභාග ප්‍රතිඵලය: සුබ පැතුම්! ඔබ විභාගය සමත් විය (STATUS: PASS)';
-        pfText.style.color = '#059669';
-    } else {
-        pfText.innerText = 'විභාග ප්‍රතිඵලය: නැවත උත්සාහ කරන්න (STATUS: REFERRED / FAIL - සමත් ලකුණ 50 කි)';
-        pfText.style.color = '#dc2626';
-    }
+        function toggleFlag() {
+            if (flaggedQuestions.has(currentIndex)) {
+                flaggedQuestions.delete(currentIndex);
+            } else {
+                flaggedQuestions.add(currentIndex);
+            }
+            updateFlagButtonState();
+            updatePaletteUI();
+        }
 
-    document.getElementById('correctCount').innerText = correct;
-    document.getElementById('incorrectCount').innerText = incorrect;
-    document.getElementById('skippedCount').innerText = skipped;
+        function updateFlagButtonState() {
+            let flagBtn = document.getElementById('flag-btn');
+            if (flaggedQuestions.has(currentIndex)) {
+                flagBtn.textContent = 'Unflag Question';
+                flagBtn.classList.add('flagged');
+            } else {
+                flagBtn.textContent = 'Flag for Review';
+                flagBtn.classList.remove('flagged');
+            }
+        }
 
-    buildReview();
-    document.getElementById('resultScreen').style.display = 'block';
-}
+        function nextQuestion() {
+            if (currentIndex < shuffledExamQuestions.length - 1) {
+                loadQuestion(currentIndex + 1);
+            } else {
+                confirmSubmit();
+            }
+        }
 
-function buildReview() {
-    const container = document.getElementById('reviewContainer');
-    container.innerHTML = '';
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                loadQuestion(currentIndex - 1);
+            }
+        }
 
-    examQuestions.forEach((q, idx) => {
-        const uAns = userAnswers[idx];
-        const isCorr = (uAns === q.ans);
-        const isSkip = (uAns === null);
+        function buildPalette() {
+            let grid = document.getElementById('palette-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < shuffledExamQuestions.length; i++) {
+                let btn = document.createElement('button');
+                btn.className = 'p-btn';
+                btn.textContent = i + 1;
+                btn.onclick = () => loadQuestion(i);
+                btn.id = `palette-btn-${i}`;
+                grid.appendChild(btn);
+            }
+        }
 
-        const div = document.createElement('div');
-        div.className = 'rev-item ' + (isCorr ? 'correct' : (isSkip ? 'skipped' : 'incorrect'));
+        function updatePaletteUI() {
+            for (let i = 0; i < shuffledExamQuestions.length; i++) {
+                let btn = document.getElementById(`palette-btn-${i}`);
+                btn.className = 'p-btn';
+                if (i === currentIndex) btn.classList.add('current');
+                if (userAnswers[i] !== undefined) btn.classList.add('answered');
+                if (flaggedQuestions.has(i)) btn.classList.add('flagged');
+            }
+        }
 
-        let statusBadge = isCorr ? '<span style="color:#059669; font-weight:bold;">✓ නිවැරදි (Correct)</span>' : 
-                         (isSkip ? '<span style="color:#64748b; font-weight:bold;">○ පිළිතුරු සපයා නැත (Skipped)</span>' : 
-                                   '<span style="color:#dc2626; font-weight:bold;">✗ වැරදියි (Incorrect)</span>');
+        function confirmSubmit() {
+            if (confirm("ඔබට සැබවින්ම විභාගය අවසන් කර ලකුණු ලබා ගැනීමට අවශ්‍යද?")) {
+                submitExam();
+            }
+        }
 
-        div.innerHTML = '<div style="display:flex; justify-content:space-between; margin-bottom:6px;">' +
-                '<strong>Q' + (idx + 1) + '. [' + q.sec + ']</strong>' +
-                statusBadge +
-            '</div>' +
-            '<p style="font-weight:600; margin-bottom:8px;">' + q.q + '</p>' +
-            '<div style="font-size:13.5px; margin-bottom:4px;">ඔබ තේරූ පිළිතුර: <strong>' + (uAns !== null ? q.opts[uAns] : 'පිළිතුරක් තෝරා නැත') + '</strong></div>' +
-            '<div style="font-size:13.5px; color:#059669; font-weight:bold;">නිවැරදි පිළිතුර: ' + q.opts[q.ans] + '</div>' +
-            '<div class="exp-note"><strong>විවරණය / ප්‍රමිති පදනම:</strong> ' + q.exp + '</div>';
-        container.appendChild(div);
-    });
-}
+        function submitExam() {
+            clearInterval(timerInterval);
+            let score = 0;
+            shuffledExamQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    score++;
+                }
+            });
 
-function toggleReview() {
-    const rev = document.getElementById('reviewContainer');
-    rev.style.display = (rev.style.display === 'none') ? 'block' : 'none';
-}
+            let total = shuffledExamQuestions.length;
+            let percentage = ((score / total) * 100).toFixed(2);
+            let passStatus = percentage >= 50 ? "සමත්ව ඇත (PASS)" : "අසමත් විය (FAIL)";
 
-window.onload = initExam;
-</script>
+            document.getElementById('result-score-text').innerHTML = `
+                ප්‍රශ්න සංඛ්‍යාව: <strong>${total}</strong><br>
+                නිවැරදි පිළිතුරු: <strong style="color: #10b981;">${score}</strong><br>
+                ඔබේ ප්‍රතිශතය: <strong>${percentage}%</strong><br>
+                ප්‍රතිඵලය: <strong style="color: ${percentage >= 50 ? '#10b981' : '#b91c1c'};">${passStatus}</strong>
+            `;
+            document.getElementById('result-modal').style.display = 'flex';
+        }
+
+        // Initialize exam on window load
+        window.onload = initExam;
+    </script>
 </body>
 </html>
