@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA Sri Lanka CBT Exam Simulator - BL-25-4</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', 'Iskoola Pota', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f1f5f9; color: #0f172a; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    header { background: #1e3a8a; color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #f59e0b; flex-shrink: 0; }
+    .inst-title { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+    .exam-tag { font-size: 13px; color: #93c5fd; }
+    .timer-badge { background: #b91c1c; color: white; padding: 6px 14px; border-radius: 6px; font-size: 18px; font-weight: 700; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .exam-container { display: flex; flex: 1; overflow: hidden; }
+    .question-pane { flex: 3; display: flex; flex-direction: column; background: #ffffff; padding: 24px 32px; overflow-y: auto; border-right: 1px solid #cbd5e1; }
+    .q-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 18px; }
+    .q-number { font-size: 17px; font-weight: 700; color: #1e3a8a; }
+    .q-section { font-size: 13px; background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+    .q-text { font-size: 15.5px; line-height: 1.6; color: #1e293b; margin-bottom: 20px; font-weight: 600; }
+    .options-list { display: flex; flex-direction: column; gap: 12px; }
+    .opt-label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; cursor: pointer; transition: all 0.15s ease-in-out; background: #f8fafc; font-size: 14.5px; line-height: 1.45; }
+    .opt-label:hover { background: #f1f5f9; border-color: #94a3b8; }
+    .opt-label input[type="radio"] { margin-top: 3px; width: 17px; height: 17px; accent-color: #1e3a8a; cursor: pointer; }
+    .opt-label.selected { background: #eff6ff; border-color: #2563eb; color: #1e40af; font-weight: 600; }
+    .action-bar { margin-top: auto; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .btn { padding: 9px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: 0.15s; }
+    .btn-prev { background: #e2e8f0; color: #334155; }
+    .btn-prev:hover { background: #cbd5e1; }
+    .btn-next { background: #1e3a8a; color: white; }
+    .btn-next:hover { background: #1e40af; }
+    .btn-flag { background: #fef3c7; color: #b45309; border: 1px solid #f59e0b; }
+    .btn-flag:hover { background: #fde68a; }
+    .btn-clear { background: #fee2e2; color: #b91c1c; }
+    .btn-clear:hover { background: #fecaca; }
+    .palette-pane { flex: 1; min-width: 320px; max-width: 360px; background: #f8fafc; padding: 18px; display: flex; flex-direction: column; border-left: 1px solid #cbd5e1; }
+    .palette-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11.5px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #cbd5e1; }
+    .leg-item { display: flex; align-items: center; gap: 6px; }
+    .leg-box { width: 15px; height: 15px; border-radius: 3px; display: inline-block; }
+    .leg-ans { background: #10b981; }
+    .leg-flag { background: #f59e0b; }
+    .leg-unans { background: #e2e8f0; border: 1px solid #94a3b8; }
+    .leg-curr { background: #3b82f6; }
+    .grid-container { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-content: start; padding-right: 4px; }
+    .grid-btn { height: 38px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.1s; }
+    .grid-btn:hover { border-color: #1e3a8a; }
+    .grid-btn.answered { background: #10b981; color: white; border-color: #059669; }
+    .grid-btn.flagged { background: #f59e0b; color: white; border-color: #d97706; }
+    .grid-btn.current { outline: 2.5px solid #1e3a8a; outline-offset: 1px; }
+    .submit-area { margin-top: 14px; padding-top: 14px; border-top: 1px solid #cbd5e1; }
+    .btn-submit { width: 100%; background: #059669; color: white; padding: 12px; font-size: 15px; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; }
+    .btn-submit:hover { background: #047857; }
+    #resultScreen { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); z-index: 1000; padding: 20px; overflow-y: auto; }
+    .result-card { background: #ffffff; max-width: 900px; margin: 20px auto; border-radius: 12px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    .res-header { text-align: center; margin-bottom: 24px; }
+    .res-score { font-size: 44px; font-weight: 800; }
+    .score-pass { color: #059669; }
+    .score-fail { color: #dc2626; }
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; text-align: center; }
+    .stat-box { background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .stat-num { font-size: 20px; font-weight: 700; color: #1e3a8a; }
+    .review-accordion { margin-top: 24px; }
+    .rev-item { border: 1px solid #cbd5e1; border-radius: 6px; padding: 14px; margin-bottom: 12px; }
+    .rev-item.correct { border-left: 5px solid #10b981; background: #f0fdf4; }
+    .rev-item.incorrect { border-left: 5px solid #ef4444; background: #fef2f2; }
+    .rev-item.skipped { border-left: 5px solid #94a3b8; background: #f8fafc; }
+    .exp-note { margin-top: 8px; padding: 10px; background: #ffffff; border-radius: 4px; font-size: 13px; border-left: 3px solid #3b82f6; }
+</style>
+</head>
+<body>
+
+<header>
+    <div>
+        <div class="inst-title">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF SRI LANKA</div>
+        <div class="exam-tag">Business Level Computer-Based Examination | BL-25-4: Business Fundamentals, Law & Tax</div>
+    </div>
+    <div class="timer-badge" id="timer">02:00:00</div>
+</header>
+
+<div class="exam-container">
+    <div class="question-pane">
+        <div class="q-header">
+            <div class="q-number" id="qNumberDisplay">Question 1 of 50</div>
+            <div class="q-section" id="qSectionDisplay">Section</div>
+        </div>
+        <div class="q-text" id="qTextDisplay">Loading...</div>
+        <div class="options-list" id="optionsContainer"></div>
+
+        <div class="action-bar">
+            <div>
+                <button class="btn btn-prev" onclick="nav(-1)">Previous</button>
+                <button class="btn btn-next" onclick="nav(1)">Next</button>
+            </div>
+            <div>
+                <button class="btn btn-flag" id="btnFlag" onclick="toggleFlag()">Flag for Review</button>
+                <button class="btn btn-clear" onclick="clearAnswer()">Clear Selection</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="palette-pane">
+        <h4 style="font-size: 14px; margin-bottom: 10px; color: #1e3a8a;">Question Navigation Palette</h4>
+        <div class="palette-legend">
+            <div class="leg-item"><span class="leg-box leg-ans"></span> Answered</div>
+            <div class="leg-item"><span class="leg-box leg-unans"></span> Not Answered</div>
+            <div class="leg-item"><span class="leg-box leg-flag"></span> Flagged</div>
+            <div class="leg-item"><span class="leg-box leg-curr"></span> Current</div>
+        </div>
+        <div class="grid-container" id="gridContainer"></div>
+
+        <div class="submit-area">
+            <button class="btn-submit" onclick="confirmSubmit()">Finish &amp; Submit Exam</button>
+        </div>
+    </div>
+</div>
+
+<div id="resultScreen">
+    <div class="result-card">
+        <div class="res-header">
+            <h2 style="color: #1e3a8a; margin-bottom: 6px;">CBT Examination Result &amp; Performance Summary</h2>
+            <div class="res-score" id="finalScoreDisplay">0 / 100</div>
+            <p id="passFailText" style="font-size: 18px; font-weight: 700; margin-top: 4px;"></p>
+        </div>
+        <div class="stat-row">
+            <div class="stat-box"><div>Total Questions</div><div class="stat-num">50</div></div>
+            <div class="stat-box"><div>Correct (නිවැරදි)</div><div class="stat-num" id="correctCount" style="color: #059669;">0</div></div>
+            <div class="stat-box"><div>Incorrect (වැරදි)</div><div class="stat-num" id="incorrectCount" style="color: #dc2626;">0</div></div>
+            <div class="stat-box"><div>Skipped (නොකළ)</div><div class="stat-num" id="skippedCount" style="color: #64748b;">0</div></div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button class="btn btn-next" onclick="toggleReview()">Show Detailed Question Review &amp; Explanations</button>
+            <button class="btn btn-prev" onclick="location.reload()" style="margin-left: 10px;">Retake Exam</button>
+        </div>
+
+        <div id="reviewContainer" style="display: none;" class="review-accordion"></div>
+    </div>
+</div>
+
+<script>
+const examQuestions = [{"num": 1, "sec": "Business Fundamentals & Macroeconomics", "q": "පෝටර්ගේ පංච බලවේග ආකෘතියට (Porter’s Five Forces) අනුව, කර්මාන්තයක 'ආදේශක භාණ්ඩවල තර්ජනය' (Threat of Substitutes) ඉහළ යාමට ප්‍රධාන හේතුවක් වන්නේ:", "opts": ["(A) පාරිභෝගිකයින් වෙනත් විකල්පයකට මාරුවීමේ පිරිවැය (Switching costs) ඉතා ඉහළ වීම.", "(B) ආදේශක භාණ්ඩවල මිල-කාර්යසාධන අනුපාතය (Price-performance trade-off) වඩාත් ආකර්ෂණීය වීම.", "(C) පවතින සමාගම්වල නිෂ්පාදන සඳහා දැඩි සන්නාම පක්ෂපාතිත්වයක් පැවතීම.", "(D) කර්මාන්තයට ඇතුළුවීමට දැඩි නීතිමය බාධක පැවතීම."], "ans": 1, "exp": "ආදේශක භාණ්ඩ සාපේක්ෂව අඩු මිලකට ඉහළ උපයෝගිතාවක් ලබා දෙන විට සහ switching costs අඩු වන විට තර්ජනය ඉහළ යයි."}, {"num": 2, "sec": "Business Fundamentals & Macroeconomics", "q": "ශ්‍රී ලංකා මහ බැංකුව විසින් සිය ප්‍රතිපත්ති පොලී අනුපාත (SDFR සහ SLFR) ඉහළ දැමූ විට ව්‍යාපාර ක්ෂේත්‍රය කෙරෙහි ඇතිවිය හැකි ක්ෂණික සාර්ව ආර්ථික බලපෑම:", "opts": ["(A) ණය ගැනීමේ පිරිවැය අඩු වී පෞද්ගලික ආයෝජන ඉහළ යයි.", "(B) වාණිජ බැංකු ණය පොලී අනුපාත ඉහළ යන අතර පෞද්ගලික අංශයේ ආයෝජන සහ පාරිභෝගික ඉල්ලුම අඩු වේ.", "(C) මුදල් සැපයුම ශීඝ්‍රයෙන් ඉහළ යයි.", "(D) උද්ධමනය පාලනයකින් තොරව ඉහළ යයි."], "ans": 1, "exp": "පොලී අනුපාත වැඩි කිරීම (Contractionary monetary policy) මඟින් ණය ගැනීමේ පිරිවැය වැඩි වී සමස්ත ඉල්ලුම සංකෝචනය වේ."}, {"num": 3, "sec": "Business Fundamentals & Macroeconomics", "q": "PESTEL විශ්ලේෂණයේදී, රටක ජනගහන වයස් ව්‍යුහය, අධ්‍යාපන මට්ටම සහ පාරිභෝගික ජීවන රටාවේ වෙනස්වීම් අයත් වන්නේ කුමන සාධක කාණ්ඩයටද?", "opts": ["(A) දේශපාලනික සාධක (Political)", "(B) සමාජීය හා සංස්කෘතික සාධක (Social / Demographic)", "(C) ආර්ථික සාධක (Economic)", "(D) තාක්ෂණික සාධක (Technological)"], "ans": 1, "exp": "ජනගහන විකාශනය, පාරිභෝගික රුචිකත්ව හා සංස්කෘතික ආකල්ප සමාජීය (Social) සාධක ගණයට අයත් වේ."}, {"num": 4, "sec": "Business Fundamentals & Macroeconomics", "q": "ආයතනික පාලනයේදී 'නියෝජිත ගැටලුව' (Agency Problem) ප්‍රධාන වශයෙන් හටගන්නේ කුමන පාර්ශ්වයන් අතරද?", "opts": ["(A) සේවකයින් සහ වෘත්තීය සමිති අතර", "(B) සමාගමේ කොටස් හිමියන් (Principals) සහ කළමනාකාරිත්වය/අධ්‍යක්ෂවරුන් (Agents) අතර", "(C) රජය සහ බදු ගෙවන්නන් අතර", "(D) සැපයුම්කරුවන් සහ පාරිභෝගිකයන් අතර"], "ans": 1, "exp": "හිමිකාරිත්වය (Shareholders) සහ කළමනාකරණය (Directors) වෙන්වීම නිසා අධ්‍යක්ෂවරුන් තම පෞද්ගලික වාසිය තකා ක්‍රියාකිරීමේ අවදානමයි."}, {"num": 5, "sec": "Business Fundamentals & Macroeconomics", "q": "Ansoff's Matrix ට අනුව, පවතින වෙළඳපොළකට සම්පූර්ණයෙන්ම නව නිෂ්පාදනයක් හඳුන්වා දීමේ උපායමාර්ගය:", "opts": ["(A) වෙළඳපොළ විනිවිද යාම (Market Penetration)", "(B) නිෂ්පාදන සංවර්ධනය (Product Development)", "(C) වෙළඳපොළ සංවර්ධනය (Market Development)", "(D) විවිධාංගීකරණය (Diversification)"], "ans": 1, "exp": "Existing Market + New Product = Product Development Strategy."}, {"num": 6, "sec": "Business Fundamentals & Macroeconomics", "q": "මෙන්ඩෙලෝගේ න්‍යාසයේ (Mendelow's Matrix) 'ඉහළ බලයක් (High Power) සහ ඉහළ උනන්දුවක් (High Interest)' සහිත කොටස්කරුවන් කළමනාකරණය කළ යුත්තේ කෙසේද?", "opts": ["(A) දැඩිව හා සමීපව කළමනාකරණය කිරීම (Manage Closely).", "(B) තෘප්තිමත්ව තබාගැනීම (Keep Satisfied).", "(C) දැනුවත් කිරීම පමණක් සිදුකිරීම (Keep Informed).", "(D) අවම අධීක්ෂණය (Minimal Effort)."], "ans": 0, "exp": "Key Players ලෙස හඳුන්වන මෙම පාර්ශ්වයන් ආයතනයේ තීරණවලට සෘජුවම බලපෑම් කරන බැවින් Manage Closely උපායමාර්ගය අනුගමනය කරයි."}, {"num": 7, "sec": "Business Fundamentals & Macroeconomics", "q": "BCG Matrix හි 'Cash Cows' (මුදල් දෙන දෙනුන්) ලෙස වර්ගීකරණය වන නිෂ්පාදන ඒකකවල මූලික ලක්ෂණය වන්නේ:", "opts": ["(A) අඩු වර්ධනයක් සහිත පරිණත වෙළඳපොළක ඉහළ වෙළඳපොළ කොටසක් රඳවාගෙන සිටීම.", "(B) වේගයෙන් වර්ධනය වන වෙළඳපොළක අඩු කොටසක් පැවතීම.", "(C) අධික ප්‍රාග්ධන ආයෝජන අවශ්‍ය වීම.", "(D) කිසිදු ලාභයක් උපයා නොදීම."], "ans": 0, "exp": "Cash Cows පරිණත වෙළඳපොළවල ඉහළ කොටසක් හිමි ඒකක වන අතර ඒවායෙන් අනාගත ආයෝජන සඳහා දැවැන්ත මුදල් ප්‍රවාහ ජනනය කරයි."}, {"num": 8, "sec": "Business Fundamentals & Macroeconomics", "q": "පෝටර්ගේ අගය දාම විශ්ලේෂණයේදී (Porter’s Value Chain) 'ප්‍රාථමික ක්‍රියාකාරකමක්' (Primary Activity) වන්නේ:", "opts": ["(A) මානව සම්පත් කළමනාකරණය (Human Resource Management)", "(B) පිටතට බෙදාහැරීමේ මෙහෙයුම් (Outbound Logistics)", "(C) ආයතනික යටිතල පහසුකම් (Firm Infrastructure)", "(D) තාක්ෂණික සංවර්ධනය (Technology Development)"], "ans": 1, "exp": "Outbound logistics (නිමි භාණ්ඩ ගබඩා කිරීම හා බෙදාහැරීම) යනු භාණ්ඩය පාරිභෝගිකයා අතට පත්කිරීමේ ප්‍රාථමික ක්‍රියාවලියකි."}, {"num": 9, "sec": "Business Fundamentals & Macroeconomics", "q": "ආනයනික ඉන්ධන මිල හා අමුද්‍රව්‍ය පිරිවැය අධික ලෙස ඉහළ යාම නිසා නිෂ්පාදකයින් භාණ්ඩ මිල ඉහළ දැමීමෙන් හටගන්නා උද්ධමන වර්ගය:", "opts": ["(A) ඉල්ලුම් තල්ලු උද්ධමනය (Demand-Pull Inflation)", "(B) පිරිවැය තල්ලු උද්ධමනය (Cost-Push Inflation)", "(C) මූල්‍ය උද්ධමනය", "(D) මුදල් හැකිලීම"], "ans": 1, "exp": "නිෂ්පාදන සාධක පිරිවැය ඉහළ යාම නිසා සමස්ත සැපයුම පහත වැටී මිල ඉහළ යාම Cost-push inflation වේ."}, {"num": 10, "sec": "Business Fundamentals & Macroeconomics", "q": "වෘත්තීය ගණකාධිකාරීවරයෙකු තම සේවායෝජකයාගේ ව්‍යාපාරික රහස් වෙනත් තරඟකාරී ආයතන වෙත හෙළිදරව් නොකිරීමෙන් සුරකින මූලික ආචාරධර්මය කුමක්ද?", "opts": ["(A) අවංකභාවය (Integrity)", "(B) රහස්‍යභාවය (Confidentiality)", "(C) වාස්තවිකත්වය (Objectivity)", "(D) වෘත්තීය හැසිරීම (Professional Behaviour)"], "ans": 1, "exp": "අවසරයකින් තොරව සේවාදායකයාගේ හෝ ආයතනයේ තොරතුරු හෙළි නොකිරීම Confidentiality මූලධර්මයයි."}, {"num": 11, "sec": "Business Fundamentals & Macroeconomics", "q": "කැරොල්ගේ CSR පිරමීඩයට (Carroll’s CSR Pyramid) අනුව, ව්‍යාපාරයකට සමාජය විසින් පනවා ඇති නීති රීති හා ප්‍රමිතීන්ට අනුකූලව කටයුතු කිරීමේ වගකීම:", "opts": ["(A) ආර්ථික වගකීම (Economic Responsibility)", "(B) නෛතික වගකීම (Legal Responsibility)", "(C) සදාචාරාත්මක වගකීම (Ethical Responsibility)", "(D) පරිත්‍යාගශීලී වගකීම (Philanthropic Responsibility)"], "ans": 1, "exp": "නීතිමය රෙගුලාසි, පාරිභෝගික ආරක්ෂණ නීති සහ බදු නීතිවලට අනුකූල වීම Legal responsibility වේ."}, {"num": 12, "sec": "Business Fundamentals & Macroeconomics", "q": "භාණ්ඩයක මිල 10% කින් ඉහළ යන විට එහි ඉල්ලුම් ප්‍රමාණය 15% කින් පහත වැටේ නම්, එම භාණ්ඩයේ ඉල්ලුමේ මිල නම්‍යතාවය (PED) සහ එහි ස්වභාවය:", "opts": ["(A) 0.67 (අනම්‍ය)", "(B) 1.50 (ප්‍රත්‍යාස්ථ / නම්‍ය)", "(C) 1.00 (ඒකීය නම්‍ය)", "(D) 0.00 (පූර්ණ අනම්‍ය)"], "ans": 1, "exp": "PED = 15% / 10% = 1.5. අගය 1 ට වඩා වැඩි බැවින් ඉල්ලුම මිල-ප්‍රත්‍යාස්ථ (Elastic) වේ."}, {"num": 13, "sec": "Business Fundamentals & Macroeconomics", "q": "ශ්‍රී ලංකාවේ ආර්ථිකය තුළ දේශීය මුදලේ (LKR) අගය විදේශ මුදල්වලට සාපේක්ෂව අවප්‍රමාණ වීමකදී (Depreciation):", "opts": ["(A) ආනයන භාණ්ඩවල දේශීය මිල ඉහළ යන අතර දේශීය අපනයනකරුවන්ට මිල තරඟකාරීත්වයක් හිමිවේ.", "(B) සියලු ආනයනික භාණ්ඩ ලාභදායී වේ.", "(C) අපනයන ආදායම් දේශීය මුදලින් අඩු වේ.", "(D) උද්ධමනය සම්පූර්ණයෙන්ම ශුන්‍ය වේ."], "ans": 0, "exp": "රුපියල අවප්‍රමාණ වන විට ආනයන මිල ඉහළ ගොස් ආනයන ආදේශන දිරිමත් වන අතර අපනයන භාණ්ඩ විදේශිකයින්ට ලාභදායී වී තරඟකාරීත්වය වැඩි වේ."}, {"num": 14, "sec": "Business Fundamentals & Macroeconomics", "q": "පෝටර්ගේ මූලික උපායමාර්ග (Generic Strategies) අනුව, සමස්ත වෙළඳපොළ තුළ අඩුම නිෂ්පාදන පිරිවැය සහිතව ක්‍රියාත්මක වීමේ උපායමාර්ගය:", "opts": ["(A) විභේදනය (Differentiation)", "(B) පිරිවැය නායකත්වය (Cost Leadership)", "(C) විභේදන නාභිගත කිරීම", "(D) පිරිවැය නාභිගත කිරීම"], "ans": 1, "exp": "Cost Leadership මඟින් සමස්ත වෙළඳපොළේ අඩුම පිරිවැයකින් භාණ්ඩ නිපදවා තරඟකාරී වාසි ලබා ගනී."}, {"num": 15, "sec": "Business Fundamentals & Macroeconomics", "q": "සමාගමක විගණන කමිටුවේ (Audit Committee) සභාපතිවරයා ලෙස පත්විය යුත්තේ:", "opts": ["(A) ආයතනයේ ප්‍රධාන විධායක නිලධාරියා (CEO).", "(B) මූල්‍ය හෝ ගිණුම්කරණ වෘත්තීය සුදුසුකම් සහිත ස්වාධීන විධායක-නොවන අධ්‍යක්ෂවරයෙකු.", "(C) සමාගමේ ප්‍රධාන අභ්‍යන්තර විගණකවරයා.", "(D) වැඩිම කොටස් හිමි කොටස්කරුවා."], "ans": 1, "exp": "යහපාලන නීති අනුව විගණන කමිටු සභාපතිවරයා ස්වාධීන විධායක-නොවන අධ්‍යක්ෂවරයෙකු මෙන්ම මූල්‍ය සාක්ෂරතාව සහිත අයෙකු විය යුතුය."}, {"num": 16, "sec": "Commercial & Corporate Law", "q": "ශ්‍රී ලංකා ගිවිසුම් නීතිය යටතේ, වෙළඳසැලක මිල ලේබල් සහිතව ප්‍රදර්ශනය කර ඇති භාණ්ඩ නීතියෙන් සලකනු ලබන්නේ:", "opts": ["(A) නීත්‍යානුකූල වලංගු යෝජනාවක් (Valid Offer) ලෙසයි.", "(B) යෝජනාවකට කෙරෙන ආරාධනයක් (Invitation to Treat) ලෙසයි.", "(C) ගිවිසුමක් සම්පූර්ණ වීමක් ලෙසයි.", "(D) ප්‍රති-යෝජනාවක් ලෙසයි."], "ans": 1, "exp": "Fisher v Bell නඩුව අනුව රාක්කයක මිල ප්‍රදර්ශනය කිරීම යෝජනාවක් නොව පාරිභෝගිකයාට යෝජනාවක් කිරීමට කරන ඇරයුමකි."}, {"num": 17, "sec": "Commercial & Corporate Law", "q": "රෝම-ලන්දේසි නීතියට අනුව ගිවිසුමක් බලාත්මක වීමට 'ප්‍රතිෂ්ඨාව' (Consideration) වෙනුවට අත්‍යවශ්‍ය වන සාධකය වන්නේ:", "opts": ["(A) මුදල්මය හුවමාරුවක් පමණි.", "(B) සාධාරණ හා නීත්‍යානුකූල හේතුවක් (Justa Causa).", "(C) ඇපකරුවෙකු සිටීම.", "(D) නොතාරිස් සහතිකයක්."], "ans": 1, "exp": "රෝම-ලන්දේසි නීතියට අනුව නීත්‍යානුකූල හා සාධාරණ චේතනාවක් (Justa Causa) ඇත්නම් මූල්‍යමය ප්‍රතිෂ්ඨාවක් නොමැතිව වුවද ගිවිසුමක් වලංගු වේ."}, {"num": 18, "sec": "Commercial & Corporate Law", "q": "2007 අංක 07 දරන සමාගම් පනත යටතේ, පුද්ගලික සීමිත සමාගමක (Pvt Ltd) තිබිය යුතු උපරිම කොටස් හිමියන් සංඛ්‍යාව සහ අවම අධ්‍යක්ෂවරුන් ගණන පිළිවෙළින්:", "opts": ["(A) කොටස්කරුවන් 50 යි, අධ්‍යක්ෂවරුන් 1 යි.", "(B) කොටස්කරුවන් 20 යි, අධ්‍යක්ෂවරුන් 2 යි.", "(C) කොටස්කරුවන් සීමාවක් නැත, අධ්‍යක්ෂවරුන් 1 යි.", "(D) කොටස්කරුවන් 50 යි, අධ්‍යක්ෂවරුන් 2 යි."], "ans": 0, "exp": "පුද්ගලික සමාගමක කොටස්කරුවන් උපරිම 50 කට සීමා වන අතර අවම වශයෙන් එක් අධ්‍යක්ෂවරයෙකු සිටිය යුතුය."}, {"num": 19, "sec": "Commercial & Corporate Law", "q": "සමාගම් පනත අනුව, සමාගමක් ලාභාංශ බෙදාහැරීමට පෙර සපුරාලිය යුතු 'සධනතා පරීක්ෂණයේ' (Solvency Test) අංග දෙක වන්නේ:", "opts": ["(A) බැංකු ණයක් නොමැති වීම සහ ලාභයක් තිබීම.", "(B) සාමාන්‍ය ව්‍යාපාරික කටයුතුවලදී නියමිත දිනට ණය ගෙවීමේ හැකියාව සහ වත්කම්වල වටිනාකම වගකීම්වලට වඩා වැඩිවීම.", "(C) විගණන වාර්තාවක් තිබීම සහ කොටස් මිල වැඩිවීම.", "(D) ROC අනුමැතිය ලැබීම පමණි."], "ans": 1, "exp": "සමාගම් පනතේ 57 වගන්තිය අනුව Trading test (ද්‍රවශීලතාව) සහ Balance sheet test (වත්කම් > වගකීම්) සපුරාලිය යුතුය."}, {"num": 20, "sec": "Commercial & Corporate Law", "q": "භාණ්ඩ විකිණීමේ ආඥාපනත යටතේ, කොන්ත්‍රාත්තුවේ ප්‍රධාන කොන්දේසියක් (Condition) කඩවූ විට අගතියට පත් පාර්ශ්වයට හිමිවන පිළියම:", "opts": ["(A) වන්දි පමණක් ඉල්ලා සිටීම මිස ගිවිසුම අවලංගු කළ නොහැක.", "(B) ගිවිසුම ප්‍රතික්ෂේප කර (Repudiate) අවලංගු කිරීමට මෙන්ම අලාභ හානි (Damages) ලබා ගැනීමටද අයිතිය ඇත.", "(C) කිසිදු නීතිමය පිළියමක් නැත.", "(D) භාණ්ඩ නොමිලේ ලබාගැනීම පමණි."], "ans": 1, "exp": "Condition එකක් කඩවූ විට ගිවිසුම ප්‍රතික්ෂේප කර වන්දි ලබාගත හැක (Warranty එකකදී හිමිවන්නේ වන්දි පමණි)."}, {"num": 21, "sec": "Commercial & Corporate Law", "q": "හවුල් ව්‍යාපාර පනත අනුව, හවුල් ගිවිසුමක වෙනත් එකඟතාවයක් නොමැති විට හවුල්කරුවන් අතර ලාභ හා අලාභ බෙදී යන්නේ කෙසේද?", "opts": ["(A) යොදවන ලද ප්‍රාග්ධනයේ අනුපාතයට.", "(B) සියලුම හවුල්කරුවන් අතර සමානව (Equally).", "(C) ජ්‍යෙෂ්ඨ හවුල්කරුගේ තීරණය අනුව.", "(D) කළමනාකරණයට වැය කළ කාලය අනුව."], "ans": 1, "exp": "හවුල් ගිවිසුමේ සඳහන් නොවේ නම් ප්‍රාග්ධනය කුමක් වුවත් ලාභ හා අලාභ සියලු හවුල්කරුවන් අතර සමානව බෙදී යයි."}, {"num": 22, "sec": "Commercial & Corporate Law", "q": "Salomon v Salomon & Co Ltd නඩු තීන්දුව මඟින් තහවුරු කරන ලද ප්‍රධානතම සමාගම් නීති මූලධර්මය:", "opts": ["(A) සමාගමේ අධ්‍යක්ෂවරුන්ට අසීමිත වගකීමක් පැවතීම.", "(B) සමාගම යනු එහි සාමාජිකයන්ගෙන් වෙන්වූ ස්වාධීන නෛතික පුද්ගලභාවයක් (Separate Legal Entity) සහිත ආයතනයක් බව.", "(C) කොටස් හිමියන් සමාගමේ ණය සඳහා පුද්ගලිකව වගකිව යුතු බව.", "(D) පුද්ගලික සමාගම් නීති විරෝධී බව."], "ans": 1, "exp": "සමාගම සංස්ථාපනය කළ පසු එය එහි කොටස්කරුවන්ගෙන් වෙන්වූ ස්වාධීන නෛතික පුද්ගලයෙකි."}, {"num": 23, "sec": "Commercial & Corporate Law", "q": "නියෝජිතයෙකු තම ප්‍රධානියාගෙන් රහස් ලාභයක් (Secret Profit / Bribe) ලබාගෙන ඇති බව හෙළිවුවහොත් ප්‍රධානියාට ගත හැකි පියවර:", "opts": ["(A) එම ලාභය නියෝජිතයාට තබා ගැනීමට ඉඩ දිය යුතුය.", "(B) නියෝජිත සේවය අවසන් කර එම රහස් ලාභය ආපසු ලබා ගැනීමට නීතිමය අයිතිය ඇත.", "(C) කිසිදු නීතිමය පිළියමක් නැත.", "(D) පොලිසියට භාරදීම පමණි."], "ans": 1, "exp": "නියෝජිතයාගේ Fiduciary duty කඩවීමක් වන බැවින් ප්‍රධානියාට එම රහස් ලාභය අයකර ගැනීමට හා සේවය අත්හිටුවීමට අයිතිය ඇත."}, {"num": 24, "sec": "Commercial & Corporate Law", "q": "සමාගම් පනත යටතේ සමාගමේ ව්‍යවස්ථාව (Articles of Association) සංශෝධනය කිරීමට අවශ්‍ය වන යෝජනාව:", "opts": ["(A) සාමාන්‍ය යෝජනාවක් (50% කට වැඩි).", "(B) විශේෂ යෝජනාවක් (Special Resolution - 75% ක බහුතරයක්).", "(C) අධ්‍යක්ෂ මණ්ඩලයේ තීරණයක් පමණි.", "(D) සමාගම් ලේකම්ගේ අනුමැතිය."], "ans": 1, "exp": "සමාගම් පනතේ 15 වගන්තිය අනුව ව්‍යවස්ථාව සංශෝධනයට කොටස්කරුවන්ගේ 75% ක විශේෂ යෝජනාවක් අවශ්‍ය වේ."}, {"num": 25, "sec": "Commercial & Corporate Law", "q": "චෙක්පතක 'Account Payee Only' සහ සමාන්තර රේඛා දෙකක් යෙදූ විට එහි නෛතික ප්‍රතිඵලය වන්නේ:", "opts": ["(A) කවුන්ටරයෙන් ඕනෑම අයෙකුට මුදල් ලබාගත හැක.", "(B) චෙක්පතේ නම සඳහන් පුද්ගලයාගේ බැංකු ගිණුමට පමණක් මුදල් බැර කළ යුතුය.", "(C) චෙක්පත වෙනත් ඕනෑම කෙනෙකුට පිටසන් කර පැවරිය හැක.", "(D) චෙක්පත අවලංගු වේ."], "ans": 1, "exp": "Account Payee රේඛනය මඟින් මුදල් ලබාගත හැක්කේ නම සඳහන් ප්‍රතිලාභියාගේ බැංකු ගිණුමට පමණි."}, {"num": 26, "sec": "Commercial & Corporate Law", "q": "සමාගම් පනත යටතේ 'ප්‍රධාන ගනුදෙනුවක්' (Major Transaction) ලෙස සලකනු ලබන්නේ සමාගමේ වත්කම්වලින් කොපමණ ප්‍රතිශතයකට වඩා වැඩි ගනුදෙනුවක්ද?", "opts": ["(A) වත්කම්වලින් 25% කට වැඩි", "(B) වත්කම්වලින් 50% කට වැඩි", "(C) වත්කම්වලින් 75% කට වැඩි", "(D) වත්කම්වලින් 10% කට වැඩි"], "ans": 1, "exp": "සමාගම් පනතේ 185 වගන්තිය අනුව වත්කම්වලින් 50% ඉක්මවන ගනුදෙනු Major Transactions වන අතර ඊට විශේෂ යෝජනාවක් අවශ්‍ය වේ."}, {"num": 27, "sec": "Commercial & Corporate Law", "q": "සේවක අර්ථසාධක අරමුදල (EPF) සඳහා සේවායෝජකයා සහ සේවකයා ගෙවිය යුතු ව්‍යවස්ථාපිත අවම දායකත්ව ප්‍රතිශත පිළිවෙළින්:", "opts": ["(A) සේවායෝජකයා 12%, සේවකයා 8%", "(B) සේවායෝජකයා 8%, සේවකයා 12%", "(C) සේවායෝජකයා 15%, සේවකයා 5%", "(D) සේවායෝජකයා 3%, සේවකයා 8%"], "ans": 0, "exp": "නීත්‍යානුකූලව සේවක වැටුපෙන් 8% ක් අඩු කරන අතර සේවායෝජකයා 12% ක් දායක විය යුතුය."}, {"num": 28, "sec": "Commercial & Corporate Law", "q": "සේවා නියුක්තයන්ගේ භාර අරමුදල (ETF) සඳහා සේවායෝජකයා විසින් තම වියදමින් ගෙවිය යුතු ප්‍රතිශතය:", "opts": ["(A) සේවක වැටුපෙන් 3% ක් (සේවකයාගෙන් කිසිවක් අඩු නොකළ යුතුය).", "(B) සේවක වැටුපෙන් 8% ක්.", "(C) 12% ක්.", "(D) 5% ක්."], "ans": 0, "exp": "ETF 3% සම්පූර්ණයෙන්ම සේවායෝජකයා දැරිය යුතු අතර සේවක වැටුපෙන් අය නොකළ යුතුය."}, {"num": 29, "sec": "Commercial & Corporate Law", "q": "බාලවයස්කාරයෙකු (Minor) විසින් අත්සන් කරන ලද අත්‍යවශ්‍ය නොවන භාණ්ඩ මිලදී ගැනීමේ ගිවිසුමක් සම්බන්ධයෙන් ශ්‍රී ලංකා නීතියේ ස්ථාවරය:", "opts": ["(A) සම්පූර්ණයෙන්ම වැඩිහිටි ගිවිසුමක් හා සමානව වලංගු වේ.", "(B) බාලවයස්කරුට එරෙහිව අධිකරණය හමුවේ බලාත්මක කළ නොහැක (Unenforceable).", "(C) බාලවයස්කරු සිරගත කළ හැක.", "(D) දෙමාපියන් වගකිව යුතුය."], "ans": 1, "exp": "අත්‍යවශ්‍ය භාණ්ඩ හා සේවා (Necessaries) හැර වෙනත් ගිවිසුම් බාලවයස්කරුට එරෙහිව බලාත්මක කළ නොහැක."}, {"num": 30, "sec": "Commercial & Corporate Law", "q": "බුද්ධිමය දේපළ පනත යටතේ, නව නිපැයුමක් සඳහා ලබාගන්නා පේටන්ට් බලපත්‍රයක (Patent) උපරිම වලංගු කාලසීමාව:", "opts": ["(A) ලියාපදිංචි කළ දින සිට වසර 10 යි.", "(B) ලියාපදිංචි කළ දින සිට වසර 20 යි (අලුත් කළ නොහැක).", "(C) ජීවිත කාලය පුරාම.", "(D) වසර 50 යි."], "ans": 1, "exp": "පේටන්ට් බලපත්‍රයක් ලියාපදිංචියේ සිට වසර 20 කින් අවසන් වන අතර ඉන්පසු එය ප්‍රසිද්ධ වසමට (Public domain) පත්වේ."}, {"num": 31, "sec": "Commercial & Corporate Law", "q": "ගිවිසුමක් 'කාර්යසාධනය කළ නොහැකි වීම' (Doctrine of Frustration) මඟින් අවසන් වන්නේ:", "opts": ["(A) එක් පාර්ශ්වයකට ගිවිසුම ඉටුකිරීමට අකමැති වූ විට.", "(B) දෙපාර්ශ්වයේම පාලනයෙන් බැහැර අනපේක්ෂිත බාහිර සිදුවීමක් නිසා ගිවිසුම ඉටුකිරීම භෞතිකව හෝ නීත්‍යානුකූලව කළ නොහැකි වූ විට.", "(C) භාණ්ඩ මිල ඉහළ ගිය විට.", "(D) මුදල් ගෙවීම ප්‍රමාද වූ විට."], "ans": 1, "exp": "දෙපාර්ශ්වයේම වරදක් නොමැතිව හටගන්නා අනපේක්ෂිත සිදුවීමකින් ගිවිසුම ඉටුකිරීම කළ නොහැකි වීම Frustration වේ."}, {"num": 32, "sec": "Commercial & Corporate Law", "q": "සමාගම් පනත යටතේ වාර්ෂික මහා සභා රැස්වීමක් (AGM) කැඳවීම සඳහා ලබාදිය යුතු අවම පූර්ව ලිඛිත දැනුම්දීම:", "opts": ["(A) වැඩ කරන දින 15 කට නොඅඩු කාලයක්.", "(B) දින 7 කි.", "(C) දින 30 කි.", "(D) මාස 2 කි."], "ans": 0, "exp": "සමාගම් පනතේ 134 වගන්තිය අනුව AGM එකක් සඳහා අවම වශයෙන් වැඩකරන දින 15 ක දැන්වීමක් දිය යුතුය."}, {"num": 33, "sec": "Commercial & Corporate Law", "q": "පාරිතෝෂික දීමනා පනත (Payment of Gratuity Act) යටතේ සේවකයෙකුට පාරිතෝෂික හිමිවීමට තිබිය යුතු අවම සේවා කාලය:", "opts": ["(A) වසර 5 ක අඛණ්ඩ සේවය (සේවකයින් 15 ක් හෝ වැඩි ආයතනයක).", "(B) වසර 1 ක සේවය.", "(C) වසර 10 ක සේවය.", "(D) වසර 3 ක සේවය."], "ans": 0, "exp": "සේවකයින් 15 ක් හෝ වැඩි ආයතනයක වසර 5 ක් අඛණ්ඩව සේවය කළ සේවකයෙකුට පාරිතෝෂික හිමිවේ."}, {"num": 34, "sec": "Commercial & Corporate Law", "q": "හවුල් ව්‍යාපාරයකදී හවුල්කරුවන්ගේ වගකීම (Liability of Partners):", "opts": ["(A) යොදවන ලද ප්‍රාග්ධනයට සීමා වේ.", "(B) සාමූහිකව මෙන්ම වෙන් වෙන් වශයෙන්ද අසීමිත වේ (Joint and Several Unlimited Liability).", "(C) ශුන්‍ය වේ.", "(D) ලාභයට පමණක් සීමා වේ."], "ans": 1, "exp": "හවුල්කරුවන්ගේ පෞද්ගලික දේපළ පවා ව්‍යාපාරයේ ණය පියවීමට යටත් වන බැවින් වගකීම අසීමිත වේ."}, {"num": 35, "sec": "Commercial & Corporate Law", "q": "සමාගමක කොටස් සඳහා 'නාමික අගයක්' (Par Value) පැවතීම සම්බන්ධයෙන් 2007 සමාගම් පනතේ ස්ථාවරය:", "opts": ["(A) කොටස් සඳහා නාමික අගයක් නොපවතින අතර නිකුතු මිල පමණක් පවතී (No-par value system).", "(B) අනිවාර්යයෙන්ම රු. 10 ක් විය යුතුය.", "(C) රු. 100 ක් විය යුතුය.", "(D) රජය තීරණය කරයි."], "ans": 0, "exp": "ශ්‍රී ලංකා සමාගම් පනත යටතේ Par value සංකල්පය අහෝසි කර ඇති අතර Stated Capital පමණක් පවතී."}, {"num": 36, "sec": "Sri Lankan Business Taxation", "q": "දේශීය ආදායම් පනත අනුව, සමාගම් සඳහා අදාළ වන සම්මත ආදායම් බදු අනුපාතය (Standard Corporate Tax Rate):", "opts": ["(A) 14%", "(B) 24%", "(C) 30%", "(D) 40%"], "ans": 2, "exp": "ශ්‍රී ලංකාවේ නේවාසික සමාගම් සඳහා වර්තමාන සම්මත ආයතනික ආදායම් බදු අනුපාතය 30% කි."}, {"num": 37, "sec": "Sri Lankan Business Taxation", "q": "දේශීය ආදායම් පනත අනුව ව්‍යාපාරික ලාභයෙන් සම්පූර්ණයෙන්ම අඩු කළ නොහැකි වියදමක් (Disallowable Expense) වන්නේ:", "opts": ["(A) කාර්යාල ගොඩනැගිලි කුලිය.", "(B) සේවක වැටුප්.", "(C) දේශීය ආදායම් පනත යටතේ ගෙවන ලද ආදායම් බදු සහ නීතිමය දඩ මුදල්.", "(D) විදුලි සංදේශ ගාස්තු."], "ans": 2, "exp": "ආදායම් බදු සහ නීති උල්ලංඝනය කිරීම් වෙනුවෙන් ගෙවන දඩ මුදල් බදු සඳහා අඩු කිරීමට අවසර නැත."}, {"num": 38, "sec": "Sri Lankan Business Taxation", "q": "දේශීය ආදායම් පනතේ 4 වන උපලේඛනය අනුව පරිගණක සහ දත්ත සැකසුම් උපකරණ සඳහා ලබාදෙන ප්‍රාග්ධන දීමනා (Capital Allowance) අනුපාතය:", "opts": ["(A) වසරකට 20% බැගින් වසර 5 ක් පුරා.", "(B) වසරකට 10% බැගින් වසර 10 ක් පුරා.", "(C) වසරකට 5% බැගින් වසර 20 ක් පුරා.", "(D) පළමු වසරේම 100% ක්."], "ans": 0, "exp": "තොරතුරු තාක්ෂණ උපකරණ Class 4 යටතේ සරල රේඛීයව වසර 5 කින් (20% බැගින්) සම්පූර්ණයෙන්ම ක්ෂය කරයි."}, {"num": 39, "sec": "Sri Lankan Business Taxation", "q": "මගී ප්‍රවාහනය සඳහා ව්‍යාපාරය විසින් මිලදී ගන්නා ලද මෝටර් රථ සඳහා හිමිවන බදු ප්‍රාග්ධන දීමනාව:", "opts": ["(A) කිසිදු ප්‍රාග්ධන දීමනාවක් හිමි නොවේ (Zero allowance).", "(B) වසරකට 20% බැගින්.", "(C) වසරකට 10% බැගින්.", "(D) 50% ක්."], "ans": 0, "exp": "දේශීය ආදායම් පනතේ 4 වන උපලේඛනය අනුව මගී මෝටර් රථ සඳහා ප්‍රාග්ධන දීමනා ලබා නොදේ."}, {"num": 40, "sec": "Sri Lankan Business Taxation", "q": "ව්‍යාපාරික ලාභය ගණනය කිරීමේදී පෙර වර්ෂවල බදු අලාභ (Brought Forward Business Losses) වත්මන් ආදායමෙන් අඩු කරගත හැකි උපරිම සීමාව:", "opts": ["(A) වත්මන් වර්ෂයේ බදු අයකළ හැකි ආදායමෙන් උපරිම 80% ක් දක්වා.", "(B) 100% ක් දක්වා.", "(C) 50% ක් දක්වා.", "(D) කිසිවක් අඩු කළ නොහැක."], "ans": 0, "exp": "දේශීය ආදායම් පනතේ 19 වන වගන්තිය අනුව වත්මන් ආදායමෙන් උපරිම 80% ක් දක්වා පෙර අලාභ අඩු කළ හැක."}, {"num": 41, "sec": "Sri Lankan Business Taxation", "q": "ශ්‍රී ලංකාවේ වර්තමාන සම්මත එකතු කළ අගය මත බදු (VAT) අනුපාතය:", "opts": ["(A) 8%", "(B) 15%", "(C) 18%", "(D) 24%"], "ans": 2, "exp": "වත්මන් බදු සංශෝධන අනුව ශ්‍රී ලංකාවේ සම්මත වැට් බදු අනුපාතය 18% කි."}, {"num": 42, "sec": "Sri Lankan Business Taxation", "q": "වැට් (VAT) පනත අනුව 'ශූන්‍ය අනුපාතික සැපයුම්' (Zero-rated Supplies) සිදුකරන ව්‍යාපාරයකට හිමිවන ප්‍රධාන වාසිය:", "opts": ["(A) තම සැපයුම් මත 0% වැට් අයකරන අතර ඊට අදාළ යෙදවුම් බදු (Input Tax Credit) සම්පූර්ණයෙන්ම ආපසු ලබාගත හැකිවීම.", "(B) ආදායම් බදු නොගෙවා සිටීම.", "(C) බදු වාර්තා නොතැබීම.", "(D) රේගු බදු නිදහස් වීම."], "ans": 0, "exp": "අපනයන වැනි Zero-rated සැපයුම්වලදී 0% බදු අයවන අතර මිලදී ගැනීම්වලදී ගෙවූ Input tax ආපසු Claim කළ හැක."}, {"num": 43, "sec": "Sri Lankan Business Taxation", "q": "සමාජ ආරක්ෂණ දායකත්ව බද්ද (SSCL) නිෂ්පාදකයින් සහ ආනයනකරුවන්ගේ පිරිවැටුම මත පනවනු ලබන සම්මත අනුපාතය:", "opts": ["(A) 2.5%", "(B) 1.25%", "(C) 10%", "(D) 18%"], "ans": 0, "exp": "2022 අංක 25 දරන SSCL පනත අනුව නිෂ්පාදකයින් සහ ආනයනකරුවන්ගේ පිරිවැටුම මත 2.5% ක බද්දක් අය කෙරේ."}, {"num": 44, "sec": "Sri Lankan Business Taxation", "q": "සේවකයින්ගේ මාසික රැකියා ආදායම් මත සේවායෝජකයා විසින් වැටුපෙන් අඩු කර රජයට ගෙවිය යුතු බද්ද:", "opts": ["(A) APIT (Advance Personal Income Tax)", "(B) එකතු කළ අගය මත බද්ද (VAT)", "(C) SSCL", "(D) ප්‍රාග්ධන ලාභ බද්ද"], "ans": 0, "exp": "සේවකයින්ගේ රැකියා ආදායම් මත මූලයෙන් අඩු කරන්නේ APIT බද්දයි."}, {"num": 45, "sec": "Sri Lankan Business Taxation", "q": "බැංකුවක් විසින් ආයතනයක ස්ථාවර තැන්පතු පොලී ආදායමක් ගෙවීමේදී මූලයෙන් රඳවාගත යුතු අත්තිකාරම් ආදායම් බදු (AIT) අනුපාතය:", "opts": ["(A) 5%", "(B) 10%", "(C) 15%", "(D) 30%"], "ans": 0, "exp": "නේවාසික පුද්ගලයින් හා ආයතන සඳහා බැංකු තැන්පතු පොලී මත 5% ක AIT මුදලක් මූලයෙන් අඩු කරයි."}, {"num": 46, "sec": "Sri Lankan Business Taxation", "q": "සමාගමක් තම ආයෝජන වත්කමක් (ඉඩමක්) විකිණීමෙන් ලබන ප්‍රාග්ධන ලාභ (Capital Gains) මත බදු අයවන්නේ:", "opts": ["(A) සාමාන්‍ය සමාගම් ආදායම් බදු අනුපාතය වන 30% යටතේ.", "(B) 10% යටතේ.", "(C) බදු නිදහස් වේ.", "(D) 50% යටතේ."], "ans": 0, "exp": "තනි පුද්ගලයින්ට 10% වුවද, සමාගම්වල ප්‍රාග්ධන ලාභ ව්‍යාපාරික ආදායමට එක්වී සම්මත 30% යටතේ බදු අයවේ."}, {"num": 47, "sec": "Sri Lankan Business Taxation", "q": "සමාගමක වාර්ෂික ආදායම් බදු ප්‍රකාශනය (Annual Return of Income) දේශීය ආදායම් දෙපාර්තමේන්තුවට ගොනු කළ යුතු අවසන් දිනය:", "opts": ["(A) තක්සේරු වර්ෂය අවසන් වූ පසු එළඹෙන නොවැම්බර් 30 වන දිනට පෙර.", "(B) මාර්තු 31 දිනට පෙර.", "(C) දෙසැම්බර් 31 දිනට පෙර.", "(D) ජනවාරි 1 දිනට පෙර."], "ans": 0, "exp": "මාර්තු 31 න් අවසන් වන තක්සේරු වර්ෂයක වාර්ෂික බදු වාර්තාව නොවැම්බර් 30 දිනට පෙර RAMIS මඟින් ගොනු කළ යුතුය."}, {"num": 48, "sec": "Sri Lankan Business Taxation", "q": "දේශීය ආදායම් පනත යටතේ වංචනිකව බදු නොගෙවා මඟහැරීම හඳුන්වන්නේ:", "opts": ["(A) Tax Evasion (නීති විරෝධී බදු පැහැර හැරීම).", "(B) Tax Avoidance (නීත්‍යානුකූල බදු අවම කරගැනීම).", "(C) Tax Planning (බදු සැලසුම්කරණය).", "(D) බදු සහනයක්."], "ans": 0, "exp": "වංචනික ලේඛන සකසමින් සත්‍ය වසන් කර බදු නොගෙවීම අපරාධමය වරදක් වන Tax Evasion වේ."}, {"num": 49, "sec": "Sri Lankan Business Taxation", "q": "බදු තක්සේරුවකට එරෙහිව දේශීය ආදායම් කොමසාරිස් ජනරාල්වරයා වෙත විරෝධතාවක් ගොනු කළ යුතු කාලසීමාව:", "opts": ["(A) තක්සේරු දැන්වීම ලැබී දින 30 ක් ඇතුළත.", "(B) දින 60 ක් ඇතුළත.", "(C) දින 90 ක් ඇතුළත.", "(D) වසරක් ඇතුළත."], "ans": 0, "exp": "දේශීය ආදායම් පනතේ 133 වගන්තිය අනුව තක්සේරුවක් ලැබී දින 30 ක් තුළ ලිඛිත විරෝධතාවක් ගොනු කළ යුතුය."}, {"num": 50, "sec": "Sri Lankan Business Taxation", "q": "ව්‍යාපාරයක් විසින් තම ගිණුම්කරණ ලාභය බදු ලාභය බවට පත්කිරීමේදී 'ගිණුම්කරණ ක්ෂයවීම්' (Accounting Depreciation) සම්බන්ධයෙන් කළ යුත්තේ:", "opts": ["(A) ලාභයට නැවත එකතු කර (Add back) නීත්‍යානුකූල ප්‍රාග්ධන දීමනාව අඩු කළ යුතුය.", "(B) ලාභයෙන් තවදුරටත් අඩු කළ යුතුය.", "(C) කිසිදු වෙනසක් නොකළ යුතුය.", "(D) ආදායමක් ලෙස දැක්විය යුතුය."], "ans": 0, "exp": "Accounting Depreciation බදු සඳහා Disallowable වියදමක් බැවින් ලාභයට Add back කර Capital allowance අඩු කෙරේ."}];
+let currentIndex = 0;
+let userAnswers = new Array(examQuestions.length).fill(null);
+let flaggedQuestions = new Array(examQuestions.length).fill(false);
+let timeLeft = 120 * 60; // 2 hours
+let timerInterval = null;
+
+function initExam() {
+    renderGrid();
+    loadQuestion(0);
+    startTimer();
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('කාලය අවසන් විය! විභාග ප්‍රශ්න පත්‍රය ස්වයංක්‍රීයව Submit කරනු ලැබේ.');
+            submitExam();
+            return;
+        }
+        timeLeft--;
+        const h = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
+        const m = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
+        const s = String(timeLeft % 60).padStart(2, '0');
+        document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+    }, 1000);
+}
+
+function renderGrid() {
+    const container = document.getElementById('gridContainer');
+    container.innerHTML = '';
+    examQuestions.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'grid-btn';
+        btn.id = 'grid-btn-' + idx;
+        btn.innerText = idx + 1;
+        btn.onclick = () => loadQuestion(idx);
+        container.appendChild(btn);
+    });
+}
+
+function updateGridStyles() {
+    examQuestions.forEach((_, idx) => {
+        const btn = document.getElementById('grid-btn-' + idx);
+        btn.className = 'grid-btn';
+        if (idx === currentIndex) btn.classList.add('current');
+        if (flaggedQuestions[idx]) btn.classList.add('flagged');
+        else if (userAnswers[idx] !== null) btn.classList.add('answered');
+    });
+}
+
+function loadQuestion(idx) {
+    currentIndex = idx;
+    const q = examQuestions[idx];
+    document.getElementById('qNumberDisplay').innerText = `Question ${idx + 1} of ${examQuestions.length}`;
+    document.getElementById('qSectionDisplay').innerText = q.sec;
+    document.getElementById('qTextDisplay').innerText = q.q;
+
+    const optContainer = document.getElementById('optionsContainer');
+    optContainer.innerHTML = '';
+    q.opts.forEach((opt, optIdx) => {
+        const label = document.createElement('label');
+        label.className = 'opt-label';
+        if (userAnswers[idx] === optIdx) label.classList.add('selected');
+
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'opt';
+        radio.checked = (userAnswers[idx] === optIdx);
+        radio.onchange = () => selectOption(optIdx);
+
+        label.appendChild(radio);
+        const span = document.createElement('span');
+        span.innerText = opt;
+        label.appendChild(span);
+        label.onclick = () => selectOption(optIdx);
+
+        optContainer.appendChild(label);
+    });
+
+    document.getElementById('btnFlag').innerText = flaggedQuestions[idx] ? 'Unflag Question' : 'Flag for Review';
+    updateGridStyles();
+}
+
+function selectOption(optIdx) {
+    userAnswers[currentIndex] = optIdx;
+    loadQuestion(currentIndex);
+}
+
+function clearAnswer() {
+    userAnswers[currentIndex] = null;
+    loadQuestion(currentIndex);
+}
+
+function toggleFlag() {
+    flaggedQuestions[currentIndex] = !flaggedQuestions[currentIndex];
+    loadQuestion(currentIndex);
+}
+
+function nav(direction) {
+    const nextIdx = currentIndex + direction;
+    if (nextIdx >= 0 && nextIdx < examQuestions.length) {
+        loadQuestion(nextIdx);
+    }
+}
+
+function confirmSubmit() {
+    const answeredCount = userAnswers.filter(a => a !== null).length;
+    const unansweredCount = examQuestions.length - answeredCount;
+    const msg = `ඔබ ප්‍රශ්න ${answeredCount} කට පිළිතුරු සපයා ඇත. තවත් ප්‍රශ්න ${unansweredCount} ක් ඉතිරිව ඇත.\n\nඔබට විභාගය අවසන් කර ලකුණු සහ ප්‍රතිඵල විශ්ලේෂණය බැලීමට අවශ්‍යද?`;
+    if (confirm(msg)) {
+        clearInterval(timerInterval);
+        submitExam();
+    }
+}
+
+function submitExam() {
+    let correct = 0;
+    let incorrect = 0;
+    let skipped = 0;
+
+    userAnswers.forEach((ans, idx) => {
+        if (ans === null) skipped++;
+        else if (ans === examQuestions[idx].ans) correct++;
+        else incorrect++;
+    });
+
+    const score = correct * 2; // 50 MCQs = 100 Marks
+    const passed = score >= 50;
+
+    document.getElementById('finalScoreDisplay').innerText = `${score} / 100 (${(score).toFixed(1)}%)`;
+    document.getElementById('finalScoreDisplay').className = 'res-score ' + (passed ? 'score-pass' : 'score-fail');
+    
+    const pfText = document.getElementById('passFailText');
+    if (passed) {
+        pfText.innerText = 'විභාග ප්‍රතිඵලය: සුබ පැතුම්! ඔබ විභාගය සමත් විය (STATUS: PASS)';
+        pfText.style.color = '#059669';
+    } else {
+        pfText.innerText = 'විභාග ප්‍රතිඵලය: නැවත උත්සාහ කරන්න (STATUS: REFERRED / FAIL - සමත් ලකුණ 50 කි)';
+        pfText.style.color = '#dc2626';
+    }
+
+    document.getElementById('correctCount').innerText = correct;
+    document.getElementById('incorrectCount').innerText = incorrect;
+    document.getElementById('skippedCount').innerText = skipped;
+
+    buildReview();
+    document.getElementById('resultScreen').style.display = 'block';
+}
+
+function buildReview() {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+
+    examQuestions.forEach((q, idx) => {
+        const uAns = userAnswers[idx];
+        const isCorr = (uAns === q.ans);
+        const isSkip = (uAns === null);
+
+        const div = document.createElement('div');
+        div.className = 'rev-item ' + (isCorr ? 'correct' : (isSkip ? 'skipped' : 'incorrect'));
+
+        let statusBadge = isCorr ? '<span style="color:#059669; font-weight:bold;">✓ නිවැරදියි (Correct)</span>' : 
+                         (isSkip ? '<span style="color:#64748b; font-weight:bold;">○ පිළිතුරු සපයා නැත (Skipped)</span>' : 
+                                   '<span style="color:#dc2626; font-weight:bold;">✗ වැරදියි (Incorrect)</span>');
+
+        div.innerHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <strong>Q${idx + 1}. [${q.sec}]</strong>
+                ${statusBadge}
+            </div>
+            <p style="font-weight:600; margin-bottom:8px;">${q.q}</p>
+            <div style="font-size:13.5px; margin-bottom:4px;">ඔබ තේරූ පිළිතුර: <strong>${uAns !== null ? q.opts[uAns] : 'පිළිතුරක් තෝරා නැත'}</strong></div>
+            <div style="font-size:13.5px; color:#059669; font-weight:bold;">නිවැරදි පිළිතුර: ${q.opts[q.ans]}</div>
+            <div class="exp-note"><strong>විවරණය / නීතිමය පදනම:</strong> ${q.exp}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function toggleReview() {
+    const rev = document.getElementById('reviewContainer');
+    rev.style.display = (rev.style.display === 'none') ? 'block' : 'none';
+}
+
+window.onload = initExam;
+</script>
+</body>
+</html>
