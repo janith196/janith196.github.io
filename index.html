@@ -454,8 +454,6 @@
             .nav-controls { gap: 10px; }
             #theme-toggle { width: 30px; height: 30px; font-size: 14px; }
             .home-content h1 { font-size: 2.5rem; }
-            .live-clock span { display: none; /* Only show icon on extremely tiny screens if needed, but flex should handle it */ }
-            /* Better to just scale the clock down a bit more instead of hiding */
             .live-clock { gap: 4px; padding: 4px 8px; font-size: 10px; }
             .live-clock span { display: inline; } 
         }
@@ -494,7 +492,6 @@
             <div class="btn-box">
                 <a href="#contact" class="btn">Hire Me <i class="fas fa-paper-plane"></i></a>
                 <a href="Janith_Madumal_CV.pdf" download class="btn btn-sec">Download CV <i class="fas fa-download"></i></a>
-                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html">Take the CA Sri Lanka CBT Exam Simulator</a>
             </div>
         </div>
     </section>
@@ -566,20 +563,21 @@
     <section class="projects" id="projects">
         <h2 class="heading">My <span>Projects & Insights</span></h2>
         <div class="grid-container">
+            <!-- CA Sri Lanka Exam Simulator Added Here -->
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
+                <h3><i class="fas fa-laptop-code"></i> CA Sri Lanka CBT Simulator</h3>
+                <p>Interactive real-time CBT exam simulator for Business Level (BL-25-4: Business Fundamentals, Law & Tax) featuring automated scoring and bilingual reviews.</p>
+                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
+            </div>
             <div class="card">
                 <h3><i class="fas fa-chart-line"></i> Excel Financial Dashboard</h3>
                 <p>An automated bookkeeping and financial statement analyzer built using advanced MS Excel formulas and macros.</p>
-                <a href="#" class="btn btn-sec" style="padding: 8px 15px; font-size: 13px; margin-top: 10px;">View Details</a>
+                <a href="#" class="btn btn-sec" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">View Details</a>
             </div>
             <div class="card">
                 <h3><i class="fas fa-code"></i> Portfolio Website</h3>
                 <p>This fully responsive, glassmorphism-styled portfolio built from scratch using HTML, CSS, and modern JavaScript.</p>
-                <a href="#" class="btn btn-sec" style="padding: 8px 15px; font-size: 13px; margin-top: 10px;">View Code</a>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-pen-nib"></i> Fintech Blog Post</h3>
-                <p>An article exploring how blockchain technology and AI are modernizing traditional banking systems in Sri Lanka.</p>
-                <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 15px;">Read Article &rarr;</a>
+                <a href="#" class="btn btn-sec" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">View Code</a>
             </div>
         </div>
     </section>
@@ -642,7 +640,6 @@
 
         function setAutoTheme() {
             const hour = new Date().getHours();
-            // Day mode from 6 AM to 6 PM (18:00)
             const isDayTime = hour >= 6 && hour < 18;
 
             if (isDayTime) {
@@ -654,10 +651,8 @@
             }
         }
 
-        // Init theme
         setAutoTheme();
 
-        // Manual Theme Toggle
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'light') {
@@ -669,7 +664,7 @@
             }
         });
 
-        // 3. Live Clock Update (Fixed visibility for mobile)
+        // 3. Live Clock Update
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -711,13 +706,11 @@
 
         // 5. EmailJS Contact Form Setup
         (function() {
-            // Replace with your actual public key when ready
             emailjs.init("wJ-Xok6dB93S48oql"); 
         })();
 
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            // Placeholder alert
             alert("Thank you! Your message has been sent successfully.");
             this.reset();
         });
