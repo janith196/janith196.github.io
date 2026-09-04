@@ -440,7 +440,6 @@
             .home-content p { margin: 0 auto 2rem; }
             .btn-box { justify-content: center; flex-wrap: wrap; }
             
-            /* The clock is specifically styled to look good on mobile headers */
             .live-clock {
                 font-size: 11px;
                 padding: 5px 10px;
@@ -470,6 +469,7 @@
             <a href="#education">Education</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
+            <a href="#exam-simulator">Exam Simulator</a>
             <a href="#contact">Contact</a>
         </nav>
 
@@ -564,10 +564,11 @@
         <h2 class="heading">My <span>Projects & Insights</span></h2>
         <div class="grid-container">
             <!-- CA Sri Lanka Exam Simulator Added Here -->
-            <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.4);" id="exam-simulator">
                 <h3><i class="fas fa-laptop-code"></i> CA Sri Lanka CBT Simulator</h3>
-                <p>Interactive real-time CBT exam simulator for Business Level (BL-25-4: Business Fundamentals, Law & Tax) featuring automated scoring and bilingual reviews.</p>
-                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
+                <p>Interactive real-time CBT exam simulator for BL-25-1: Fundamentals of Financial Reporting featuring automated scoring and bilingual reviews.</p>
+                <!-- මෙහි href එක ඔබ upload කළ HTML ෆයිල් නමට හරියටම සමාන විය යුතුය -->
+                <a href="CA_SriLanka_BL251_Fundamentals_Financial_Reporting_CBT_Simulator.html" target="_blank" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="card">
                 <h3><i class="fas fa-chart-line"></i> Excel Financial Dashboard</h3>
@@ -698,7 +699,8 @@
                 if(top >= offset && top < offset + height) {
                     navLinksArr.forEach(links => {
                         links.classList.remove('active');
-                        document.querySelector('.navbar a[href*=' + id + ']').classList.add('active');
+                        let targetLink = document.querySelector('.navbar a[href*=' + id + ']');
+                        if(targetLink) targetLink.classList.add('active');
                     });
                 }
             });
