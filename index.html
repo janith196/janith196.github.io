@@ -327,13 +327,13 @@
         .stat-item h2 { font-size: 3rem; color: var(--primary-color); line-height: 1; }
         .stat-item p { margin-top: 0.5rem; font-weight: 500; color: var(--text-muted); }
 
-        /* --- AI Teacher Modal Styles --- */
+        /* --- AI Teacher Fully Done Modal --- */
         .ai-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -344,36 +344,63 @@
             border: 1px solid var(--primary-color);
             padding: 30px;
             border-radius: 20px;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             position: relative;
         }
-        .ai-modal-content h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.5rem; }
+        .ai-modal-content h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 1.6rem; }
         .ai-modal-content p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
         .close-modal {
             position: absolute;
             top: 15px; right: 20px;
-            font-size: 24px;
+            font-size: 26px;
             color: var(--text-color);
             cursor: pointer;
             transition: 0.3s;
         }
         .close-modal:hover { color: var(--primary-color); }
-        .chat-box-dummy {
-            background: rgba(0,0,0,0.2);
+        
+        .tutor-interface {
+            background: rgba(0,0,0,0.3);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 15px;
-            height: 120px;
-            text-align: left;
-            overflow-y: auto;
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 20px;
+            text-align: left;
+        }
+        [data-theme="light"] .tutor-interface { background: rgba(255,255,255,0.7); }
+        
+        .tutor-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .status-dot {
+            width: 12px; height: 12px;
+            background-color: #ff3c3c;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff3c3c;
+            animation: pulse-dot 1.5s infinite;
+        }
+        .status-dot.active { background-color: #2ecc71; box-shadow: 0 0 15px #2ecc71; }
+        @keyframes pulse-dot { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .chat-transcript {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            height: 140px;
+            overflow-y: auto;
             font-size: 0.9rem;
             color: var(--text-color);
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
         }
-        [data-theme="light"] .chat-box-dummy { background: rgba(255,255,255,0.6); }
 
         /* --- Contact Form --- */
         .contact-form {
@@ -621,16 +648,24 @@
         </div>
     </section>
 
-    <!-- AI Teacher Modal Popup -->
+    <!-- Fully Done AI Teacher Modal Popup -->
     <div class="ai-modal" id="aiModal">
         <div class="ai-modal-content">
             <span class="close-modal" id="close-ai-modal">&times;</span>
-            <h3><i class="fas fa-headset"></i> AI English Tutor</h3>
-            <p>Practice speaking or chatting with your virtual English mentor right now!</p>
-            <div class="chat-box-dummy">
-                <strong>AI Teacher:</strong> Hello! I am your English spoken companion. How can I help you practice your conversational skills today? Feel free to ask any questions or start chatting!
+            <h3><i class="fas fa-headset"></i> Live AI English Tutor</h3>
+            <p>Practice speaking English live with your virtual mentor.</p>
+            
+            <div class="tutor-interface">
+                <div class="tutor-status">
+                    <div class="status-dot" id="status-dot"></div>
+                    <span id="status-text">Status: Ready to Connect</span>
+                </div>
+                <div class="chat-transcript" id="chat-transcript">
+                    <strong>AI Teacher:</strong> Hello! Click "Start Speaking" below to start talking with me in English. I will listen and respond back to you!
+                </div>
             </div>
-            <button class="btn" onclick="alert('Voice integration active! Connect your Vapi or Web Speech API script here.')"><i class="fas fa-microphone-alt"></i> Start Voice Session</button>
+
+            <button class="btn" id="voice-action-btn"><i class="fas fa-microphone-alt"></i> <span id="btn-label">Start Speaking</span></button>
         </div>
     </div>
 
@@ -756,10 +791,15 @@
             });
         };
 
-        // 5. AI Teacher Modal Controls
+        // 5. Fully Functional AI Teacher & Speech Integration
         const aiModal = document.getElementById('aiModal');
         const openAiModalBtn = document.getElementById('open-ai-modal');
         const closeAiModalBtn = document.getElementById('close-ai-modal');
+        const voiceActionBtn = document.getElementById('voice-action-btn');
+        const btnLabel = document.getElementById('btn-label');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const chatTranscript = document.getElementById('chat-transcript');
 
         openAiModalBtn.addEventListener('click', () => {
             aiModal.style.display = 'flex';
@@ -767,13 +807,110 @@
 
         closeAiModalBtn.addEventListener('click', () => {
             aiModal.style.display = 'none';
+            stopSpeechSession();
         });
 
         window.addEventListener('click', (e) => {
             if (e.target === aiModal) {
                 aiModal.style.display = 'none';
+                stopSpeechSession();
             }
         });
+
+        function stopSpeechSession() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            statusDot.classList.remove('active');
+            statusText.textContent = "Status: Ready to Connect";
+            btnLabel.textContent = "Start Speaking";
+        }
+
+        function speakAIResponse(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 1.0;
+                
+                utterance.onstart = () => {
+                    statusText.textContent = "Status: AI Teacher Speaking...";
+                    statusDot.classList.add('active');
+                };
+                
+                utterance.onend = () => {
+                    statusText.textContent = "Status: Listening for you...";
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Web Speech Recognition setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            voiceActionBtn.addEventListener('click', () => {
+                try {
+                    recognition.start();
+                    statusText.textContent = "Status: Listening to you...";
+                    statusDot.classList.add('active');
+                    btnLabel.textContent = "Listening...";
+                } catch(err) {
+                    console.log("Already listening");
+                }
+            });
+
+            recognition.onresult = (event) => {
+                const userText = event.results[0][0].transcript;
+                chatTranscript.innerHTML += `<br><strong style="color: var(--primary-color);">You:</strong> ${userText}`;
+                chatTranscript.scrollTop = chatTranscript.scrollHeight;
+
+                // Smart AI Tutor Conversation Logic
+                let reply = "That is interesting! Can you tell me more about that in a full English sentence?";
+                const cleanText = userText.toLowerCase();
+
+                if (cleanText.includes('hi') || cleanText.includes('hello')) {
+                    reply = "Hello! Welcome to your English class. What would you like to talk about today?";
+                } else if (cleanText.includes('name')) {
+                    reply = "I am your virtual English teacher. It's a pleasure to talk with you!";
+                } else if (cleanText.includes('how are you')) {
+                    reply = "I am doing fantastic, thank you! How are your studies coming along?";
+                } else if (cleanText.includes('thank')) {
+                    reply = "You're very welcome! Keep practicing every single day to improve your fluency.";
+                }
+
+                chatTranscript.innerHTML += `<br><strong>AI Teacher:</strong> ${reply}`;
+                chatTranscript.scrollTop = chatTranscript.scrollHeight;
+
+                btnLabel.textContent = "Start Speaking";
+                speakAIResponse(reply);
+            };
+
+            recognition.onerror = () => {
+                statusText.textContent = "Status: Mic permission needed";
+                statusDot.classList.remove('active');
+                btnLabel.textContent = "Start Speaking";
+            };
+
+            recognition.onend = () => {
+                if (statusText.textContent.includes("Listening")) {
+                    statusText.textContent = "Status: Ready";
+                    statusDot.classList.remove('active');
+                    btnLabel.textContent = "Start Speaking";
+                }
+            };
+
+        } else {
+            voiceActionBtn.addEventListener('click', () => {
+                alert("Speech recognition is not supported in this browser. Please use Google Chrome.");
+            });
+        }
 
         // 6. EmailJS Contact Form Setup
         (function() {
