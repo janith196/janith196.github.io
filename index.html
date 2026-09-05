@@ -54,7 +54,6 @@
             overflow-x: hidden;
         }
 
-       
         header {
             position: fixed;
             top: 0;
@@ -124,7 +123,6 @@
             gap: 15px;
         }
 
-     
         .live-clock {
             display: flex;
             align-items: center;
@@ -169,7 +167,6 @@
             cursor: pointer;
         }
 
-     
         section {
             min-height: 100vh;
             padding: 8rem 8% 4rem;
@@ -188,7 +185,6 @@
         }
         .heading span { color: var(--primary-color); }
 
-       
         .btn-box {
             display: flex;
             gap: 15px;
@@ -211,6 +207,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(255, 60, 60, 0.3);
             border: 2px solid var(--primary-color);
+            cursor: pointer;
         }
 
         .btn:hover { 
@@ -230,7 +227,6 @@
             box-shadow: 0 8px 20px rgba(255, 60, 60, 0.3);
         }
 
-      
         .home {
             flex-direction: row;
             align-items: center;
@@ -258,7 +254,6 @@
             max-width: 600px;
         }
 
-       
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -291,7 +286,6 @@
         .card h3 i { color: var(--primary-color); }
         .card p { color: var(--text-muted); font-size: 0.95rem; }
 
-        
         .progress-bar {
             background: rgba(255,255,255,0.1);
             height: 8px;
@@ -333,6 +327,54 @@
         .stat-item h2 { font-size: 3rem; color: var(--primary-color); line-height: 1; }
         .stat-item p { margin-top: 0.5rem; font-weight: 500; color: var(--text-muted); }
 
+        /* --- AI Teacher Modal Styles --- */
+        .ai-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .ai-modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .ai-modal-content h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.5rem; }
+        .ai-modal-content p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--primary-color); }
+        .chat-box-dummy {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            height: 120px;
+            text-align: left;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        [data-theme="light"] .chat-box-dummy { background: rgba(255,255,255,0.6); }
+
         /* --- Contact Form --- */
         .contact-form {
             max-width: 700px;
@@ -368,7 +410,6 @@
 
         .form-group textarea { height: 160px; resize: none; }
 
-       
         .social-icons {
             display: flex;
             justify-content: center;
@@ -404,7 +445,6 @@
             font-size: 0.9rem;
         }
 
-       
         @media (max-width: 991px) {
             header { padding: 15px 5%; }
             section { padding: 7rem 5% 3rem; }
@@ -414,7 +454,6 @@
         @media (max-width: 768px) {
             #menu-icon { display: block; }
             
-          
             .navbar {
                 position: absolute;
                 top: 100%;
@@ -471,7 +510,6 @@
             <a href="#contact">Contact</a>
         </nav>
 
-      
         <div class="nav-controls">
             <div id="clock" class="live-clock">
                 <i class="far fa-clock"></i> <span id="time-display">--:--:--</span>
@@ -561,27 +599,40 @@
     <section class="projects" id="projects">
         <h2 class="heading">My <span>Projects & Insights</span></h2>
         <div class="grid-container">
-          
+            
             <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
                 <h3><i class="fas fa-laptop-code"></i> CA Sri Lanka Simulator</h3>
                 <p>Interactive real-time CBT exam simulator for BL-25-1: Fundamentals of Financial Reporting featuring automated scoring and randomized questions.</p>
                 <a href="CA_SriLanka_BL251_Fundamentals_Financial_Reporting_CBT_Simulator.html" target="_blank" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
             </div>
             
-           
             <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
                 <h3><i class="fas fa-laptop-code"></i> CA Sri Lanka Simulator</h3>
                 <p>Interactive real-time CBT exam simulator for Business Fundamentals, Law & Tax featuring automated scoring and bilingual reviews.</p>
                 <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="card">
-                <h3><i class="fas fa-code"></i> Portfolio Website</h3>
-                <p>This fully responsive, glassmorphism-styled portfolio built from scratch using HTML, CSS, and modern JavaScript.</p>
-                <a href="#" class="btn btn-sec" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">View Code</a>
+            <!-- AI English Spoken Teacher Card -->
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.6); background: rgba(255, 60, 60, 0.05);">
+                <h3><i class="fas fa-headset"></i> AI English Spoken Teacher</h3>
+                <p>An interactive AI-powered speaking assistant designed to help learners practice English conversation, improve pronunciation, and build fluency 24/7.</p>
+                <button id="open-ai-modal" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch AI Teacher <i class="fas fa-microphone"></i></button>
             </div>
         </div>
     </section>
+
+    <!-- AI Teacher Modal Popup -->
+    <div class="ai-modal" id="aiModal">
+        <div class="ai-modal-content">
+            <span class="close-modal" id="close-ai-modal">&times;</span>
+            <h3><i class="fas fa-headset"></i> AI English Tutor</h3>
+            <p>Practice speaking or chatting with your virtual English mentor right now!</p>
+            <div class="chat-box-dummy">
+                <strong>AI Teacher:</strong> Hello! I am your English spoken companion. How can I help you practice your conversational skills today? Feel free to ask any questions or start chatting!
+            </div>
+            <button class="btn" onclick="alert('Voice integration active! Connect your Vapi or Web Speech API script here.')"><i class="fas fa-microphone-alt"></i> Start Voice Session</button>
+        </div>
+    </div>
 
     <section class="contact" id="contact">
         <h2 class="heading">Get in <span>Touch</span></h2>
@@ -627,7 +678,6 @@
             }
         });
 
-        // Close mobile menu when a link is clicked
         navLinksArr.forEach(link => {
             link.addEventListener('click', () => {
                 navbar.classList.remove('active');
@@ -706,7 +756,26 @@
             });
         };
 
-        // 5. EmailJS Contact Form Setup
+        // 5. AI Teacher Modal Controls
+        const aiModal = document.getElementById('aiModal');
+        const openAiModalBtn = document.getElementById('open-ai-modal');
+        const closeAiModalBtn = document.getElementById('close-ai-modal');
+
+        openAiModalBtn.addEventListener('click', () => {
+            aiModal.style.display = 'flex';
+        });
+
+        closeAiModalBtn.addEventListener('click', () => {
+            aiModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === aiModal) {
+                aiModal.style.display = 'none';
+            }
+        });
+
+        // 6. EmailJS Contact Form Setup
         (function() {
             emailjs.init("wJ-Xok6dB93S48oql"); 
         })();
