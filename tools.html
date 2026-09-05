@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student & Financial Toolkit | Janith Madumal</title>
-    <meta name="description" content="Free Sri Lankan Student & Finance Tools: University Course Comparator, APIT Tax Calculator, Loan Amortizer, Invoice Maker, Ratio Analyzer.">
+    <title>Management Student & Financial Toolkit | Janith Madumal</title>
+    <meta name="description" content="Free Sri Lankan Management Student & Finance Tools: SWOT Matrix Generator, Break-Even Analyzer, EOQ Calculator, University GPA Predictor, APIT Tax, and Loan Amortizer.">
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -45,7 +45,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', 'Noto Sans Sinhala', sans-serif;
             scroll-behavior: smooth;
         }
 
@@ -54,6 +54,7 @@
             color: var(--text-color);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         header {
@@ -78,15 +79,21 @@
         }
         .logo span { color: var(--primary-color); }
 
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .btn-back {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             color: var(--text-color);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -97,12 +104,31 @@
             border-color: var(--primary-color);
         }
 
+        #lang-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        #lang-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
         .tools-hero {
-            padding: 8rem 8% 3rem;
+            padding: 8rem 8% 2.5rem;
             text-align: center;
         }
         .tools-hero h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 1rem;
             background: linear-gradient(45deg, var(--text-color), var(--primary-color));
@@ -116,14 +142,28 @@
             font-size: 1.05rem;
         }
 
+        .section-subhead {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .section-subhead i { color: var(--primary-color); }
+
         .tools-grid-section {
-            padding: 2rem 8% 5rem;
+            padding: 1rem 8% 5rem;
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            gap: 1.8rem;
+            margin-bottom: 3.5rem;
         }
 
         .card {
@@ -162,6 +202,10 @@
             color: var(--primary-color);
             margin-bottom: 12px;
             align-self: flex-start;
+        }
+        .badge.mgmt {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--success-color);
         }
 
         .btn {
@@ -203,7 +247,7 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             border-radius: 18px;
-            max-width: 720px;
+            max-width: 750px;
             width: 100%;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             position: relative;
@@ -232,7 +276,7 @@
             color: var(--text-muted);
             margin-bottom: 4px;
         }
-        .tool-form-group input, .tool-form-group select {
+        .tool-form-group input, .tool-form-group select, .tool-form-group textarea {
             width: 100%;
             padding: 10px 12px;
             background: var(--input-bg);
@@ -242,7 +286,11 @@
             outline: none;
             font-size: 13px;
         }
-        .tool-form-group input:focus, .tool-form-group select:focus {
+        .tool-form-group textarea {
+            height: 75px;
+            resize: vertical;
+        }
+        .tool-form-group input:focus, .tool-form-group select:focus, .tool-form-group textarea:focus {
             border-color: var(--primary-color);
         }
 
@@ -286,112 +334,283 @@
 
     <header>
         <a href="index.html" class="logo">Janiya<span>.tools</span></a>
-        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Main Portfolio</a>
+        <div class="header-controls">
+            <button id="lang-toggle" title="Switch Language / භාෂාව මාරු කරන්න">
+                <i class="fas fa-globe"></i> <span id="lang-label">සිංහල</span>
+            </button>
+            <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> <span data-i18n="btn_back">Back to Portfolio</span></a>
+        </div>
     </header>
 
     <div class="tools-hero">
-        <h1>Student & Financial Toolkit</h1>
-        <p>A collection of open interactive utilities designed for Sri Lankan university undergraduates, commerce students, and business owners.</p>
+        <h1 data-i18n="hero_title">Student & Management Toolkit</h1>
+        <p data-i18n="hero_desc">Interactive utilities tailored for Sri Lankan Management Undergraduates, Commerce Students, and Small Business Owners.</p>
     </div>
 
     <section class="tools-grid-section">
+        
+        <!-- SECTION 1: MANAGEMENT STUDENT SPECIFIC TOOLS -->
+        <div class="section-subhead"><i class="fas fa-briefcase"></i> <span data-i18n="sec_mgmt">Core Management Student Toolkit</span></div>
         <div class="grid-container">
 
-            <!-- 1. Uni Course Comparator -->
+            <!-- 1. SWOT Matrix Generator -->
             <div class="card">
                 <div>
-                    <span class="badge">Higher Education</span>
-                    <h3><i class="fas fa-balance-scale-right"></i> University Course Comparator</h3>
-                    <p>Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and Moratuwa side-by-side (Duration, Specializations, Careers).</p>
+                    <span class="badge mgmt" data-i18n="badge_strategy">Strategic Management</span>
+                    <h3><i class="fas fa-th-large"></i> <span data-i18n="swot_title">SWOT Matrix Generator</span></h3>
+                    <p data-i18n="swot_desc">Build formatted 4-quadrant SWOT matrices (Strengths, Weaknesses, Opportunities, Threats) for case studies with instant print/export.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-unicompare">Compare Courses <i class="fas fa-columns"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-swot"><span data-i18n="btn_build_swot">Build SWOT Matrix</span> <i class="fas fa-pen-fancy"></i></button>
             </div>
 
-            <!-- 2. APIT Tax Calculator -->
+            <!-- 2. Break-Even Analyzer -->
             <div class="card">
                 <div>
-                    <span class="badge">Sri Lanka Tax</span>
-                    <h3><i class="fas fa-calculator"></i> SL APIT Income Tax Calculator</h3>
-                    <p>Calculate Advance Personal Income Tax (APIT) based on monthly gross remuneration, relief allowances, and statutory progressive tax slabs.</p>
+                    <span class="badge mgmt" data-i18n="badge_costing">Cost & Management Accounting</span>
+                    <h3><i class="fas fa-chart-line"></i> <span data-i18n="be_title">Break-Even & Safety Margin Calculator</span></h3>
+                    <p data-i18n="be_desc">Calculate unit break-even points, break-even revenue, contribution margin ratio, and margin of safety percentage instantly.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-apit">Calculate Tax <i class="fas fa-sliders-h"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-breakeven"><span data-i18n="btn_calc_be">Calculate Break-Even</span> <i class="fas fa-calculator"></i></button>
             </div>
 
-            <!-- 3. Loan & Lease Amortizer -->
+            <!-- 3. EOQ Calculator -->
             <div class="card">
                 <div>
-                    <span class="badge">Banking & Loans</span>
-                    <h3><i class="fas fa-chart-line"></i> Loan & Lease Amortizer</h3>
-                    <p>Calculates compound reducing-balance monthly repayments (EMI) and complete multi-year principal and interest schedules.</p>
+                    <span class="badge mgmt" data-i18n="badge_ops">Operations & Supply Chain</span>
+                    <h3><i class="fas fa-boxes"></i> <span data-i18n="eoq_title">Economic Order Quantity (EOQ) Tool</span></h3>
+                    <p data-i18n="eoq_desc">Determine optimal inventory order size, annual ordering cost, holding cost, and reorder point (ROP) based on lead time.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-loan">Amortize Loan <i class="fas fa-calculator"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-eoq"><span data-i18n="btn_calc_eoq">Calculate EOQ</span> <i class="fas fa-warehouse"></i></button>
             </div>
 
-            <!-- 4. Invoice Generator -->
+            <!-- 4. SL University GPA Predictor -->
             <div class="card">
                 <div>
-                    <span class="badge">Billing & Invoicing</span>
-                    <h3><i class="fas fa-file-invoice-dollar"></i> Instant Invoice Generator</h3>
-                    <p>Draft professional itemized client invoices with automated VAT/SSCL calculation and instant browser print/PDF export.</p>
+                    <span class="badge mgmt" data-i18n="badge_gpa">Academic Planning</span>
+                    <h3><i class="fas fa-graduation-cap"></i> <span data-i18n="gpa_title">University GPA / Class Predictor</span></h3>
+                    <p data-i18n="gpa_desc">Customized for Sri Lankan State University grading systems (RUSL, USJ, UoC). Enter credits and grades to forecast your final GPA.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-invoice">Draft Invoice <i class="fas fa-file-pdf"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-gpa"><span data-i18n="btn_calc_gpa">Calculate Semester GPA</span> <i class="fas fa-award"></i></button>
             </div>
 
-            <!-- 5. Corporate Ratio Analyzer -->
+        </div>
+
+        <!-- SECTION 2: FINANCE, TAX & TRADE TOOLS -->
+        <div class="section-subhead"><i class="fas fa-coins"></i> <span data-i18n="sec_finance">Financial & Business Utilities</span></div>
+        <div class="grid-container">
+
+            <!-- 5. University Comparator -->
             <div class="card">
                 <div>
-                    <span class="badge">Financial Analysis</span>
-                    <h3><i class="fas fa-balance-scale"></i> Corporate Ratio Analyzer</h3>
-                    <p>Evaluate balance sheet health across Current, Quick (Acid-Test), Debt-to-Equity, and Net Profit margins with risk indicators.</p>
+                    <span class="badge" data-i18n="badge_higher_edu">Higher Education</span>
+                    <h3><i class="fas fa-balance-scale-right"></i> <span data-i18n="comp_title">University Course Comparator</span></h3>
+                    <p data-i18n="comp_desc">Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and Moratuwa side-by-side.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-ratios">Analyze Ratios <i class="fas fa-chart-pie"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-unicompare"><span data-i18n="btn_compare">Compare Courses</span> <i class="fas fa-columns"></i></button>
             </div>
 
-            <!-- 6. Expense Tracker -->
+            <!-- 6. APIT Tax Calculator -->
             <div class="card">
                 <div>
-                    <span class="badge">Personal Finance</span>
-                    <h3><i class="fas fa-wallet"></i> Smart Budget & Expense Log</h3>
-                    <p>Manage daily income and expenditures with category tracking and automatic local persistent storage in the browser.</p>
+                    <span class="badge" data-i18n="badge_tax">Taxation</span>
+                    <h3><i class="fas fa-calculator"></i> <span data-i18n="tax_title">SL APIT Income Tax Calculator</span></h3>
+                    <p data-i18n="tax_desc">Calculate Advance Personal Income Tax (APIT) based on monthly gross remuneration, relief allowances, and statutory progressive tax slabs.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-budget">Open Tracker <i class="fas fa-coins"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-apit"><span data-i18n="btn_calc_tax">Calculate Tax</span> <i class="fas fa-sliders-h"></i></button>
             </div>
 
-            <!-- 7. Customs Duty Estimator -->
+            <!-- 7. Loan Amortizer -->
             <div class="card">
                 <div>
-                    <span class="badge">Trade & Customs</span>
-                    <h3><i class="fas fa-ship"></i> Customs Duty & Import Estimator</h3>
-                    <p>Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.</p>
+                    <span class="badge" data-i18n="badge_banking">Banking & Loans</span>
+                    <h3><i class="fas fa-percent"></i> <span data-i18n="loan_title">Loan & Lease Amortizer</span></h3>
+                    <p data-i18n="loan_desc">Calculates compound reducing-balance monthly repayments (EMI) and complete multi-year principal/interest schedules.</p>
                 </div>
-                <button class="btn open-modal-btn" data-target="modal-customs">Estimate Duty <i class="fas fa-calculator"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-loan"><span data-i18n="btn_amortize">Amortize Loan</span> <i class="fas fa-calculator"></i></button>
             </div>
 
-            <!-- 8. CA Exam Simulator 2 -->
+            <!-- 8. Invoice Generator -->
             <div class="card">
                 <div>
-                    <span class="badge">CA Sri Lanka</span>
-                    <h3><i class="fas fa-laptop-code"></i> CA BL254 Law & Tax Simulator</h3>
-                    <p>Real-time mock exam simulator for Business Fundamentals, Law & Taxation with bilingual question reviews.</p>
+                    <span class="badge" data-i18n="badge_billing">Invoicing</span>
+                    <h3><i class="fas fa-file-invoice-dollar"></i> <span data-i18n="inv_title">Instant Invoice Generator</span></h3>
+                    <p data-i18n="inv_desc">Draft professional itemized client invoices with automated VAT computation and instant browser print/PDF export.</p>
                 </div>
-                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn">Launch Simulator <i class="fas fa-arrow-right"></i></a>
+                <button class="btn open-modal-btn" data-target="modal-invoice"><span data-i18n="btn_draft_inv">Draft Invoice</span> <i class="fas fa-file-pdf"></i></button>
+            </div>
+
+            <!-- 9. Ratio Analyzer -->
+            <div class="card">
+                <div>
+                    <span class="badge" data-i18n="badge_corp_fin">Corporate Finance</span>
+                    <h3><i class="fas fa-balance-scale"></i> <span data-i18n="ratio_title">Corporate Ratio Analyzer</span></h3>
+                    <p data-i18n="ratio_desc">Evaluate balance sheet health across Current, Quick, Debt-to-Equity, and Net Profit margins with risk indicators.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-ratios"><span data-i18n="btn_analyze_ratios">Analyze Ratios</span> <i class="fas fa-chart-pie"></i></button>
+            </div>
+
+            <!-- 10. Customs Duty Estimator -->
+            <div class="card">
+                <div>
+                    <span class="badge" data-i18n="badge_customs">Trade & Customs</span>
+                    <h3><i class="fas fa-ship"></i> <span data-i18n="customs_title">Customs Duty & Import Estimator</span></h3>
+                    <p data-i18n="customs_desc">Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-customs"><span data-i18n="btn_calc_customs">Estimate Duty</span> <i class="fas fa-calculator"></i></button>
             </div>
 
         </div>
     </section>
 
-    <!-- ================= TOOL MODALS ================= -->
+    <!-- ================= MODALS FOR ALL TOOLS ================= -->
 
-    <!-- Modal 1: University Course Comparator -->
+    <!-- Modal 1: SWOT Matrix Generator -->
+    <div class="tool-modal" id="modal-swot">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-th-large"></i> <span data-i18n="swot_modal_title">SWOT Matrix Generator</span></h3>
+            <p class="desc" data-i18n="swot_modal_desc">Enter key bullet points for each quadrant to generate an exportable matrix for case studies.</p>
+            
+            <div class="tool-form-group">
+                <label data-i18n="lbl_swot_comp">Company / Project Name</label>
+                <input type="text" id="swot-company" placeholder="e.g. Ceylon Agro Tech PLC">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tool-form-group">
+                    <label style="color:var(--success-color);" data-i18n="lbl_swot_s">Strengths (Internal)</label>
+                    <textarea id="swot-s" placeholder="- Strong brand loyalty&#10;- Low production costs"></textarea>
+                </div>
+                <div class="tool-form-group">
+                    <label style="color:var(--primary-color);" data-i18n="lbl_swot_w">Weaknesses (Internal)</label>
+                    <textarea id="swot-w" placeholder="- Limited digital marketing&#10;- High labor turnover"></textarea>
+                </div>
+                <div class="tool-form-group">
+                    <label style="color:#3498db;" data-i18n="lbl_swot_o">Opportunities (External)</label>
+                    <textarea id="swot-o" placeholder="- Expanding e-commerce market&#10;- Export tax concessions"></textarea>
+                </div>
+                <div class="tool-form-group">
+                    <label style="color:var(--warning-color);" data-i18n="lbl_swot_t">Threats (External)</label>
+                    <textarea id="swot-t" placeholder="- Inflation and currency risk&#10;- New market entrants"></textarea>
+                </div>
+            </div>
+
+            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="generateSWOTPrint()"><span data-i18n="btn_print_swot">Print / Save SWOT as PDF</span> <i class="fas fa-print"></i></button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Break-Even Analyzer -->
+    <div class="tool-modal" id="modal-breakeven">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-chart-line"></i> <span data-i18n="be_modal_title">Break-Even & Safety Margin Analyzer</span></h3>
+            <p class="desc" data-i18n="be_modal_desc">Computes the exact sales volume needed to cover all operational costs.</p>
+            
+            <div class="tool-form-group">
+                <label data-i18n="lbl_be_fc">Total Fixed Costs (TFC in LKR)</label>
+                <input type="number" id="be-fixed" value="300000" placeholder="e.g. 300000">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="tool-form-group" style="flex:1;">
+                    <label data-i18n="lbl_be_sp">Selling Price Per Unit (LKR)</label>
+                    <input type="number" id="be-price" value="1500" placeholder="e.g. 1500">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label data-i18n="lbl_be_vc">Variable Cost Per Unit (LKR)</label>
+                    <input type="number" id="be-vc" value="900" placeholder="e.g. 900">
+                </div>
+            </div>
+            <div class="tool-form-group">
+                <label data-i18n="lbl_be_act">Expected / Current Unit Sales Volume (Optional)</label>
+                <input type="number" id="be-actual" value="750" placeholder="e.g. 750">
+            </div>
+
+            <button class="btn" style="width: 100%;" onclick="calculateBreakEven()"><span data-i18n="btn_calc_be_action">Compute Break-Even Metrics</span></button>
+
+            <div class="tool-result-box" id="breakeven-result">
+                <h4>Calculation Summary</h4>
+                <p>Click calculate to see break-even units and safety margins.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: EOQ Tool -->
+    <div class="tool-modal" id="modal-eoq">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-boxes"></i> <span data-i18n="eoq_modal_title">Economic Order Quantity (EOQ) Tool</span></h3>
+            <p class="desc" data-i18n="eoq_modal_desc">Find the order quantity that minimizes holding and order setup costs.</p>
+            
+            <div class="tool-form-group">
+                <label data-i18n="lbl_eoq_d">Annual Demand (D in Units)</label>
+                <input type="number" id="eoq-demand" value="10000" placeholder="e.g. 10000">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="tool-form-group" style="flex:1;">
+                    <label data-i18n="lbl_eoq_s">Order Cost (S in LKR per order)</label>
+                    <input type="number" id="eoq-order" value="2500" placeholder="e.g. 2500">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label data-i18n="lbl_eoq_h">Holding Cost (H in LKR per unit/year)</label>
+                    <input type="number" id="eoq-holding" value="50" placeholder="e.g. 50">
+                </div>
+            </div>
+            <div class="tool-form-group">
+                <label data-i18n="lbl_eoq_lead">Supplier Lead Time (Days)</label>
+                <input type="number" id="eoq-lead" value="7" placeholder="e.g. 7">
+            </div>
+
+            <button class="btn" style="width: 100%;" onclick="calculateEOQ()"><span data-i18n="btn_calc_eoq_action">Calculate Optimal Inventory Order</span></button>
+
+            <div class="tool-result-box" id="eoq-result">
+                <h4>Inventory Summary</h4>
+                <p>Awaiting inputs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: GPA Predictor -->
+    <div class="tool-modal" id="modal-gpa">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-graduation-cap"></i> <span data-i18n="gpa_modal_title">University GPA Predictor</span></h3>
+            <p class="desc" data-i18n="gpa_modal_desc">Sri Lankan State University management grading scale (4.00 Max).</p>
+            
+            <div id="gpa-rows">
+                <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                    <input type="text" placeholder="Course Name (e.g. Financial Accounting)" style="flex:2; padding: 8px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-color); border-radius:6px;">
+                    <input type="number" placeholder="Credits" value="3" class="gpa-credits" style="flex:1; padding: 8px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-color); border-radius:6px;">
+                    <select class="gpa-grade" style="flex:1; padding: 8px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-color); border-radius:6px;">
+                        <option value="4.00">A / A+ (4.0)</option>
+                        <option value="3.70">A- (3.7)</option>
+                        <option value="3.30">B+ (3.3)</option>
+                        <option value="3.00">B (3.0)</option>
+                        <option value="2.70">B- (2.7)</option>
+                        <option value="2.30">C+ (2.3)</option>
+                        <option value="2.00">C (2.0)</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" style="padding: 6px 14px; font-size:12px; margin-bottom: 12px;" onclick="addGpaRow()"><span data-i18n="btn_add_course">+ Add Course</span></button>
+            <button class="btn" style="width: 100%;" onclick="calculateGPA()"><span data-i18n="btn_calc_gpa_action">Calculate Semester GPA</span></button>
+
+            <div class="tool-result-box" id="gpa-result">
+                <h4>Academic Projection</h4>
+                <p>Click calculate to view your projected GPA.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: University Course Comparator -->
     <div class="tool-modal" id="modal-unicompare">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-balance-scale-right"></i> University Course Comparator</h3>
-            <p class="desc">Compare Management, IT, and Commerce faculties in Sri Lanka side-by-side.</p>
+            <h3><i class="fas fa-balance-scale-right"></i> <span data-i18n="comp_modal_title">University Course Comparator</span></h3>
+            <p class="desc" data-i18n="comp_modal_desc">Compare Management, IT, and Commerce faculties in Sri Lanka side-by-side.</p>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div class="tool-form-group">
-                    <label>First Degree / University</label>
+                    <label data-i18n="lbl_uni1">First Degree / University</label>
                     <select id="comp-course-1">
                         <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
                         <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
@@ -402,7 +621,7 @@
                     </select>
                 </div>
                 <div class="tool-form-group">
-                    <label>Second Degree / University</label>
+                    <label data-i18n="lbl_uni2">Second Degree / University</label>
                     <select id="comp-course-2">
                         <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
                         <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
@@ -414,27 +633,27 @@
                 </div>
             </div>
 
-            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="compareUniversities()">Compare Now <i class="fas fa-exchange-alt"></i></button>
+            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="compareUniversities()"><span data-i18n="btn_comp_action">Compare Now</span> <i class="fas fa-exchange-alt"></i></button>
             <div id="comparison-output" style="margin-top: 15px; overflow-x: auto;"></div>
         </div>
     </div>
 
-    <!-- Modal 2: APIT Tax Calculator -->
+    <!-- Modal 6: APIT Tax Calculator -->
     <div class="tool-modal" id="modal-apit">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-calculator"></i> SL APIT Tax Calculator</h3>
-            <p class="desc">Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.</p>
+            <h3><i class="fas fa-calculator"></i> <span data-i18n="tax_modal_title">SL APIT Tax Calculator</span></h3>
+            <p class="desc" data-i18n="tax_modal_desc">Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.</p>
             
             <div class="tool-form-group">
-                <label>Monthly Gross Salary / Remuneration (LKR)</label>
+                <label data-i18n="lbl_tax_sal">Monthly Gross Salary / Remuneration (LKR)</label>
                 <input type="number" id="tax-salary" value="200000">
             </div>
             <div class="tool-form-group">
-                <label>Monthly Tax-Free Relief Allowance (LKR)</label>
+                <label data-i18n="lbl_tax_rel">Monthly Tax-Free Relief Allowance (LKR)</label>
                 <input type="number" id="tax-relief" value="100000">
             </div>
-            <button class="btn" style="width: 100%;" onclick="calculateAPIT()">Calculate Tax</button>
+            <button class="btn" style="width: 100%;" onclick="calculateAPIT()"><span data-i18n="btn_calc_tax_action">Calculate Tax</span></button>
 
             <div class="tool-result-box" id="tax-result">
                 <h4>Calculation Breakdown</h4>
@@ -443,26 +662,26 @@
         </div>
     </div>
 
-    <!-- Modal 3: Loan Amortizer -->
+    <!-- Modal 7: Loan Amortizer -->
     <div class="tool-modal" id="modal-loan">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-chart-line"></i> Loan & Lease Amortizer</h3>
-            <p class="desc">Computes monthly repayments (EMI) on standard reducing balance bank financing.</p>
+            <h3><i class="fas fa-chart-line"></i> <span data-i18n="loan_modal_title">Loan & Lease Amortizer</span></h3>
+            <p class="desc" data-i18n="loan_modal_desc">Computes monthly repayments (EMI) on standard reducing balance bank financing.</p>
             
             <div class="tool-form-group">
-                <label>Loan Amount (Principal - LKR)</label>
+                <label data-i18n="lbl_loan_p">Loan Amount (Principal - LKR)</label>
                 <input type="number" id="loan-amount" value="1000000">
             </div>
             <div class="tool-form-group">
-                <label>Annual Interest Rate (%)</label>
+                <label data-i18n="lbl_loan_r">Annual Interest Rate (%)</label>
                 <input type="number" id="loan-rate" step="0.1" value="13.5">
             </div>
             <div class="tool-form-group">
-                <label>Tenure (Years)</label>
+                <label data-i18n="lbl_loan_y">Tenure (Years)</label>
                 <input type="number" id="loan-years" value="5">
             </div>
-            <button class="btn" style="width: 100%;" onclick="calculateLoan()">Calculate Schedule</button>
+            <button class="btn" style="width: 100%;" onclick="calculateLoan()"><span data-i18n="btn_calc_loan_action">Calculate Schedule</span></button>
 
             <div class="tool-result-box" id="loan-result">
                 <h4>Loan Summary</h4>
@@ -471,45 +690,45 @@
         </div>
     </div>
 
-    <!-- Modal 4: Invoice Generator -->
+    <!-- Modal 8: Invoice Generator -->
     <div class="tool-modal" id="modal-invoice">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-file-invoice-dollar"></i> Instant Invoice Generator</h3>
-            <p class="desc">Draft an itemized invoice and print or export to PDF directly.</p>
+            <h3><i class="fas fa-file-invoice-dollar"></i> <span data-i18n="inv_modal_title">Instant Invoice Generator</span></h3>
+            <p class="desc" data-i18n="inv_modal_desc">Draft an itemized invoice and print or export to PDF directly.</p>
             
             <div class="tool-form-group">
-                <label>Customer Name</label>
+                <label data-i18n="lbl_inv_client">Customer Name</label>
                 <input type="text" id="inv-client" placeholder="e.g. Commercial Client Ltd">
             </div>
             <div class="tool-form-group">
-                <label>Item Description</label>
+                <label data-i18n="lbl_inv_desc">Item Description</label>
                 <input type="text" id="inv-desc" placeholder="e.g. Accounting Consultation & Bookkeeping">
             </div>
             <div style="display: flex; gap: 10px;">
                 <div class="tool-form-group" style="flex:1;">
-                    <label>Qty</label>
+                    <label data-i18n="lbl_inv_qty">Qty</label>
                     <input type="number" id="inv-qty" value="1">
                 </div>
                 <div class="tool-form-group" style="flex:1;">
-                    <label>Unit Price (LKR)</label>
+                    <label data-i18n="lbl_inv_price">Unit Price (LKR)</label>
                     <input type="number" id="inv-price" value="50000">
                 </div>
                 <div class="tool-form-group" style="flex:1;">
-                    <label>VAT % (Optional)</label>
+                    <label data-i18n="lbl_inv_vat">VAT % (Optional)</label>
                     <input type="number" id="inv-vat" value="18">
                 </div>
             </div>
-            <button class="btn" style="width: 100%;" onclick="generateInvoicePreview()">Generate & Print Invoice</button>
+            <button class="btn" style="width: 100%;" onclick="generateInvoicePreview()"><span data-i18n="btn_calc_inv_action">Generate & Print Invoice</span></button>
         </div>
     </div>
 
-    <!-- Modal 5: Ratio Analysis -->
+    <!-- Modal 9: Ratio Analysis -->
     <div class="tool-modal" id="modal-ratios">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-balance-scale"></i> Corporate Ratio Analyzer</h3>
-            <p class="desc">Evaluate balance sheet and income performance.</p>
+            <h3><i class="fas fa-balance-scale"></i> <span data-i18n="ratio_modal_title">Corporate Ratio Analyzer</span></h3>
+            <p class="desc" data-i18n="ratio_modal_desc">Evaluate balance sheet and income performance.</p>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div class="tool-form-group">
@@ -541,7 +760,7 @@
                     <input type="number" id="ratio-rev" value="1200000">
                 </div>
             </div>
-            <button class="btn" style="width: 100%;" onclick="calculateRatios()">Compute Financial Health</button>
+            <button class="btn" style="width: 100%;" onclick="calculateRatios()"><span data-i18n="btn_calc_ratio_action">Compute Financial Health</span></button>
 
             <div class="tool-result-box" id="ratios-result">
                 <h4>Health Overview</h4>
@@ -550,64 +769,30 @@
         </div>
     </div>
 
-    <!-- Modal 6: Budget & Expense Tracker -->
-    <div class="tool-modal" id="modal-budget">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-wallet"></i> Smart Budget & Expense Log</h3>
-            <p class="desc">Tracks transactions saved in your browser's persistent LocalStorage.</p>
-            
-            <div style="display: flex; gap: 10px;">
-                <div class="tool-form-group" style="flex:2;">
-                    <label>Description</label>
-                    <input type="text" id="exp-desc" placeholder="e.g. University Fees, Textbooks, Fuel">
-                </div>
-                <div class="tool-form-group" style="flex:1;">
-                    <label>Amount (LKR)</label>
-                    <input type="number" id="exp-amount" placeholder="5000">
-                </div>
-                <div class="tool-form-group" style="flex:1;">
-                    <label>Type</label>
-                    <select id="exp-type">
-                        <option value="expense">Expense (-)</option>
-                        <option value="income">Income (+)</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn" style="width: 100%; margin-bottom: 15px;" onclick="addTransaction()">Add Entry</button>
-
-            <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px;">
-                <span>Total Balance: <strong id="total-balance" style="color:var(--primary-color)">Rs. 0.00</strong></span>
-                <button onclick="clearTransactions()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px;">Clear All</button>
-            </div>
-            <div id="expense-list" style="height: 140px; overflow-y:auto; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; background: var(--input-bg);"></div>
-        </div>
-    </div>
-
-    <!-- Modal 7: Customs Duty Estimator -->
+    <!-- Modal 10: Customs Duty Estimator -->
     <div class="tool-modal" id="modal-customs">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-ship"></i> Customs Duty & Import Estimator</h3>
-            <p class="desc">Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.</p>
+            <h3><i class="fas fa-ship"></i> <span data-i18n="customs_modal_title">Customs Duty & Import Estimator</span></h3>
+            <p class="desc" data-i18n="customs_modal_desc">Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.</p>
             
             <div class="tool-form-group">
-                <label>CIF Value (Cost, Insurance & Freight in LKR)</label>
+                <label data-i18n="lbl_cif">CIF Value (Cost, Insurance & Freight in LKR)</label>
                 <input type="number" id="cust-cif" value="1000000">
             </div>
             <div class="tool-form-group">
-                <label>Customs Import Duty - CID Rate (%)</label>
+                <label data-i18n="lbl_cid">Customs Import Duty - CID Rate (%)</label>
                 <input type="number" id="cust-cid" value="15">
             </div>
             <div class="tool-form-group">
-                <label>PAL Rate (%)</label>
+                <label data-i18n="lbl_pal">PAL Rate (%)</label>
                 <input type="number" id="cust-pal" value="10">
             </div>
             <div class="tool-form-group">
-                <label>Import VAT Rate (%)</label>
+                <label data-i18n="lbl_vat">Import VAT Rate (%)</label>
                 <input type="number" id="cust-vat" value="18">
             </div>
-            <button class="btn" style="width: 100%;" onclick="calculateCustoms()">Compute Landed Cost</button>
+            <button class="btn" style="width: 100%;" onclick="calculateCustoms()"><span data-i18n="btn_calc_customs_action">Compute Landed Cost</span></button>
 
             <div class="tool-result-box" id="customs-result">
                 <h4>Tariff Breakdown</h4>
@@ -617,10 +802,255 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Janith Madumal. Student & Finance Toolkit Hub.</p>
+        <p data-i18n="footer_copy">&copy; 2026 Janith Madumal. Built for Sri Lankan Management & Commerce Students.</p>
     </footer>
 
     <script>
+        // ================= DUAL LANGUAGE (I18N) =================
+        const translations = {
+            en: {
+                btn_back: "Back to Portfolio",
+                hero_title: "Student & Management Toolkit",
+                hero_desc: "Interactive utilities tailored for Sri Lankan Management Undergraduates, Commerce Students, and Small Business Owners.",
+                sec_mgmt: "Core Management Student Toolkit",
+                badge_strategy: "Strategic Management",
+                swot_title: "SWOT Matrix Generator",
+                swot_desc: "Build formatted 4-quadrant SWOT matrices (Strengths, Weaknesses, Opportunities, Threats) for case studies with instant print/export.",
+                btn_build_swot: "Build SWOT Matrix",
+                badge_costing: "Cost & Management Accounting",
+                be_title: "Break-Even & Safety Margin Calculator",
+                be_desc: "Calculate unit break-even points, break-even revenue, contribution margin ratio, and margin of safety percentage instantly.",
+                btn_calc_be: "Calculate Break-Even",
+                badge_ops: "Operations & Supply Chain",
+                eoq_title: "Economic Order Quantity (EOQ) Tool",
+                eoq_desc: "Determine optimal inventory order size, annual ordering cost, holding cost, and reorder point (ROP) based on lead time.",
+                btn_calc_eoq: "Calculate EOQ",
+                badge_gpa: "Academic Planning",
+                gpa_title: "University GPA / Class Predictor",
+                gpa_desc: "Customized for Sri Lankan State University grading systems (RUSL, USJ, UoC). Enter credits and grades to forecast your final GPA.",
+                btn_calc_gpa: "Calculate Semester GPA",
+                sec_finance: "Financial & Business Utilities",
+                badge_higher_edu: "Higher Education",
+                comp_title: "University Course Comparator",
+                comp_desc: "Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and Moratuwa side-by-side.",
+                btn_compare: "Compare Courses",
+                badge_tax: "Taxation",
+                tax_title: "SL APIT Income Tax Calculator",
+                tax_desc: "Calculate Advance Personal Income Tax (APIT) based on monthly gross remuneration, relief allowances, and statutory progressive tax slabs.",
+                btn_calc_tax: "Calculate Tax",
+                badge_banking: "Banking & Loans",
+                loan_title: "Loan & Lease Amortizer",
+                loan_desc: "Calculates compound reducing-balance monthly repayments (EMI) and complete multi-year principal/interest schedules.",
+                btn_amortize: "Amortize Loan",
+                badge_billing: "Invoicing",
+                inv_title: "Instant Invoice Generator",
+                inv_desc: "Draft professional itemized client invoices with automated VAT computation and instant browser print/PDF export.",
+                btn_draft_inv: "Draft Invoice",
+                badge_corp_fin: "Corporate Finance",
+                ratio_title: "Corporate Ratio Analyzer",
+                ratio_desc: "Evaluate balance sheet health across Current, Quick, Debt-to-Equity, and Net Profit margins with risk indicators.",
+                btn_analyze_ratios: "Analyze Ratios",
+                badge_customs: "Trade & Customs",
+                customs_title: "Customs Duty & Import Estimator",
+                customs_desc: "Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.",
+                btn_calc_customs: "Estimate Duty",
+                swot_modal_title: "SWOT Matrix Generator",
+                swot_modal_desc: "Enter key bullet points for each quadrant to generate an exportable matrix for case studies.",
+                lbl_swot_comp: "Company / Project Name",
+                lbl_swot_s: "Strengths (Internal)",
+                lbl_swot_w: "Weaknesses (Internal)",
+                lbl_swot_o: "Opportunities (External)",
+                lbl_swot_t: "Threats (External)",
+                btn_print_swot: "Print / Save SWOT as PDF",
+                be_modal_title: "Break-Even & Safety Margin Analyzer",
+                be_modal_desc: "Computes the exact sales volume needed to cover all operational costs.",
+                lbl_be_fc: "Total Fixed Costs (TFC in LKR)",
+                lbl_be_sp: "Selling Price Per Unit (LKR)",
+                lbl_be_vc: "Variable Cost Per Unit (LKR)",
+                lbl_be_act: "Expected / Current Unit Sales Volume (Optional)",
+                btn_calc_be_action: "Compute Break-Even Metrics",
+                eoq_modal_title: "Economic Order Quantity (EOQ) Tool",
+                eoq_modal_desc: "Find the order quantity that minimizes holding and order setup costs.",
+                lbl_eoq_d: "Annual Demand (D in Units)",
+                lbl_eoq_s: "Order Cost (S in LKR per order)",
+                lbl_eoq_h: "Holding Cost (H in LKR per unit/year)",
+                lbl_eoq_lead: "Supplier Lead Time (Days)",
+                btn_calc_eoq_action: "Calculate Optimal Inventory Order",
+                gpa_modal_title: "University GPA Predictor",
+                gpa_modal_desc: "Sri Lankan State University management grading scale (4.00 Max).",
+                btn_add_course: "+ Add Course",
+                btn_calc_gpa_action: "Calculate Semester GPA",
+                comp_modal_title: "University Course Comparator",
+                comp_modal_desc: "Compare Management, IT, and Commerce faculties in Sri Lanka side-by-side.",
+                lbl_uni1: "First Degree / University",
+                lbl_uni2: "Second Degree / University",
+                btn_comp_action: "Compare Now",
+                tax_modal_title: "SL APIT Tax Calculator",
+                tax_modal_desc: "Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.",
+                lbl_tax_sal: "Monthly Gross Salary / Remuneration (LKR)",
+                lbl_tax_rel: "Monthly Tax-Free Relief Allowance (LKR)",
+                btn_calc_tax_action: "Calculate Tax",
+                loan_modal_title: "Loan & Lease Amortizer",
+                loan_modal_desc: "Computes monthly repayments (EMI) on standard reducing balance bank financing.",
+                lbl_loan_p: "Loan Amount (Principal - LKR)",
+                lbl_loan_r: "Annual Interest Rate (%)",
+                lbl_loan_y: "Tenure (Years)",
+                btn_calc_loan_action: "Calculate Schedule",
+                inv_modal_title: "Instant Invoice Generator",
+                inv_modal_desc: "Draft an itemized invoice and print or export to PDF directly.",
+                lbl_inv_client: "Customer Name",
+                lbl_inv_desc: "Item Description",
+                lbl_inv_qty: "Qty",
+                lbl_inv_price: "Unit Price (LKR)",
+                lbl_inv_vat: "VAT % (Optional)",
+                btn_calc_inv_action: "Generate & Print Invoice",
+                ratio_modal_title: "Corporate Ratio Analyzer",
+                ratio_modal_desc: "Evaluate balance sheet and income performance.",
+                btn_calc_ratio_action: "Compute Financial Health",
+                customs_modal_title: "Customs Duty & Import Estimator",
+                customs_modal_desc: "Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.",
+                lbl_cif: "CIF Value (Cost, Insurance & Freight in LKR)",
+                lbl_cid: "Customs Import Duty - CID Rate (%)",
+                lbl_pal: "PAL Rate (%)",
+                lbl_vat: "Import VAT Rate (%)",
+                btn_calc_customs_action: "Compute Landed Cost",
+                footer_copy: "© 2026 Janith Madumal. Built for Sri Lankan Management & Commerce Students."
+            },
+            si: {
+                btn_back: "මුල් පිටුවට",
+                hero_title: "ශිෂ්‍ය & කළමනාකරණ මෙවලම් පද්ධතිය",
+                hero_desc: "ශ්‍රී ලංකාවේ කළමනාකරණ උපාධි අපේක්ෂකයින්, වාණිජ සිසුන් සහ ව්‍යාපාරිකයින් සඳහාම විශේෂයෙන් සැකසූ පරිගණක මෙවලම් එකතුව.",
+                sec_mgmt: "ප්‍රධාන කළමනාකරණ ශිෂ්‍ය මෙවලම්",
+                badge_strategy: "උපායමාර්ගික කළමනාකරණය",
+                swot_title: "SWOT න්‍යාස (Matrix) සාදනය",
+                swot_desc: "ව්‍යාපාරික සිද්ධි අධ්‍යයන (Case Studies) සඳහා ශක්තීන්, දුර්වලතා, අවස්ථා සහ තර්ජන ඇතුළත් 4-Quadrant SWOT සටහනක් සාදා Print කරගන්න.",
+                btn_build_swot: "SWOT න්‍යාසය සාදන්න",
+                badge_costing: "පිරිවැය & කළමනාකරණ ගිණුම්කරණය",
+                be_title: "සමච්ඡේද (Break-Even) සහ ආරක්ෂිත ආන්තික ගණකය",
+                be_desc: "ආයතනයක ලාභ හෝ අලාභ නොලබන සමච්ඡේද ඒකක ගණන, ආදායම, දායකත්ව අනුපාතිකය සහ ආරක්ෂිත ආන්තිකය ක්ෂණිකව ගණනය කරන්න.",
+                btn_calc_be: "සමච්ඡේදය ගණනය කරන්න",
+                badge_ops: "මෙහෙයුම් & සැපයුම් දාම කළමනාකරණය",
+                eoq_title: "ආර්ථික ඇණවුම් ප්‍රමාණ (EOQ) මෙවලම",
+                eoq_desc: "තොග පවත්වාගෙන යාමේ සහ ඇණවුම් කිරීමේ පිරිවැය අවම කරන ප්‍රශස්ත ඇණවුම් ප්‍රමාණය (EOQ) සහ Reorder Point (ROP) ගණනය කරන්න.",
+                btn_calc_eoq: "EOQ ගණනය කරන්න",
+                badge_gpa: "අධ්‍යයන සැලසුම්කරණය",
+                gpa_title: "විශ්වවිද්‍යාල GPA / පන්ති සාමාර්ථ පුරෝකථකය",
+                gpa_desc: "ශ්‍රී ලංකාවේ රාජ්‍ය සරසවි කළමනාකරණ පීඨ ශ්‍රේණිගත කිරීම්වලට අනුව (4.00 උපරිමය) ඔබගේ ක්‍රෙඩිට් සහ ශ්‍රේණි ඇතුළත් කර GPA අගය ගණනය කරන්න.",
+                btn_calc_gpa: "GPA ගණනය කරන්න",
+                sec_finance: "මූල්‍ය සහ ව්‍යාපාරික උපයෝගිතා",
+                badge_higher_edu: "උසස් අධ්‍යාපනය",
+                comp_title: "විශ්වවිද්‍යාල පාඨමාලා සංසන්දකය",
+                comp_desc: "රජරට, ජයවර්ධනපුර, කොළඹ, කැලණිය සහ මොරටුව ප්‍රධාන සරසවිවල කළමනාකරණ/IT උපාධි පාඨමාලා එකිනෙක සසඳා බලන්න.",
+                btn_compare: "පාඨමාලා සසඳන්න",
+                badge_tax: "බදුකරණය",
+                tax_title: "ශ්‍රී ලංකා APIT ආදායම් බදු කැල්කියුලේටරය",
+                tax_desc: "මාසික වැටුප, පෞද්ගලික බදු සහන සහ බදු සීමාවන් අනුව ගෙවිය යුතු APIT බදු මුදල ගණනය කරන්න.",
+                btn_calc_tax: "බදු මුදල ගණනය කරන්න",
+                badge_banking: "බැංකු සහ ණය",
+                loan_title: "ණය සහ ලීසිං ගණක යන්ත්‍රය",
+                loan_desc: "අඩුවන ශේෂ ක්‍රමය යටතේ මාසික වාරිකය (EMI) සහ සමස්ත පොලී කාලසටහන නිවැරදිව ගණනය කරන්න.",
+                btn_amortize: "ණය වාරිකය බලන්න",
+                badge_billing: "බිල්පත් සහ ඉන්වොයිස්",
+                inv_title: "ක්ෂණික ඉන්වොයිස් සාදනය",
+                inv_desc: "භාණ්ඩ හා සේවා ලැයිස්තුගත කර VAT ඇතුළත් කර ක්ෂණිකව මුද්‍රණය කරගත හැකි හෝ PDF බාගත හැකි ඉන්වොයිස් සාදන්න.",
+                btn_draft_inv: "ඉන්වොයිසිය සාදන්න",
+                badge_corp_fin: "සමාගම් මූල්‍ය",
+                ratio_title: "සමාගම් අනුපාත විශ්ලේෂකය",
+                ratio_desc: "වත්කම් සහ බැරකම් ඇතුළත් කර Current, Quick, Debt-to-Equity සහ ලාභ ආන්තික අනුපාත ගණනය කරන්න.",
+                btn_analyze_ratios: "අනුපාත ගණනය කරන්න",
+                badge_customs: "රේගුව සහ වෙළඳාම",
+                customs_title: "රේගු බදු සහ ආනයන ගණකය",
+                customs_desc: "CIF අගය, රේගු ආනයන බද්ද (CID), PAL සහ VAT එකතු කර ශ්‍රී ලංකාවට භාණ්ඩ ගොඩබෑමේ වියදම ගණනය කරන්න.",
+                btn_calc_customs: "රේගු බදු බලන්න",
+                swot_modal_title: "SWOT න්‍යාස (Matrix) සාදනය",
+                swot_modal_desc: "ව්‍යාපාරික විග්‍රහයක් සඳහා එක් එක් කොටසට කරුණු ඇතුළත් කර PDF එකක් ලෙස මුද්‍රණය කරගන්න.",
+                lbl_swot_comp: "ආයතනයේ / ව්‍යාපෘතියේ නම",
+                lbl_swot_s: "ශක්තීන් - Strengths (අභ්‍යන්තර)",
+                lbl_swot_w: "දුර්වලතා - Weaknesses (අභ්‍යන්තර)",
+                lbl_swot_o: "අවස්ථා - Opportunities (බාහිර)",
+                lbl_swot_t: "තර්ජන - Threats (බාහිර)",
+                btn_print_swot: "SWOT එක Print / PDF ලෙස බාගන්න",
+                be_modal_title: "සමච්ඡේද සහ ආරක්ෂිත ආන්තික විශ්ලේෂකය",
+                be_modal_desc: "ආයතනයේ සමස්ත ස්ථාවර පිරිවැය ආවරණය කිරීමට අවශ්‍ය නිවැරදි විකුණුම් පරිමාව ගණනය කරයි.",
+                lbl_be_fc: "සමස්ත ස්ථාවර පිරිවැය (TFC - LKR)",
+                lbl_be_sp: "ඒකකයක විකුණුම් මිල (LKR)",
+                lbl_be_vc: "ඒකකයක විචල්‍ය පිරිවැය (LKR)",
+                lbl_be_act: "අපේක්ෂිත / වත්මන් විකුණුම් ඒකක ගණන (විකල්ප)",
+                btn_calc_be_action: "සමච්ඡේද දර්ශක ගණනය කරන්න",
+                eoq_modal_title: "ආර්ථික ඇණවුම් ප්‍රමාණ (EOQ) මෙවලම",
+                eoq_modal_desc: "තොග ඇණවුම් කිරීමේ සහ රඳවා ගැනීමේ පිරිවැය අවම කරන ප්‍රශස්ත තොග ප්‍රමාණය සොයන්න.",
+                lbl_eoq_d: "වාර්ෂික ඉල්ලුම (D - ඒකක)",
+                lbl_eoq_s: "ඇණවුම් පිරිවැය (S - ඇණවුමකට LKR)",
+                lbl_eoq_h: "තොග රඳවා ගැනීමේ පිරිවැය (H - ඒකකයකට/වසරකට LKR)",
+                lbl_eoq_lead: "සැපයුම්කරුගේ Lead Time (දින)",
+                btn_calc_eoq_action: "ප්‍රශස්ත ඇණවුම් ප්‍රමාණය ගණනය කරන්න",
+                gpa_modal_title: "විශ්වවිද්‍යාල GPA පුරෝකථකය",
+                gpa_modal_desc: "ශ්‍රී ලංකා රාජ්‍ය විශ්වවිද්‍යාල කළමනාකරණ ශ්‍රේණි ක්‍රමය (උපරිම 4.00).",
+                btn_add_course: "+ විෂයක් එක්කරන්න",
+                btn_calc_gpa_action: "සෙමෙස්ටර් GPA ගණනය කරන්න",
+                comp_modal_title: "විශ්වවිද්‍යාල පාඨමාලා සංසන්දකය",
+                comp_modal_desc: "ශ්‍රී ලංකාවේ ප්‍රමුඛ කළමනාකරණ, IT සහ වාණිජ උපාධි පාඨමාලා සංසන්දනය කරන්න.",
+                lbl_uni1: "පළමු උපාධිය / සරසවිය",
+                lbl_uni2: "දෙවන උපාධිය / සරසවිය",
+                btn_comp_action: "දැන් සංසන්දනය කරන්න",
+                tax_modal_title: "ශ්‍රී ලංකා APIT ආදායම් බදු කැල්කියුලේටරය",
+                tax_modal_desc: "ප්‍රගතිශීලී බදු සීමාවන් අනුව මාසික උපයන විට ගෙවීමේ බද්ද (APIT) ගණනය කරන්න.",
+                lbl_tax_sal: "මාසික දළ වැටුප / ආදායම (LKR)",
+                lbl_tax_rel: "මාසික බදු සහන මුදල (LKR)",
+                btn_calc_tax_action: "බදු මුදල ගණනය කරන්න",
+                loan_modal_title: "ණය සහ ලීසිං ගණක යන්ත්‍රය",
+                loan_modal_desc: "බැංකු ණය සඳහා මාසික වාරිකය (EMI) සහ පොලිය ගණනය කරන්න.",
+                lbl_loan_p: "ණය මුදල (Principal - LKR)",
+                lbl_loan_r: "වාර්ෂික පොලී අනුපාතය (%)",
+                lbl_loan_y: "කාලසීමාව (වසර)",
+                btn_calc_loan_action: "වාරිකය ගණනය කරන්න",
+                inv_modal_title: "ක්ෂණික ඉන්වොයිස් සාදනය",
+                inv_modal_desc: "ඉන්වොයිස් එකක් සාදා මුද්‍රණය කරගන්න හෝ PDF එකක් ලෙස බාගන්න.",
+                lbl_inv_client: "පාරිභෝගිකයාගේ නම",
+                lbl_inv_desc: "භාණ්ඩයේ / සේවාවේ විස්තරය",
+                lbl_inv_qty: "ප්‍රමාණය",
+                lbl_inv_price: "ඒකක මිල (LKR)",
+                lbl_inv_vat: "VAT ප්‍රතිශතය (%)",
+                btn_calc_inv_action: "ඉන්වොයිසිය සාදා Print කරන්න",
+                ratio_modal_title: "සමාගම් අනුපාත විශ්ලේෂකය",
+                ratio_modal_desc: "ශේෂ පත්‍රයේ සහ ආදායම් තොරතුරුවල මූල්‍ය සෞඛ්‍යය මැන බලන්න.",
+                btn_calc_ratio_action: "මූල්‍ය සෞඛ්‍යය ගණනය කරන්න",
+                customs_modal_title: "රේගු බදු සහ ආනයන ගණකය",
+                customs_modal_desc: "රේගු ආනයන බදු (CID), PAL සහ VAT ගණනය කර සමස්ත ගොඩබෑමේ වියදම බලන්න.",
+                lbl_cif: "CIF අගය (LKR)",
+                lbl_cid: "රේගු ආනයන බද්ද - CID (%)",
+                lbl_pal: "PAL අනුපාතය (%)",
+                lbl_vat: "ආනයන VAT අනුපාතය (%)",
+                btn_calc_customs_action: "ගොඩබෑමේ වියදම ගණනය කරන්න",
+                footer_copy: "© 2026 ජනිත් මදුමාල්. ශ්‍රී ලාංකේය කළමනාකරණ & වාණිජ සිසුන් සඳහා නිර්මාණය කරන ලදී."
+            }
+        };
+
+        let currentLang = localStorage.getItem('site_lang') || 'en';
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('site_lang', lang);
+            document.documentElement.lang = lang;
+            
+            const langLabel = document.getElementById('lang-label');
+            if (langLabel) {
+                langLabel.textContent = lang === 'en' ? 'සිංහල' : 'English';
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            updateLanguage(currentLang === 'en' ? 'si' : 'en');
+        });
+        updateLanguage(currentLang);
+
         // Inherit Theme from index
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
@@ -644,7 +1074,184 @@
             }
         });
 
-        // Comparator Dataset
+        // 1. SWOT Print / Export
+        function generateSWOTPrint() {
+            const company = document.getElementById('swot-company').value || "Company Case Analysis";
+            const s = document.getElementById('swot-s').value.replace(/\n/g, "<br>");
+            const w = document.getElementById('swot-w').value.replace(/\n/g, "<br>");
+            const o = document.getElementById('swot-o').value.replace(/\n/g, "<br>");
+            const t = document.getElementById('swot-t').value.replace(/\n/g, "<br>");
+
+            const printHtml = `
+                <html>
+                <head>
+                    <title>SWOT Analysis - ${company}</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 40px; color: #222; }
+                        h2 { border-bottom: 2px solid #ff3c3c; padding-bottom: 10px; margin-bottom: 20px; }
+                        .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                        .swot-box { border: 2px solid #ddd; padding: 15px; border-radius: 8px; min-height: 180px; }
+                        .swot-box h3 { margin-top: 0; }
+                    </style>
+                </head>
+                <body>
+                    <h2>SWOT Matrix Analysis: ${company}</h2>
+                    <p>Compiled by: Janith Madumal | Faculty of Management Studies, RUSL</p>
+                    <div class="swot-grid">
+                        <div class="swot-box" style="border-color: #2ecc71;">
+                            <h3 style="color:#2ecc71;">STRENGTHS (Internal)</h3>
+                            <div>${s || "None provided"}</div>
+                        </div>
+                        <div class="swot-box" style="border-color: #ff3c3c;">
+                            <h3 style="color:#ff3c3c;">WEAKNESSES (Internal)</h3>
+                            <div>${w || "None provided"}</div>
+                        </div>
+                        <div class="swot-box" style="border-color: #3498db;">
+                            <h3 style="color:#3498db;">OPPORTUNITIES (External)</h3>
+                            <div>${o || "None provided"}</div>
+                        </div>
+                        <div class="swot-box" style="border-color: #f39c12;">
+                            <h3 style="color:#f39c12;">THREATS (External)</h3>
+                            <div>${t || "None provided"}</div>
+                        </div>
+                    </div>
+                    <script>window.onload = function() { window.print(); }<\/script>
+                </body>
+                </html>
+            `;
+            const win = window.open('', '_blank');
+            win.document.write(printHtml);
+            win.document.close();
+        }
+
+        // 2. Break-Even Analyzer
+        function calculateBreakEven() {
+            const fc = parseFloat(document.getElementById('be-fixed').value) || 0;
+            const sp = parseFloat(document.getElementById('be-price').value) || 0;
+            const vc = parseFloat(document.getElementById('be-vc').value) || 0;
+            const actualUnits = parseFloat(document.getElementById('be-actual').value) || 0;
+
+            const cmPerUnit = sp - vc;
+            if (cmPerUnit <= 0) {
+                document.getElementById('breakeven-result').innerHTML = currentLang === 'si'
+                    ? "<p style='color:red;'>ධනාත්මක දායකත්වයක් ලබා ගැනීමට විකුණුම් මිල විචල්‍ය පිරිවැයට වඩා වැඩි විය යුතුය.</p>"
+                    : "<p style='color:red;'>Selling price must exceed variable cost to achieve positive contribution.</p>";
+                return;
+            }
+
+            const beUnits = Math.ceil(fc / cmPerUnit);
+            const beRevenue = beUnits * sp;
+            const cmRatio = ((cmPerUnit / sp) * 100).toFixed(1);
+            
+            let safetyMarginText = "N/A";
+            if (actualUnits > 0) {
+                const mosUnits = actualUnits - beUnits;
+                const mosPercent = ((mosUnits / actualUnits) * 100).toFixed(1);
+                safetyMarginText = `${mosUnits.toLocaleString()} units (${mosPercent}%)`;
+            }
+
+            document.getElementById('breakeven-result').innerHTML = `
+                <h4>${currentLang === 'si' ? 'සමච්ඡේද ප්‍රතිඵල සාරාංශය' : 'Break-Even Results'}</h4>
+                <p>${currentLang === 'si' ? 'ඒකකයක දායකත්වය' : 'Contribution Margin Per Unit'}: <strong>Rs. ${cmPerUnit.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'දායකත්ව අනුපාතිකය' : 'Contribution Margin Ratio'}: <strong>${cmRatio}%</strong></p>
+                <p style="color:var(--primary-color); font-size:15px; margin-top:5px;">${currentLang === 'si' ? 'සමච්ඡේද ඒකක ගණන' : 'Break-Even Quantity'}: <strong>${beUnits.toLocaleString()} Units</strong></p>
+                <p>${currentLang === 'si' ? 'සමච්ඡේද විකුණුම් ආදායම' : 'Break-Even Sales Revenue'}: <strong>Rs. ${beRevenue.toLocaleString()}</strong></p>
+                <p style="color:var(--success-color);">${currentLang === 'si' ? 'ආරක්ෂිත ආන්තිකය' : 'Margin of Safety'}: <strong>${safetyMarginText}</strong></p>
+            `;
+        }
+
+        // 3. EOQ Calculator
+        function calculateEOQ() {
+            const d = parseFloat(document.getElementById('eoq-demand').value) || 0;
+            const s = parseFloat(document.getElementById('eoq-order').value) || 0;
+            const h = parseFloat(document.getElementById('eoq-holding').value) || 0;
+            const lead = parseFloat(document.getElementById('eoq-lead').value) || 0;
+
+            if (d <= 0 || s <= 0 || h <= 0) {
+                document.getElementById('eoq-result').innerHTML = currentLang === 'si'
+                    ? "<p style='color:red;'>කරුණාකර ධන සංඛ්‍යාත්මක අගයන් ඇතුළත් කරන්න.</p>"
+                    : "<p style='color:red;'>Please provide valid positive values.</p>";
+                return;
+            }
+
+            const eoq = Math.round(Math.sqrt((2 * d * s) / h));
+            const numOrders = (d / eoq).toFixed(1);
+            const totalOrderCost = (d / eoq) * s;
+            const totalHoldingCost = (eoq / 2) * h;
+            const totalInventoryCost = totalOrderCost + totalHoldingCost;
+            const dailyDemand = d / 365;
+            const rop = Math.ceil(dailyDemand * lead);
+
+            document.getElementById('eoq-result').innerHTML = `
+                <h4>${currentLang === 'si' ? 'ප්‍රශස්ත තොග ඇණවුම් ප්‍රතිපත්තිය' : 'EOQ & Inventory Policy'}</h4>
+                <p style="color:var(--primary-color); font-size:15px;">${currentLang === 'si' ? 'ප්‍රශස්ත ඇණවුම් ප්‍රමාණය (EOQ)' : 'Optimal Order Quantity (EOQ)'}: <strong>${eoq.toLocaleString()} Units</strong></p>
+                <p>${currentLang === 'si' ? 'වසරකට ඇණවුම් ගණන' : 'Expected Orders Per Year'}: <strong>${numOrders} Orders</strong></p>
+                <p>${currentLang === 'si' ? 'වාර්ෂික ඇණවුම් පිරිවැය' : 'Total Annual Ordering Cost'}: <strong>Rs. ${totalOrderCost.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'වාර්ෂික තොග රඳවා ගැනීමේ පිරිවැය' : 'Total Annual Holding Cost'}: <strong>Rs. ${totalHoldingCost.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'මුළු තොග පිරිවැය' : 'Total Annual Inventory Cost'}: <strong>Rs. ${totalInventoryCost.toFixed(2)}</strong></p>
+                <p style="color:var(--success-color);">${currentLang === 'si' ? 'නැවත ඇණවුම් මට්ටම (ROP)' : 'Reorder Point (ROP)'}: <strong>${rop} Units</strong></p>
+            `;
+        }
+
+        // 4. University GPA Predictor
+        function addGpaRow() {
+            const container = document.getElementById('gpa-rows');
+            const row = document.createElement('div');
+            row.style.display = 'flex';
+            row.style.gap = '10px';
+            row.style.marginBottom = '8px';
+            row.innerHTML = `
+                <input type="text" placeholder="Course Name" style="flex:2; padding: 8px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-color); border-radius:6px;">
+                <input type="number" placeholder="Credits" value="3" class="gpa-credits" style="flex:1; padding: 8px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-color); border-radius:6px;">
+                <select class="gpa-grade" style="flex:1; padding: 8px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-color); border-radius:6px;">
+                    <option value="4.00">A / A+ (4.0)</option>
+                    <option value="3.70">A- (3.7)</option>
+                    <option value="3.30">B+ (3.3)</option>
+                    <option value="3.00">B (3.0)</option>
+                    <option value="2.70">B- (2.7)</option>
+                    <option value="2.30">C+ (2.3)</option>
+                    <option value="2.00">C (2.0)</option>
+                </select>
+            `;
+            container.appendChild(row);
+        }
+
+        function calculateGPA() {
+            const credits = document.querySelectorAll('.gpa-credits');
+            const grades = document.querySelectorAll('.gpa-grade');
+
+            let totalQualityPoints = 0;
+            let totalCredits = 0;
+
+            for (let i = 0; i < credits.length; i++) {
+                const cred = parseFloat(credits[i].value) || 0;
+                const gr = parseFloat(grades[i].value) || 0;
+                totalQualityPoints += (cred * gr);
+                totalCredits += cred;
+            }
+
+            if (totalCredits === 0) {
+                document.getElementById('gpa-result').innerHTML = currentLang === 'si'
+                    ? "<p style='color:red;'>කරුණාකර ක්‍රෙඩිට් ප්‍රමාණයක් ඇතුළත් කරන්න.</p>"
+                    : "<p style='color:red;'>Please add course credits.</p>";
+                return;
+            }
+
+            const gpa = (totalQualityPoints / totalCredits).toFixed(2);
+            let classText = "General Pass";
+            if (gpa >= 3.70) classText = currentLang === 'si' ? "පළමු පෙළ සාමාර්ථයක් (First Class Honours)" : "First Class Honours (1st Class)";
+            else if (gpa >= 3.30) classText = currentLang === 'si' ? "දෙවන පෙළ ඉහළ සාමාර්ථයක් (2nd Upper)" : "Second Class Upper Division (2nd Upper)";
+            else if (gpa >= 3.00) classText = currentLang === 'si' ? "දෙවන පෙළ පහළ සාමාර්ථයක් (2nd Lower)" : "Second Class Lower Division (2nd Lower)";
+
+            document.getElementById('gpa-result').innerHTML = `
+                <h4>${currentLang === 'si' ? 'පුරෝකථනය කරන ලද GPA ප්‍රතිඵලය' : 'Projected GPA'}</h4>
+                <p>${currentLang === 'si' ? 'සමස්ත ක්‍රෙඩිට් ගණන' : 'Total Credits Attempted'}: <strong>${totalCredits}</strong></p>
+                <p style="color:var(--primary-color); font-size:18px;">${currentLang === 'si' ? 'සෙමෙස්ටර් GPA අගය' : 'Semester GPA'}: <strong>${gpa} / 4.00</strong></p>
+                <p style="color:var(--success-color);">${currentLang === 'si' ? 'අපේක්ෂිත පන්ති සාමාර්ථය' : 'Projected Standing'}: <strong>${classText}</strong></p>
+            `;
+        }
+
+        // 5. University Comparator
         const uniDetails = {
             rusl_mgmt: {
                 name: "Faculty of Management Studies - Rajarata University (RUSL)",
@@ -706,23 +1313,23 @@
                 <table class="compare-table">
                     <thead>
                         <tr>
-                            <th style="width: 25%;">Criteria</th>
+                            <th style="width: 25%;">${currentLang === 'si' ? 'විස්තරය' : 'Criteria'}</th>
                             <th style="width: 37.5%;">${c1.name}</th>
                             <th style="width: 37.5%;">${c2.name}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td><strong>Degree</strong></td><td>${c1.degree}</td><td>${c2.degree}</td></tr>
-                        <tr><td><strong>Duration</strong></td><td>${c1.duration}</td><td>${c2.duration}</td></tr>
-                        <tr><td><strong>Specializations</strong></td><td>${c1.specs}</td><td>${c2.specs}</td></tr>
-                        <tr><td><strong>Location</strong></td><td>${c1.location}</td><td>${c2.location}</td></tr>
-                        <tr><td><strong>Career Roles</strong></td><td>${c1.careers}</td><td>${c2.careers}</td></tr>
+                        <tr><td><strong>${currentLang === 'si' ? 'උපාධිය' : 'Degree'}</strong></td><td>${c1.degree}</td><td>${c2.degree}</td></tr>
+                        <tr><td><strong>${currentLang === 'si' ? 'කාලසීමාව' : 'Duration'}</strong></td><td>${c1.duration}</td><td>${c2.duration}</td></tr>
+                        <tr><td><strong>${currentLang === 'si' ? 'විශේෂීකරණයන්' : 'Specializations'}</strong></td><td>${c1.specs}</td><td>${c2.specs}</td></tr>
+                        <tr><td><strong>${currentLang === 'si' ? 'පිහිටීම' : 'Location'}</strong></td><td>${c1.location}</td><td>${c2.location}</td></tr>
+                        <tr><td><strong>${currentLang === 'si' ? 'රැකියා අවස්ථා' : 'Career Roles'}</strong></td><td>${c1.careers}</td><td>${c2.careers}</td></tr>
                     </tbody>
                 </table>
             `;
         }
 
-        // APIT Calculation
+        // 6. APIT Tax
         function calculateAPIT() {
             const salary = parseFloat(document.getElementById('tax-salary').value) || 0;
             const relief = parseFloat(document.getElementById('tax-relief').value) || 100000;
@@ -749,15 +1356,15 @@
 
             const netSalary = salary - tax;
             document.getElementById('tax-result').innerHTML = `
-                <h4>Tax Calculation Summary</h4>
-                <p>Gross Monthly Salary: <strong>Rs. ${salary.toLocaleString()}</strong></p>
-                <p>Taxable Income after Relief: <strong>Rs. ${taxable.toLocaleString()}</strong></p>
-                <p style="color:var(--primary-color); font-size:15px; margin-top:5px;">Estimated APIT Payable: <strong>Rs. ${tax.toFixed(2)}</strong></p>
-                <p style="color:var(--success-color)">Net Take-Home Salary: <strong>Rs. ${netSalary.toFixed(2)}</strong></p>
+                <h4>${currentLang === 'si' ? 'බදු ගණනය කිරීමේ සාරාංශය' : 'Tax Calculation Summary'}</h4>
+                <p>${currentLang === 'si' ? 'මාසික දළ ආදායම' : 'Gross Monthly Salary'}: <strong>Rs. ${salary.toLocaleString()}</strong></p>
+                <p>${currentLang === 'si' ? 'බදු අදාළ වන ආදායම' : 'Taxable Income after Relief'}: <strong>Rs. ${taxable.toLocaleString()}</strong></p>
+                <p style="color:var(--primary-color); font-size:15px; margin-top:5px;">${currentLang === 'si' ? 'අයවන APIT බද්ද' : 'Estimated APIT Payable'}: <strong>Rs. ${tax.toFixed(2)}</strong></p>
+                <p style="color:var(--success-color)">${currentLang === 'si' ? 'අතට ලැබෙන ශුද්ධ වැටුප' : 'Net Take-Home Salary'}: <strong>Rs. ${netSalary.toFixed(2)}</strong></p>
             `;
         }
 
-        // Loan Calculator
+        // 7. Loan Amortizer
         function calculateLoan() {
             const p = parseFloat(document.getElementById('loan-amount').value) || 0;
             const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
@@ -770,14 +1377,14 @@
             const totalInterest = totalPayment - p;
 
             document.getElementById('loan-result').innerHTML = `
-                <h4>Loan Schedule Breakdown</h4>
-                <p>Monthly Repayment (EMI): <strong style="color:var(--primary-color)">Rs. ${emi.toFixed(2)}</strong></p>
-                <p>Total Interest Payable: <strong>Rs. ${totalInterest.toFixed(2)}</strong></p>
-                <p>Total Repayment over ${years} Years: <strong>Rs. ${totalPayment.toFixed(2)}</strong></p>
+                <h4>${currentLang === 'si' ? 'ණය කාලසටහන් සාරාංශය' : 'Loan Schedule Breakdown'}</h4>
+                <p>${currentLang === 'si' ? 'මාසික වාරිකය (EMI)' : 'Monthly Repayment (EMI)'}: <strong style="color:var(--primary-color)">Rs. ${emi.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'මුළු පොලිය' : 'Total Interest Payable'}: <strong>Rs. ${totalInterest.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'වසර ' + years + ' කදී සම්පූර්ණ ගෙවීම' : 'Total Repayment over ' + years + ' Years'}: <strong>Rs. ${totalPayment.toFixed(2)}</strong></p>
             `;
         }
 
-        // Invoice Generator
+        // 8. Invoice Generator
         function generateInvoicePreview() {
             const client = document.getElementById('inv-client').value || "Valued Client";
             const desc = document.getElementById('inv-desc').value || "Professional Services";
@@ -815,7 +1422,7 @@
             win.document.close();
         }
 
-        // Ratio Analyzer
+        // 9. Ratio Analyzer
         function calculateRatios() {
             const ca = parseFloat(document.getElementById('ratio-ca').value) || 1;
             const cl = parseFloat(document.getElementById('ratio-cl').value) || 1;
@@ -831,7 +1438,7 @@
             const netMargin = ((np / rev) * 100).toFixed(1);
 
             document.getElementById('ratios-result').innerHTML = `
-                <h4>Financial Health Overview</h4>
+                <h4>${currentLang === 'si' ? 'මූල්‍ය සෞඛ්‍ය සමාලෝචනය' : 'Financial Health Overview'}</h4>
                 <p>Current Ratio: <strong>${currentRatio}</strong></p>
                 <p>Quick Ratio: <strong>${quickRatio}</strong></p>
                 <p>Debt-to-Equity Ratio: <strong>${deRatio}</strong></p>
@@ -839,46 +1446,7 @@
             `;
         }
 
-        // Expense Tracker
-        let transactions = JSON.parse(localStorage.getItem('user_transactions')) || [];
-        function renderTransactions() {
-            const listEl = document.getElementById('expense-list');
-            const balanceEl = document.getElementById('total-balance');
-            listEl.innerHTML = '';
-            let total = 0;
-            transactions.forEach(item => {
-                total += item.type === 'income' ? item.amount : -item.amount;
-                const entry = document.createElement('div');
-                entry.style.display = 'flex';
-                entry.style.justifyContent = 'space-between';
-                entry.style.fontSize = '12px';
-                entry.style.marginBottom = '5px';
-                entry.innerHTML = `<span>${item.desc}</span><strong style="color:${item.type==='income'?'var(--success-color)':'var(--primary-color)'}">${item.type==='income'?'+':'-'} Rs. ${item.amount.toLocaleString()}</strong>`;
-                listEl.appendChild(entry);
-            });
-            balanceEl.textContent = `Rs. ${total.toLocaleString()}`;
-        }
-        function addTransaction() {
-            const desc = document.getElementById('exp-desc').value.trim();
-            const amount = parseFloat(document.getElementById('exp-amount').value);
-            const type = document.getElementById('exp-type').value;
-            if (!desc || isNaN(amount) || amount <= 0) return;
-            transactions.push({ desc, amount, type });
-            localStorage.setItem('user_transactions', JSON.stringify(transactions));
-            document.getElementById('exp-desc').value = '';
-            document.getElementById('exp-amount').value = '';
-            renderTransactions();
-        }
-        function clearTransactions() {
-            if (confirm("Clear all transaction logs?")) {
-                transactions = [];
-                localStorage.removeItem('user_transactions');
-                renderTransactions();
-            }
-        }
-        renderTransactions();
-
-        // Customs Calculator
+        // 10. Customs Duty Estimator
         function calculateCustoms() {
             const cif = parseFloat(document.getElementById('cust-cif').value) || 0;
             const cidRate = parseFloat(document.getElementById('cust-cid').value) || 0;
@@ -893,11 +1461,11 @@
             const landedCost = cif + totalDuties;
 
             document.getElementById('customs-result').innerHTML = `
-                <h4>Landed Cost Estimation</h4>
+                <h4>${currentLang === 'si' ? 'ආනයන වියදම් ගණනය කිරීම' : 'Landed Cost Estimation'}</h4>
                 <p>CID: Rs. ${cidAmount.toFixed(2)} | PAL: Rs. ${palAmount.toFixed(2)}</p>
                 <p>Import VAT: Rs. ${vatAmount.toFixed(2)}</p>
-                <p>Total Levies & Taxes: <strong style="color:var(--primary-color)">Rs. ${totalDuties.toFixed(2)}</strong></p>
-                <p>Total Estimated Landed Cost: <strong>Rs. ${landedCost.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'මුළු බදු සහ ගාස්තු' : 'Total Levies & Taxes'}: <strong style="color:var(--primary-color)">Rs. ${totalDuties.toFixed(2)}</strong></p>
+                <p>${currentLang === 'si' ? 'මුළු ගොඩබෑමේ පිරිවැය' : 'Total Estimated Landed Cost'}: <strong>Rs. ${landedCost.toFixed(2)}</strong></p>
             `;
         }
     </script>
