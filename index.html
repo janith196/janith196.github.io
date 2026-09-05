@@ -695,7 +695,7 @@
         <p>&copy; 2026 Janith Madumal </p>
     </footer>
 
-    <script>
+  <script>
         // 1. Mobile Hamburger Menu Toggle
         const menuIcon = document.getElementById('menu-icon');
         const navbar = document.getElementById('navbar');
@@ -791,7 +791,7 @@
             });
         };
 
-        // 5. Fully Functional AI Teacher & Speech Integration
+        // 5. Real Gemini-Powered AI Teacher Integration
         const aiModal = document.getElementById('aiModal');
         const openAiModalBtn = document.getElementById('open-ai-modal');
         const closeAiModalBtn = document.getElementById('close-ai-modal');
@@ -822,7 +822,7 @@
                 window.speechSynthesis.cancel();
             }
             statusDot.classList.remove('active');
-            statusText.textContent = "Status: Ready to Connect";
+            statusText.textContent = "Status: Ready to Talk";
             btnLabel.textContent = "Start Speaking";
         }
 
@@ -843,6 +843,43 @@
                 };
 
                 window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Function to query the Gemini API
+        async function askGeminiAI(promptText) {
+            const apiKey = "AQ.Ab8RN6K0giM5TJgBdMaW0jSDLeEWEDPmWobKLJtRPrCMa9k4Ag"; // Get free key from Google AI Studio
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `You are a helpful English spoken teacher and a knowledgeable AI assistant on Janith Madumal's portfolio website. 
+            Janith Madumal is 19 years old, a commerce student from Badalkumbura, Sri Lanka, studying Chartered Accounting Level 1. He scored District Rank 100 in Monaragala for his 2025 A/Ls (Accounting A, Business Studies B, ICT C).
+            Answer any general question about the world accurately, or answer questions about Janith. Keep responses friendly, concise, and easy to read aloud.`;
+
+            try {
+                statusText.textContent = "Status: Thinking...";
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [
+                            { role: "user", parts: [{ text: systemPrompt + "\n\nUser Question: " + promptText }] }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't process that right now.";
+                
+                chatTranscript.innerHTML += `<br><strong>AI Teacher:</strong> ${aiReply}`;
+                chatTranscript.scrollTop = chatTranscript.scrollHeight;
+
+                btnLabel.textContent = "Start Speaking";
+                speakAIResponse(aiReply);
+
+            } catch (error) {
+                statusText.textContent = "Status: Error connecting";
+                chatTranscript.innerHTML += `<br><strong>System:</strong> Failed to reach Gemini AI API.`;
+                btnLabel.textContent = "Start Speaking";
             }
         }
 
@@ -871,25 +908,8 @@
                 chatTranscript.innerHTML += `<br><strong style="color: var(--primary-color);">You:</strong> ${userText}`;
                 chatTranscript.scrollTop = chatTranscript.scrollHeight;
 
-                // Smart AI Tutor Conversation Logic
-                let reply = "That is interesting! Can you tell me more about that in a full English sentence?";
-                const cleanText = userText.toLowerCase();
-
-                if (cleanText.includes('hi') || cleanText.includes('hello')) {
-                    reply = "Hello! Welcome to your English class. What would you like to talk about today?";
-                } else if (cleanText.includes('name')) {
-                    reply = "I am your virtual English teacher. It's a pleasure to talk with you!";
-                } else if (cleanText.includes('how are you')) {
-                    reply = "I am doing fantastic, thank you! How are your studies coming along?";
-                } else if (cleanText.includes('thank')) {
-                    reply = "You're very welcome! Keep practicing every single day to improve your fluency.";
-                }
-
-                chatTranscript.innerHTML += `<br><strong>AI Teacher:</strong> ${reply}`;
-                chatTranscript.scrollTop = chatTranscript.scrollHeight;
-
-                btnLabel.textContent = "Start Speaking";
-                speakAIResponse(reply);
+                // Send speech text to real Gemini API
+                askGeminiAI(userText);
             };
 
             recognition.onerror = () => {
@@ -923,5 +943,3 @@
             this.reset();
         });
     </script>
-</body>
-</html>
