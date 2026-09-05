@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Janith Madumal | Portfolio & Financial Tech Tools</title>
-    <meta name="description" content="Portfolio and interactive financial web utilities by Janith Madumal - CA Level 1 Student & Tech Enthusiast from Sri Lanka.">
+    <meta name="description" content="Portfolio and interactive web utilities by Janith Madumal - Undergrad at Rajarata University (Faculty of Management Studies), CA Level 1 Student & Tech Enthusiast from Sri Lanka.">
     
     <!-- Open Graph for Social Sharing -->
     <meta property="og:title" content="Janith Madumal | Financial Web Tools & Portfolio">
-    <meta property="og:description" content="Explore live tools: Sri Lanka APIT Calculator, Loan Amortizer, AI Teacher, CBT Simulators, and more.">
+    <meta property="og:description" content="Management Undergraduate at Rajarata University, CA Level 1 Student & Tech Creator. Features Sri Lankan UniPredictor & Compare Tool.">
     <meta property="og:type" content="website">
 
     <!-- Fonts & Icons -->
@@ -246,7 +246,7 @@
         .home-content p {
             font-size: 1.05rem;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 620px;
         }
 
         .grid-container {
@@ -296,6 +296,11 @@
             align-self: flex-start;
         }
 
+        .badge-special {
+            background: linear-gradient(135deg, #ff3c3c, #f39c12);
+            color: #fff;
+        }
+
         .progress-bar {
             background: rgba(255,255,255,0.1);
             height: 8px;
@@ -323,7 +328,7 @@
             border-radius: 16px;
             border: 1px solid var(--border-color);
         }
-        .stat-item h2 { font-size: 2.6rem; color: var(--primary-color); line-height: 1; }
+        .stat-item h2 { font-size: 2.4rem; color: var(--primary-color); line-height: 1.1; }
         .stat-item p { margin-top: 0.5rem; font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
 
         /* Universal Tool Modal Styles */
@@ -331,7 +336,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
             z-index: 2000;
             justify-content: center;
@@ -344,7 +349,7 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             border-radius: 18px;
-            max-width: 650px;
+            max-width: 750px;
             width: 100%;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             position: relative;
@@ -396,6 +401,38 @@
             font-size: 13px;
         }
         .tool-result-box h4 { margin-bottom: 8px; color: var(--primary-color); }
+
+        /* Prediction Result Cards */
+        .uni-match-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--success-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .uni-match-card.moderate { border-left-color: var(--warning-color); }
+        .uni-match-card.borderline { border-left-color: var(--primary-color); }
+        
+        /* Table for Uni Compare */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .compare-table th, .compare-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .compare-table th {
+            background: rgba(255, 60, 60, 0.1);
+            color: var(--primary-color);
+        }
         
         /* Contact Form */
         .contact-form {
@@ -512,10 +549,10 @@
         <div class="home-content">
             <h3>Hello, I'm</h3>
             <h1>Janith Madumal</h1>
-            <h3>Chartered Accounting (CA) Student & Tech Builder ⚡</h3>
-            <p>19-year-old student from Badalkumbura, Sri Lanka. Passionate about bridging corporate finance, auditing, and modern software development.</p>
+            <h3>Management Undergrad & CA Student ⚡</h3>
+            <p>Selected to <strong>Faculty of Management Studies, Rajarata University of Sri Lanka</strong> and CA Level 1 Student. Creator of Sri Lankan University Prediction and Financial tools.</p>
             <div class="btn-box">
-                <a href="#projects" class="btn">Explore All Tools <i class="fas fa-arrow-down"></i></a>
+                <a href="#projects" class="btn">Explore Uni & Finance Tools <i class="fas fa-arrow-down"></i></a>
                 <a href="Janith_Madumal_CV.pdf" download class="btn btn-sec">Download CV <i class="fas fa-download"></i></a>
             </div>
         </div>
@@ -528,7 +565,7 @@
                 My name is <strong>S.M. Janith Madumal Premasiri</strong>.
             </p>
             <p style="color: var(--text-muted); font-size: 1rem;">
-                I studied Accounting, Business Studies, and ICT in the Commerce stream. I placed <strong>District Rank 100</strong> in Monaragala (Z-score 1.3436). Currently following <strong>Chartered Accounting (CA) Level 1</strong>, I construct real-world tools that automate tax, ratio analysis, billing, and learning simulations.
+                I am an Undergraduate selected to the <strong>Faculty of Management Studies at Rajarata University of Sri Lanka (RUSL)</strong>, and actively following <strong>Chartered Accounting (CA) Level 1</strong>. I completed my 2025 A/Ls with Accounting (A), Business Studies (B), and ICT (C), securing <strong>District Rank 100</strong> in Monaragala (Z-score 1.3436). My passion is developing real-world web utilities that empower students and business owners.
             </p>
         </div>
     </section>
@@ -536,22 +573,36 @@
     <section class="education" id="education">
         <h2 class="heading">My <span>Education</span></h2>
         <div class="grid-container">
-            <div class="card">
-                <h3><i class="fas fa-graduation-cap"></i> 2025 A/L Results</h3>
-                <p>Completed under Commerce Stream with strong standing:</p>
-                <div style="margin-top: 12px; color: var(--text-color);">
-                    <div>Accounting: <strong style="color: var(--primary-color)">A</strong></div>
-                    <div>Business Studies: <strong style="color: var(--primary-color)">B</strong></div>
-                    <div>ICT: <strong style="color: var(--primary-color)">C</strong></div>
+            <!-- Rajarata Management Selection Card -->
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
+                <div>
+                    <span class="badge">Higher Education</span>
+                    <h3><i class="fas fa-university"></i> Rajarata University</h3>
+                    <p>Selected to the <strong>Faculty of Management Studies, Rajarata University of Sri Lanka (RUSL)</strong> for undergraduate degree studies.</p>
                 </div>
             </div>
+
+            <!-- Professional CA Studies -->
             <div class="card">
-                <h3><i class="fas fa-trophy"></i> District Standing</h3>
-                <p>Secured <strong>District Rank 100</strong> in the Monaragala District for the 2025 examination batch with a Z-score of 1.3436.</p>
+                <div>
+                    <span class="badge">Professional</span>
+                    <h3><i class="fas fa-book-open"></i> CA Sri Lanka</h3>
+                    <p>Pursuing <strong>Chartered Accounting (CA) Level 1</strong>, building deep technical foundations in financial reporting, corporate law, and auditing.</p>
+                </div>
             </div>
+
+            <!-- 2025 A/L Performance -->
             <div class="card">
-                <h3><i class="fas fa-book-open"></i> Professional Studies</h3>
-                <p>Currently pursuing <strong>Chartered Accounting (CA) Level 1</strong> at CA Sri Lanka, building a solid foundation in accounting theory and auditing.</p>
+                <div>
+                    <span class="badge">A/L Examination</span>
+                    <h3><i class="fas fa-graduation-cap"></i> 2025 A/L Results</h3>
+                    <p>Commerce Stream - <strong>District Rank 100</strong> (Monaragala District | Z-Score: 1.3436):</p>
+                    <div style="margin-top: 10px; color: var(--text-color); font-size: 0.95rem;">
+                        <div>Accounting: <strong style="color: var(--primary-color)">A</strong></div>
+                        <div>Business Studies: <strong style="color: var(--primary-color)">B</strong></div>
+                        <div>ICT: <strong style="color: var(--primary-color)">C</strong></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -565,23 +616,23 @@
             </div>
             <div class="card">
                 <h3>Business Management</h3>
-                <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
+                <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
             </div>
             <div class="card">
                 <h3>Web Development & ICT</h3>
                 <div class="progress-bar"><div class="progress" style="width: 75%;"></div></div>
             </div>
             <div class="card">
-                <h3>Leadership & Problem Solving</h3>
+                <h3>Analytical Problem Solving</h3>
                 <div class="progress-bar"><div class="progress" style="width: 90%;"></div></div>
             </div>
         </div>
 
         <div class="stats-container">
-            <div class="stat-item"><h2>19</h2><p>Years Old</p></div>
-            <div class="stat-item"><h2>'25</h2><p>A/L Batch</p></div>
-            <div class="stat-item"><h2>100</h2><p>District Rank</p></div>
+            <div class="stat-item"><h2>RUSL</h2><p>Management Undergrad</p></div>
             <div class="stat-item"><h2>CA</h2><p>Level 1 Student</p></div>
+            <div class="stat-item"><h2>100</h2><p>District Rank</p></div>
+            <div class="stat-item"><h2>1.3436</h2><p>A/L Z-Score</p></div>
         </div>
     </section>
 
@@ -590,17 +641,37 @@
         <h2 class="heading">Projects & <span>Working Tools</span></h2>
         <div class="grid-container">
             
-            <!-- 1. AI English Teacher (Original Project) -->
-            <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
+            <!-- FEATURED TOOL 1: University Z-Score Predictor -->
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.6); background: rgba(255, 60, 60, 0.04);">
+                <div>
+                    <span class="badge badge-special">Featured Education Tool</span>
+                    <h3><i class="fas fa-graduation-cap"></i> SL University Z-Score Predictor</h3>
+                    <p>Enter your A/L stream, district, and Z-score to predict eligible State Universities & Courses based on previous UGC cut-off trends (Inspired by Thush.lk).</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-unipredict">Launch Predictor <i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- FEATURED TOOL 2: University & Course Comparator -->
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.6); background: rgba(255, 60, 60, 0.04);">
+                <div>
+                    <span class="badge badge-special">Featured Education Tool</span>
+                    <h3><i class="fas fa-balance-scale-right"></i> SL University Course Comparator</h3>
+                    <p>Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and more side-by-side (Duration, Specializations, Career paths).</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-unicompare">Launch Comparator <i class="fas fa-columns"></i></button>
+            </div>
+
+            <!-- AI English Teacher -->
+            <div class="card">
                 <div>
                     <span class="badge">AI & EdTech</span>
                     <h3><i class="fas fa-headset"></i> AI English Spoken Teacher</h3>
-                    <p>Voice- and text-enabled AI assistant designed to help practice English speaking, sentence formation, and conversation fluency.</p>
+                    <p>Voice- and text-enabled AI assistant designed to help students practice English speaking, sentence structure, and conversation fluency 24/7.</p>
                 </div>
                 <button class="btn open-modal-btn" data-target="modal-ai-teacher">Launch AI Teacher <i class="fas fa-microphone"></i></button>
             </div>
 
-            <!-- 2. CA Sri Lanka Simulator BL251 (Original Project) -->
+            <!-- CA Sri Lanka Simulator BL251 -->
             <div class="card">
                 <div>
                     <span class="badge">CA Sri Lanka</span>
@@ -610,7 +681,7 @@
                 <a href="CA_SriLanka_BL251_Fundamentals_Financial_Reporting_CBT_Simulator.html" target="_blank" class="btn">Launch Simulator <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <!-- 3. CA Sri Lanka Simulator BL254 (Original Project) -->
+            <!-- CA Sri Lanka Simulator BL254 -->
             <div class="card">
                 <div>
                     <span class="badge">CA Sri Lanka</span>
@@ -620,7 +691,7 @@
                 <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn">Launch Simulator <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <!-- 4. APIT Tax Calculator (New) -->
+            <!-- APIT Tax Calculator -->
             <div class="card">
                 <div>
                     <span class="badge">Sri Lanka Taxation</span>
@@ -630,7 +701,7 @@
                 <button class="btn open-modal-btn" data-target="modal-apit">Launch Tool <i class="fas fa-sliders-h"></i></button>
             </div>
 
-            <!-- 5. Loan & Lease Amortizer (New) -->
+            <!-- Loan & Lease Amortizer -->
             <div class="card">
                 <div>
                     <span class="badge">Banking & Loans</span>
@@ -640,7 +711,7 @@
                 <button class="btn open-modal-btn" data-target="modal-loan">Launch Tool <i class="fas fa-sliders-h"></i></button>
             </div>
 
-            <!-- 6. Invoice Generator (New) -->
+            <!-- Invoice Generator -->
             <div class="card">
                 <div>
                     <span class="badge">Billing & Invoicing</span>
@@ -650,7 +721,7 @@
                 <button class="btn open-modal-btn" data-target="modal-invoice">Launch Tool <i class="fas fa-sliders-h"></i></button>
             </div>
 
-            <!-- 7. Corporate Ratio Analyzer (New) -->
+            <!-- Corporate Ratio Analyzer -->
             <div class="card">
                 <div>
                     <span class="badge">Financial Analysis</span>
@@ -660,7 +731,7 @@
                 <button class="btn open-modal-btn" data-target="modal-ratios">Launch Tool <i class="fas fa-sliders-h"></i></button>
             </div>
 
-            <!-- 8. Expense Tracker (New) -->
+            <!-- Expense Tracker -->
             <div class="card">
                 <div>
                     <span class="badge">Personal Finance</span>
@@ -670,7 +741,7 @@
                 <button class="btn open-modal-btn" data-target="modal-budget">Launch Tool <i class="fas fa-sliders-h"></i></button>
             </div>
 
-            <!-- 9. Customs Duty & Import Estimator (New) -->
+            <!-- Customs Duty & Import Estimator -->
             <div class="card">
                 <div>
                     <span class="badge">Trade & Customs</span>
@@ -685,7 +756,97 @@
 
     <!-- ================= TOOL MODALS ================= -->
 
-    <!-- Modal 1: AI English Teacher -->
+    <!-- NEW TOOL MODAL 1: University Z-Score Predictor -->
+    <div class="tool-modal" id="modal-unipredict">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-graduation-cap"></i> SL University Z-Score Predictor</h3>
+            <p class="desc">Enter your A/L results to predict eligible degree courses and campuses based on UGC cut-off benchmarks.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tool-form-group">
+                    <label>A/L Stream</label>
+                    <select id="pred-stream">
+                        <option value="commerce">Commerce Stream (වාණිජ)</option>
+                        <option value="arts">Arts Stream (කලා)</option>
+                        <option value="tech">Technology Stream (තාක්ෂණවේදය)</option>
+                        <option value="bio">Biological Science (ජීව විද්‍යා)</option>
+                        <option value="maths">Physical Science (භෞතික විද්‍යා)</option>
+                    </select>
+                </div>
+                <div class="tool-form-group">
+                    <label>Your District (දිස්ත්‍රික්කය)</label>
+                    <select id="pred-district">
+                        <option value="monaragala" selected>Monaragala (මොනරාගල)</option>
+                        <option value="colombo">Colombo (කොළඹ)</option>
+                        <option value="gampaha">Gampaha (ගම්පහ)</option>
+                        <option value="kalutara">Kalutara (කළුතර)</option>
+                        <option value="kandy">Kandy (මහනුවර)</option>
+                        <option value="badulla">Badulla (බදුල්ල)</option>
+                        <option value="kurunegala">Kurunegala (කුරුණෑගල)</option>
+                        <option value="galle">Galle (ගාල්ල)</option>
+                        <option value="matara">Matara (මාතර)</option>
+                        <option value="anuradhapura">Anuradhapura (අනුරාධපුර)</option>
+                        <option value="ratnapura">Ratnapura (රත්නපුර)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tool-form-group">
+                <label>Your A/L Z-Score (ඔබේ Z-ලකුණ)</label>
+                <input type="number" id="pred-zscore" step="0.0001" placeholder="e.g. 1.3436" value="1.3436">
+            </div>
+
+            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="predictUniversities()">Predict Universities & Courses <i class="fas fa-magic"></i></button>
+
+            <div class="tool-result-box" id="prediction-results" style="max-height: 250px; overflow-y: auto;">
+                <h4>Prediction Status</h4>
+                <p>Click "Predict Universities & Courses" to view matching faculties.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW TOOL MODAL 2: University Course Comparator -->
+    <div class="tool-modal" id="modal-unicompare">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-balance-scale-right"></i> University Course Comparator</h3>
+            <p class="desc">Compare Management, IT, and Commerce degree faculties in Sri Lanka side-by-side.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tool-form-group">
+                    <label>First Degree / University</label>
+                    <select id="comp-course-1">
+                        <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
+                        <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
+                        <option value="cmb_mgt">UoC (Colombo) - Faculty of Management & Finance</option>
+                        <option value="kln_com">Kelaniya - Commerce & Financial Management</option>
+                        <option value="rusl_it">Rajarata University - Applied Sciences (ICT)</option>
+                        <option value="mor_it">Moratuwa - Faculty of Information Technology</option>
+                    </select>
+                </div>
+                <div class="tool-form-group">
+                    <label>Second Degree / University</label>
+                    <select id="comp-course-2">
+                        <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
+                        <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
+                        <option value="cmb_mgt">UoC (Colombo) - Faculty of Management & Finance</option>
+                        <option value="kln_com">Kelaniya - Commerce & Financial Management</option>
+                        <option value="rusl_it">Rajarata University - Applied Sciences (ICT)</option>
+                        <option value="mor_it">Moratuwa - Faculty of Information Technology</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="compareUniversities()">Compare Now <i class="fas fa-exchange-alt"></i></button>
+
+            <div id="comparison-output" style="margin-top: 15px; overflow-x: auto;">
+                <!-- Comparison table will load here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: AI English Teacher -->
     <div class="tool-modal" id="modal-ai-teacher">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -710,7 +871,7 @@
         </div>
     </div>
 
-    <!-- Modal 2: APIT Tax Calculator -->
+    <!-- Modal 4: APIT Tax Calculator -->
     <div class="tool-modal" id="modal-apit">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -734,7 +895,7 @@
         </div>
     </div>
 
-    <!-- Modal 3: Loan Amortizer -->
+    <!-- Modal 5: Loan Amortizer -->
     <div class="tool-modal" id="modal-loan">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -762,7 +923,7 @@
         </div>
     </div>
 
-    <!-- Modal 4: Invoice Generator -->
+    <!-- Modal 6: Invoice Generator -->
     <div class="tool-modal" id="modal-invoice">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -795,7 +956,7 @@
         </div>
     </div>
 
-    <!-- Modal 5: Ratio Analysis -->
+    <!-- Modal 7: Ratio Analysis -->
     <div class="tool-modal" id="modal-ratios">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -841,7 +1002,7 @@
         </div>
     </div>
 
-    <!-- Modal 6: Budget & Expense Tracker -->
+    <!-- Modal 8: Budget & Expense Tracker -->
     <div class="tool-modal" id="modal-budget">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -851,7 +1012,7 @@
             <div style="display: flex; gap: 10px;">
                 <div class="tool-form-group" style="flex:2;">
                     <label>Description</label>
-                    <input type="text" id="exp-desc" placeholder="e.g. Course Materials, Fuel">
+                    <input type="text" id="exp-desc" placeholder="e.g. University Fees, Textbooks, Fuel">
                 </div>
                 <div class="tool-form-group" style="flex:1;">
                     <label>Amount (LKR)</label>
@@ -877,7 +1038,7 @@
         </div>
     </div>
 
-    <!-- Modal 7: Customs Duty Estimator -->
+    <!-- Modal 9: Customs Duty Estimator -->
     <div class="tool-modal" id="modal-customs">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -933,7 +1094,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Janith Madumal. All rights reserved.</p>
+        <p>&copy; 2026 Janith Madumal. Faculty of Management Studies, Rajarata University of Sri Lanka.</p>
     </footer>
 
     <!-- JavaScript Application Logic -->
@@ -1025,7 +1186,213 @@
             }
         });
 
-        // ================= 5. AI TEACHER INTEGRATION =================
+        // ================= 5. SRI LANKA UNIVERSITY PREDICTOR & COMPARATOR =================
+        
+        // UGC Benchmark Dataset Representation (Commerce, Arts, Tech, Bio, Maths)
+        const ugcBenchmarks = [
+            // Commerce Stream
+            { stream: "commerce", course: "Management / Business Administration", uni: "Rajarata University (RUSL)", baseCutoff: 1.28 },
+            { stream: "commerce", course: "Management Studies", uni: "University of Sri Jayewardenepura (USJ)", baseCutoff: 1.72 },
+            { stream: "commerce", course: "Management & Finance", uni: "University of Colombo (UoC)", baseCutoff: 1.78 },
+            { stream: "commerce", course: "Commerce (B.Com)", uni: "University of Kelaniya (UoK)", baseCutoff: 1.55 },
+            { stream: "commerce", course: "Management & Commerce", uni: "South Eastern University (SEUSL)", baseCutoff: 1.15 },
+            { stream: "commerce", course: "Management Studies", uni: "Eastern University (EUSL)", baseCutoff: 1.12 },
+            { stream: "commerce", course: "Business Management", uni: "Sabaragamuwa University (SUSL)", baseCutoff: 1.30 },
+            { stream: "commerce", course: "Management Studies", uni: "Wayamba University (WUSL)", baseCutoff: 1.35 },
+            { stream: "commerce", course: "Information Technology & Management", uni: "University of Moratuwa", baseCutoff: 1.82 },
+
+            // Tech Stream
+            { stream: "tech", course: "Engineering Technology (ET)", uni: "University of Sri Jayewardenepura", baseCutoff: 1.48 },
+            { stream: "tech", course: "Biosystems Technology (BST)", uni: "Rajarata University (RUSL)", baseCutoff: 1.20 },
+            { stream: "tech", course: "Information & Communication Technology (BICT)", uni: "Rajarata University (RUSL)", baseCutoff: 1.25 },
+            { stream: "tech", course: "Information & Communication Technology (BICT)", uni: "University of Kelaniya", baseCutoff: 1.52 },
+
+            // Physical Science (Maths)
+            { stream: "maths", course: "Engineering (Civil, Electrical, Mech)", uni: "University of Moratuwa", baseCutoff: 1.95 },
+            { stream: "maths", course: "Computer Science", uni: "University of Colombo School of Computing (UCSC)", baseCutoff: 1.88 },
+            { stream: "maths", course: "Physical Science", uni: "Rajarata University (RUSL)", baseCutoff: 1.05 },
+            { stream: "maths", course: "Physical Science", uni: "University of Peradeniya", baseCutoff: 1.42 },
+
+            // Biological Science
+            { stream: "bio", course: "Medicine (MBBS)", uni: "Rajarata University (RUSL)", baseCutoff: 1.58 },
+            { stream: "bio", course: "Medicine (MBBS)", uni: "University of Colombo", baseCutoff: 1.92 },
+            { stream: "bio", course: "Biological Science", uni: "Rajarata University (RUSL)", baseCutoff: 1.15 },
+            
+            // Arts Stream
+            { stream: "arts", course: "Arts / Social Sciences", uni: "University of Peradeniya", baseCutoff: 1.35 },
+            { stream: "arts", course: "Arts / Humanities", uni: "University of Colombo", baseCutoff: 1.45 },
+            { stream: "arts", course: "Arts (Social Sciences)", uni: "Rajarata University (RUSL)", baseCutoff: 1.05 }
+        ];
+
+        function predictUniversities() {
+            const stream = document.getElementById('pred-stream').value;
+            const district = document.getElementById('pred-district').value;
+            const zScore = parseFloat(document.getElementById('pred-zscore').value);
+            const resultsBox = document.getElementById('prediction-results');
+
+            if (isNaN(zScore)) {
+                resultsBox.innerHTML = "<p style='color:red;'>කරුණාකර නිවැරදි Z-score අගයක් ඇතුළත් කරන්න.</p>";
+                return;
+            }
+
+            // District adjustment weight (Col/Gampaha are higher, Monaragala/Badulla have favorable quota benchmarks)
+            let districtAdjustment = 0;
+            if (district === 'colombo' || district === 'gampaha') districtAdjustment = 0.12;
+            else if (district === 'monaragala' || district === 'badulla') districtAdjustment = -0.08;
+
+            const matches = ugcBenchmarks.filter(item => item.stream === stream);
+            
+            if (matches.length === 0) {
+                resultsBox.innerHTML = "<p>තෝරාගත් ධාරාව සඳහා දත්ත සොයාගත නොහැකි විය.</p>";
+                return;
+            }
+
+            let html = `<h4>Predicted University Matches for Z-Score: ${zScore.toFixed(4)}</h4>`;
+            html += `<p style='font-size:11px; color:var(--text-muted); margin-bottom:10px;'>District: <strong>${district.toUpperCase()}</strong> | Stream: <strong>${stream.toUpperCase()}</strong></p>`;
+
+            let count = 0;
+            matches.forEach(item => {
+                const adjustedCutoff = item.baseCutoff + districtAdjustment;
+                const diff = zScore - adjustedCutoff;
+                let statusClass = "uni-match-card";
+                let statusBadge = "";
+
+                if (diff >= 0.05) {
+                    statusClass += "";
+                    statusBadge = "<span style='color:var(--success-color); font-weight:700;'><i class='fas fa-check-circle'></i> High Chance (ඉහළ සම්භාවිතාවක්)</span>";
+                } else if (diff >= -0.04 && diff < 0.05) {
+                    statusClass += " moderate";
+                    statusBadge = "<span style='color:var(--warning-color); font-weight:700;'><i class='fas fa-exclamation-circle'></i> Moderate Chance (මධ්‍යම මට්ටමේ)</span>";
+                } else if (diff >= -0.12 && diff < -0.04) {
+                    statusClass += " borderline";
+                    statusBadge = "<span style='color:var(--primary-color); font-weight:700;'><i class='fas fa-info-circle'></i> Borderline (අවම ඉඩක්)</span>";
+                } else {
+                    return; // Below threshold
+                }
+
+                count++;
+                html += `
+                    <div class="${statusClass}">
+                        <div>
+                            <strong style="color:var(--text-color); font-size:13px;">${item.uni}</strong>
+                            <div style="color:var(--text-muted); font-size:12px;">${item.course}</div>
+                            <div style="font-size:11px; margin-top:3px;">Est. Cut-off: ~${adjustedCutoff.toFixed(4)}</div>
+                        </div>
+                        <div style="text-align:right; font-size:12px;">
+                            ${statusBadge}
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (count === 0) {
+                html += `<p style="color:var(--text-muted); margin-top:10px;">මෙම Z-ලකුණ සඳහා සුදුසු ප්‍රධාන පාඨමාලා කිසිවක් හමු නොවීය. කරුණාකර වෙනත් දිස්ත්‍රික්කයක් හෝ Z අගයක් උත්සාහ කරන්න.</p>`;
+            }
+
+            resultsBox.innerHTML = html;
+        }
+
+        // Comparison Dataset for Universities
+        const uniDetails = {
+            rusl_mgmt: {
+                name: "Faculty of Management Studies - Rajarata University (RUSL)",
+                degree: "B.Sc. in Management (General & Special)",
+                duration: "4 Years (Honours Degree)",
+                specs: "Accountancy, Finance, Business Management, Tourism & Hospitality, Marketing",
+                location: "Mihintale, Anuradhapura",
+                careers: "Auditor, Financial Analyst, Bank Executive, Chartered Accountant, HR Manager"
+            },
+            sjp_mgt: {
+                name: "Faculty of Management Studies & Commerce - USJ (J'pura)",
+                degree: "B.Sc. in Business Administration / Finance",
+                duration: "4 Years (Honours Degree)",
+                specs: "Accounting, Finance, Marketing, HRM, Business Economics, IT",
+                location: "Nugegoda, Colombo",
+                careers: "Investment Banker, Corporate Strategist, Chartered Accountant, Brand Manager"
+            },
+            cmb_mgt: {
+                name: "Faculty of Management & Finance - University of Colombo (UoC)",
+                degree: "BBA (Bachelor of Business Administration)",
+                duration: "4 Years (Honours Degree)",
+                specs: "Accounting, Finance, Marketing, International Business, Management Information Systems",
+                location: "Colombo 03",
+                careers: "Fintech Analyst, Multinational Consultant, Financial Planner, Operations Lead"
+            },
+            kln_com: {
+                name: "Faculty of Commerce & Management - University of Kelaniya",
+                degree: "B.Com / B.Sc in Accountancy",
+                duration: "4 Years (Honours Degree)",
+                specs: "Commerce, Financial Management, Auditing, Forensic Accounting",
+                location: "Dalugama, Kelaniya",
+                careers: "Tax Advisor, Chief Financial Officer (CFO), Stockbroker, Compliance Officer"
+            },
+            rusl_it: {
+                name: "Faculty of Applied Sciences - Rajarata University",
+                degree: "B.Sc in Information & Communication Technology",
+                duration: "3 - 4 Years",
+                specs: "Software Development, Networking, Cloud Computing, Database Administration",
+                location: "Mihintale",
+                careers: "Full-stack Developer, Software Engineer, Network Architect, Data Analyst"
+            },
+            mor_it: {
+                name: "Faculty of Information Technology - University of Moratuwa",
+                degree: "B.Sc. (Hons) in Information Technology",
+                duration: "4 Years",
+                specs: "Software Engineering, AI & Machine Learning, Cyber Security",
+                location: "Katubedda, Moratuwa",
+                careers: "Software Architect, Cloud Engineer, Tech Lead, AI Engineer"
+            }
+        };
+
+        function compareUniversities() {
+            const id1 = document.getElementById('comp-course-1').value;
+            const id2 = document.getElementById('comp-course-2').value;
+            const c1 = uniDetails[id1];
+            const c2 = uniDetails[id2];
+
+            const html = `
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Criteria</th>
+                            <th style="width: 37.5%;">${c1.name}</th>
+                            <th style="width: 37.5%;">${c2.name}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Degree Awarded</strong></td>
+                            <td>${c1.degree}</td>
+                            <td>${c2.degree}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Duration</strong></td>
+                            <td>${c1.duration}</td>
+                            <td>${c2.duration}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Specializations</strong></td>
+                            <td>${c1.specs}</td>
+                            <td>${c2.specs}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Campus Location</strong></td>
+                            <td>${c1.location}</td>
+                            <td>${c2.location}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Key Career Roles</strong></td>
+                            <td>${c1.careers}</td>
+                            <td>${c2.careers}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('comparison-output').innerHTML = html;
+        }
+
+        // ================= 6. AI TEACHER INTEGRATION =================
         const aiVoiceBtn = document.getElementById('ai-voice-btn');
         const aiVoiceLabel = document.getElementById('ai-voice-label');
         const aiStatusDot = document.getElementById('ai-status-dot');
@@ -1067,7 +1434,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ role: "user", parts: [{ text: `You are an encouraging English spoken coach on Janith's portfolio. Keep answers short (1-2 sentences) and easy to say aloud.\n\nStudent: ${promptText}` }] }]
+                        contents: [{ role: "user", parts: [{ text: `You are an encouraging English spoken coach on Janith's portfolio. Janith is an undergraduate in Management at Rajarata University and a CA student. Keep answers short (1-2 sentences) and easy to say aloud.\n\nStudent: ${promptText}` }] }]
                     })
                 });
                 const data = await response.json();
@@ -1116,7 +1483,7 @@
             aiVoiceBtn.style.display = 'none';
         }
 
-        // ================= 6. FINANCIAL TOOLS CODE =================
+        // ================= 7. FINANCIAL TOOLS CODE =================
 
         // Tool: APIT Sri Lanka Tax Calculation
         function calculateAPIT() {
@@ -1339,7 +1706,7 @@
             `;
         }
 
-        // ================= 7. CONTACT FORM EMAILJS =================
+        // ================= 8. CONTACT FORM EMAILJS =================
         (function() {
             emailjs.init("wJ-Xok6dB93S48oql");
         })();
