@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student & Financial Toolkit | Janith Madumal</title>
+    <meta name="description" content="Free Sri Lankan Student & Finance Tools: University Course Comparator, APIT Tax Calculator, Loan Amortizer, Invoice Maker, Ratio Analyzer.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0b0914;
+            --header-bg: rgba(26, 22, 49, 0.85);
+            --text-color: #ffffff;
+            --text-muted: #a0a0b5;
+            --primary-color: #ff3c3c;
+            --primary-hover: #e62e2e;
+            --card-bg: rgba(22, 18, 44, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f5f9;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #1a1a24;
+            --text-muted: #6b6b7b;
+            --primary-color: #ff3c3c;
+            --primary-hover: #e62e2e;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --input-bg: rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 15px 8%;
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary-color); }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            transition: 0.3s;
+        }
+        .btn-back:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .tools-hero {
+            padding: 8rem 8% 3rem;
+            text-align: center;
+        }
+        .tools-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-color), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tools-hero p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        .tools-grid-section {
+            padding: 2rem 8% 5rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.8rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h3 i { color: var(--primary-color); }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 12px;
+            background: rgba(255, 60, 60, 0.15);
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: var(--primary-color);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .tool-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .tool-modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 18px;
+            max-width: 720px;
+            width: 100%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .tool-modal-content h3 { color: var(--primary-color); margin-bottom: 8px; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; }
+        .tool-modal-content p.desc { color: var(--text-muted); margin-bottom: 15px; font-size: 0.9rem; }
+        .close-tool-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        .close-tool-modal:hover { color: var(--primary-color); }
+
+        .tool-form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .tool-form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .tool-form-group input, .tool-form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            outline: none;
+            font-size: 13px;
+        }
+        .tool-form-group input:focus, .tool-form-group select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .tool-result-box {
+            background: var(--input-bg);
+            border: 1px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        .tool-result-box h4 { margin-bottom: 8px; color: var(--primary-color); }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .compare-table th, .compare-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .compare-table th {
+            background: rgba(255, 60, 60, 0.1);
+            color: var(--primary-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Janiya<span>.tools</span></a>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Main Portfolio</a>
+    </header>
+
+    <div class="tools-hero">
+        <h1>Student & Financial Toolkit</h1>
+        <p>A collection of open interactive utilities designed for Sri Lankan university undergraduates, commerce students, and business owners.</p>
+    </div>
+
+    <section class="tools-grid-section">
+        <div class="grid-container">
+
+            <!-- 1. Uni Course Comparator -->
+            <div class="card">
+                <div>
+                    <span class="badge">Higher Education</span>
+                    <h3><i class="fas fa-balance-scale-right"></i> University Course Comparator</h3>
+                    <p>Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and Moratuwa side-by-side (Duration, Specializations, Careers).</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-unicompare">Compare Courses <i class="fas fa-columns"></i></button>
+            </div>
+
+            <!-- 2. APIT Tax Calculator -->
+            <div class="card">
+                <div>
+                    <span class="badge">Sri Lanka Tax</span>
+                    <h3><i class="fas fa-calculator"></i> SL APIT Income Tax Calculator</h3>
+                    <p>Calculate Advance Personal Income Tax (APIT) based on monthly gross remuneration, relief allowances, and statutory progressive tax slabs.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-apit">Calculate Tax <i class="fas fa-sliders-h"></i></button>
+            </div>
+
+            <!-- 3. Loan & Lease Amortizer -->
+            <div class="card">
+                <div>
+                    <span class="badge">Banking & Loans</span>
+                    <h3><i class="fas fa-chart-line"></i> Loan & Lease Amortizer</h3>
+                    <p>Calculates compound reducing-balance monthly repayments (EMI) and complete multi-year principal and interest schedules.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-loan">Amortize Loan <i class="fas fa-calculator"></i></button>
+            </div>
+
+            <!-- 4. Invoice Generator -->
+            <div class="card">
+                <div>
+                    <span class="badge">Billing & Invoicing</span>
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Instant Invoice Generator</h3>
+                    <p>Draft professional itemized client invoices with automated VAT/SSCL calculation and instant browser print/PDF export.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-invoice">Draft Invoice <i class="fas fa-file-pdf"></i></button>
+            </div>
+
+            <!-- 5. Corporate Ratio Analyzer -->
+            <div class="card">
+                <div>
+                    <span class="badge">Financial Analysis</span>
+                    <h3><i class="fas fa-balance-scale"></i> Corporate Ratio Analyzer</h3>
+                    <p>Evaluate balance sheet health across Current, Quick (Acid-Test), Debt-to-Equity, and Net Profit margins with risk indicators.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-ratios">Analyze Ratios <i class="fas fa-chart-pie"></i></button>
+            </div>
+
+            <!-- 6. Expense Tracker -->
+            <div class="card">
+                <div>
+                    <span class="badge">Personal Finance</span>
+                    <h3><i class="fas fa-wallet"></i> Smart Budget & Expense Log</h3>
+                    <p>Manage daily income and expenditures with category tracking and automatic local persistent storage in the browser.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-budget">Open Tracker <i class="fas fa-coins"></i></button>
+            </div>
+
+            <!-- 7. Customs Duty Estimator -->
+            <div class="card">
+                <div>
+                    <span class="badge">Trade & Customs</span>
+                    <h3><i class="fas fa-ship"></i> Customs Duty & Import Estimator</h3>
+                    <p>Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-customs">Estimate Duty <i class="fas fa-calculator"></i></button>
+            </div>
+
+            <!-- 8. CA Exam Simulator 2 -->
+            <div class="card">
+                <div>
+                    <span class="badge">CA Sri Lanka</span>
+                    <h3><i class="fas fa-laptop-code"></i> CA BL254 Law & Tax Simulator</h3>
+                    <p>Real-time mock exam simulator for Business Fundamentals, Law & Taxation with bilingual question reviews.</p>
+                </div>
+                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn">Launch Simulator <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= TOOL MODALS ================= -->
+
+    <!-- Modal 1: University Course Comparator -->
+    <div class="tool-modal" id="modal-unicompare">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-balance-scale-right"></i> University Course Comparator</h3>
+            <p class="desc">Compare Management, IT, and Commerce faculties in Sri Lanka side-by-side.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tool-form-group">
+                    <label>First Degree / University</label>
+                    <select id="comp-course-1">
+                        <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
+                        <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
+                        <option value="cmb_mgt">UoC (Colombo) - Faculty of Management & Finance</option>
+                        <option value="kln_com">Kelaniya - Commerce & Financial Management</option>
+                        <option value="rusl_it">Rajarata University - Applied Sciences (ICT)</option>
+                        <option value="mor_it">Moratuwa - Faculty of Information Technology</option>
+                    </select>
+                </div>
+                <div class="tool-form-group">
+                    <label>Second Degree / University</label>
+                    <select id="comp-course-2">
+                        <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
+                        <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
+                        <option value="cmb_mgt">UoC (Colombo) - Faculty of Management & Finance</option>
+                        <option value="kln_com">Kelaniya - Commerce & Financial Management</option>
+                        <option value="rusl_it">Rajarata University - Applied Sciences (ICT)</option>
+                        <option value="mor_it">Moratuwa - Faculty of Information Technology</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="compareUniversities()">Compare Now <i class="fas fa-exchange-alt"></i></button>
+            <div id="comparison-output" style="margin-top: 15px; overflow-x: auto;"></div>
+        </div>
+    </div>
+
+    <!-- Modal 2: APIT Tax Calculator -->
+    <div class="tool-modal" id="modal-apit">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-calculator"></i> SL APIT Tax Calculator</h3>
+            <p class="desc">Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.</p>
+            
+            <div class="tool-form-group">
+                <label>Monthly Gross Salary / Remuneration (LKR)</label>
+                <input type="number" id="tax-salary" value="200000">
+            </div>
+            <div class="tool-form-group">
+                <label>Monthly Tax-Free Relief Allowance (LKR)</label>
+                <input type="number" id="tax-relief" value="100000">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateAPIT()">Calculate Tax</button>
+
+            <div class="tool-result-box" id="tax-result">
+                <h4>Calculation Breakdown</h4>
+                <p>Enter your figures and click calculate.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Loan Amortizer -->
+    <div class="tool-modal" id="modal-loan">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-chart-line"></i> Loan & Lease Amortizer</h3>
+            <p class="desc">Computes monthly repayments (EMI) on standard reducing balance bank financing.</p>
+            
+            <div class="tool-form-group">
+                <label>Loan Amount (Principal - LKR)</label>
+                <input type="number" id="loan-amount" value="1000000">
+            </div>
+            <div class="tool-form-group">
+                <label>Annual Interest Rate (%)</label>
+                <input type="number" id="loan-rate" step="0.1" value="13.5">
+            </div>
+            <div class="tool-form-group">
+                <label>Tenure (Years)</label>
+                <input type="number" id="loan-years" value="5">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateLoan()">Calculate Schedule</button>
+
+            <div class="tool-result-box" id="loan-result">
+                <h4>Loan Summary</h4>
+                <p>Click calculate to see your monthly EMI breakdown.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Invoice Generator -->
+    <div class="tool-modal" id="modal-invoice">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-file-invoice-dollar"></i> Instant Invoice Generator</h3>
+            <p class="desc">Draft an itemized invoice and print or export to PDF directly.</p>
+            
+            <div class="tool-form-group">
+                <label>Customer Name</label>
+                <input type="text" id="inv-client" placeholder="e.g. Commercial Client Ltd">
+            </div>
+            <div class="tool-form-group">
+                <label>Item Description</label>
+                <input type="text" id="inv-desc" placeholder="e.g. Accounting Consultation & Bookkeeping">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Qty</label>
+                    <input type="number" id="inv-qty" value="1">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Unit Price (LKR)</label>
+                    <input type="number" id="inv-price" value="50000">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>VAT % (Optional)</label>
+                    <input type="number" id="inv-vat" value="18">
+                </div>
+            </div>
+            <button class="btn" style="width: 100%;" onclick="generateInvoicePreview()">Generate & Print Invoice</button>
+        </div>
+    </div>
+
+    <!-- Modal 5: Ratio Analysis -->
+    <div class="tool-modal" id="modal-ratios">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-balance-scale"></i> Corporate Ratio Analyzer</h3>
+            <p class="desc">Evaluate balance sheet and income performance.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tool-form-group">
+                    <label>Current Assets (LKR)</label>
+                    <input type="number" id="ratio-ca" value="500000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Current Liabilities (LKR)</label>
+                    <input type="number" id="ratio-cl" value="250000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Inventory (LKR)</label>
+                    <input type="number" id="ratio-inv" value="100000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Total Debt (LKR)</label>
+                    <input type="number" id="ratio-debt" value="600000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Total Equity (LKR)</label>
+                    <input type="number" id="ratio-eq" value="800000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Net Profit (LKR)</label>
+                    <input type="number" id="ratio-np" value="150000">
+                </div>
+                <div class="tool-form-group" style="grid-column: span 2;">
+                    <label>Total Revenue (LKR)</label>
+                    <input type="number" id="ratio-rev" value="1200000">
+                </div>
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateRatios()">Compute Financial Health</button>
+
+            <div class="tool-result-box" id="ratios-result">
+                <h4>Health Overview</h4>
+                <p>Awaiting figures.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Budget & Expense Tracker -->
+    <div class="tool-modal" id="modal-budget">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-wallet"></i> Smart Budget & Expense Log</h3>
+            <p class="desc">Tracks transactions saved in your browser's persistent LocalStorage.</p>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="tool-form-group" style="flex:2;">
+                    <label>Description</label>
+                    <input type="text" id="exp-desc" placeholder="e.g. University Fees, Textbooks, Fuel">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Amount (LKR)</label>
+                    <input type="number" id="exp-amount" placeholder="5000">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Type</label>
+                    <select id="exp-type">
+                        <option value="expense">Expense (-)</option>
+                        <option value="income">Income (+)</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" style="width: 100%; margin-bottom: 15px;" onclick="addTransaction()">Add Entry</button>
+
+            <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px;">
+                <span>Total Balance: <strong id="total-balance" style="color:var(--primary-color)">Rs. 0.00</strong></span>
+                <button onclick="clearTransactions()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px;">Clear All</button>
+            </div>
+            <div id="expense-list" style="height: 140px; overflow-y:auto; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; background: var(--input-bg);"></div>
+        </div>
+    </div>
+
+    <!-- Modal 7: Customs Duty Estimator -->
+    <div class="tool-modal" id="modal-customs">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-ship"></i> Customs Duty & Import Estimator</h3>
+            <p class="desc">Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.</p>
+            
+            <div class="tool-form-group">
+                <label>CIF Value (Cost, Insurance & Freight in LKR)</label>
+                <input type="number" id="cust-cif" value="1000000">
+            </div>
+            <div class="tool-form-group">
+                <label>Customs Import Duty - CID Rate (%)</label>
+                <input type="number" id="cust-cid" value="15">
+            </div>
+            <div class="tool-form-group">
+                <label>PAL Rate (%)</label>
+                <input type="number" id="cust-pal" value="10">
+            </div>
+            <div class="tool-form-group">
+                <label>Import VAT Rate (%)</label>
+                <input type="number" id="cust-vat" value="18">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateCustoms()">Compute Landed Cost</button>
+
+            <div class="tool-result-box" id="customs-result">
+                <h4>Tariff Breakdown</h4>
+                <p>Click compute to calculate duty.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Janith Madumal. Student & Finance Toolkit Hub.</p>
+    </footer>
+
+    <script>
+        // Inherit Theme from index
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+
+        // Modal triggers
+        document.querySelectorAll('.open-modal-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.getAttribute('data-target'));
+                if (target) target.style.display = 'flex';
+            });
+        });
+        document.querySelectorAll('.close-tool-modal').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                e.target.closest('.tool-modal').style.display = 'none';
+            });
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tool-modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Comparator Dataset
+        const uniDetails = {
+            rusl_mgmt: {
+                name: "Faculty of Management Studies - Rajarata University (RUSL)",
+                degree: "B.Sc. in Management (General & Special)",
+                duration: "4 Years (Honours Degree)",
+                specs: "Accountancy, Finance, Business Management, Tourism & Hospitality, Marketing",
+                location: "Mihintale, Anuradhapura",
+                careers: "Auditor, Financial Analyst, Bank Executive, Chartered Accountant, HR Manager"
+            },
+            sjp_mgt: {
+                name: "Faculty of Management Studies & Commerce - USJ (J'pura)",
+                degree: "B.Sc. in Business Administration / Finance",
+                duration: "4 Years (Honours Degree)",
+                specs: "Accounting, Finance, Marketing, HRM, Business Economics, IT",
+                location: "Nugegoda, Colombo",
+                careers: "Investment Banker, Corporate Strategist, Chartered Accountant, Brand Manager"
+            },
+            cmb_mgt: {
+                name: "Faculty of Management & Finance - University of Colombo (UoC)",
+                degree: "BBA (Bachelor of Business Administration)",
+                duration: "4 Years (Honours Degree)",
+                specs: "Accounting, Finance, Marketing, International Business, Management Information Systems",
+                location: "Colombo 03",
+                careers: "Fintech Analyst, Multinational Consultant, Financial Planner, Operations Lead"
+            },
+            kln_com: {
+                name: "Faculty of Commerce & Management - University of Kelaniya",
+                degree: "B.Com / B.Sc in Accountancy",
+                duration: "4 Years (Honours Degree)",
+                specs: "Commerce, Financial Management, Auditing, Forensic Accounting",
+                location: "Dalugama, Kelaniya",
+                careers: "Tax Advisor, Chief Financial Officer (CFO), Stockbroker, Compliance Officer"
+            },
+            rusl_it: {
+                name: "Faculty of Applied Sciences - Rajarata University",
+                degree: "B.Sc in Information & Communication Technology",
+                duration: "3 - 4 Years",
+                specs: "Software Development, Networking, Cloud Computing, Database Administration",
+                location: "Mihintale",
+                careers: "Full-stack Developer, Software Engineer, Network Architect, Data Analyst"
+            },
+            mor_it: {
+                name: "Faculty of Information Technology - University of Moratuwa",
+                degree: "B.Sc. (Hons) in Information Technology",
+                duration: "4 Years",
+                specs: "Software Engineering, AI & Machine Learning, Cyber Security",
+                location: "Katubedda, Moratuwa",
+                careers: "Software Architect, Cloud Engineer, Tech Lead, AI Engineer"
+            }
+        };
+
+        function compareUniversities() {
+            const id1 = document.getElementById('comp-course-1').value;
+            const id2 = document.getElementById('comp-course-2').value;
+            const c1 = uniDetails[id1];
+            const c2 = uniDetails[id2];
+
+            document.getElementById('comparison-output').innerHTML = `
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Criteria</th>
+                            <th style="width: 37.5%;">${c1.name}</th>
+                            <th style="width: 37.5%;">${c2.name}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Degree</strong></td><td>${c1.degree}</td><td>${c2.degree}</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>${c1.duration}</td><td>${c2.duration}</td></tr>
+                        <tr><td><strong>Specializations</strong></td><td>${c1.specs}</td><td>${c2.specs}</td></tr>
+                        <tr><td><strong>Location</strong></td><td>${c1.location}</td><td>${c2.location}</td></tr>
+                        <tr><td><strong>Career Roles</strong></td><td>${c1.careers}</td><td>${c2.careers}</td></tr>
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // APIT Calculation
+        function calculateAPIT() {
+            const salary = parseFloat(document.getElementById('tax-salary').value) || 0;
+            const relief = parseFloat(document.getElementById('tax-relief').value) || 100000;
+            let taxable = Math.max(0, salary - relief);
+            let tax = 0;
+
+            const slabs = [
+                { limit: 41667, rate: 0.06 },
+                { limit: 41667, rate: 0.12 },
+                { limit: 41667, rate: 0.18 },
+                { limit: 41667, rate: 0.24 },
+                { limit: 41667, rate: 0.30 }
+            ];
+
+            let remainingTaxable = taxable;
+            for (let i = 0; i < slabs.length; i++) {
+                if (remainingTaxable > 0) {
+                    let taxableInSlab = Math.min(remainingTaxable, slabs[i].limit);
+                    tax += taxableInSlab * slabs[i].rate;
+                    remainingTaxable -= taxableInSlab;
+                }
+            }
+            if (remainingTaxable > 0) tax += remainingTaxable * 0.36;
+
+            const netSalary = salary - tax;
+            document.getElementById('tax-result').innerHTML = `
+                <h4>Tax Calculation Summary</h4>
+                <p>Gross Monthly Salary: <strong>Rs. ${salary.toLocaleString()}</strong></p>
+                <p>Taxable Income after Relief: <strong>Rs. ${taxable.toLocaleString()}</strong></p>
+                <p style="color:var(--primary-color); font-size:15px; margin-top:5px;">Estimated APIT Payable: <strong>Rs. ${tax.toFixed(2)}</strong></p>
+                <p style="color:var(--success-color)">Net Take-Home Salary: <strong>Rs. ${netSalary.toFixed(2)}</strong></p>
+            `;
+        }
+
+        // Loan Calculator
+        function calculateLoan() {
+            const p = parseFloat(document.getElementById('loan-amount').value) || 0;
+            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
+            const years = parseFloat(document.getElementById('loan-years').value) || 1;
+
+            const monthlyRate = (annualRate / 100) / 12;
+            const totalMonths = years * 12;
+            const emi = (p * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            const totalPayment = emi * totalMonths;
+            const totalInterest = totalPayment - p;
+
+            document.getElementById('loan-result').innerHTML = `
+                <h4>Loan Schedule Breakdown</h4>
+                <p>Monthly Repayment (EMI): <strong style="color:var(--primary-color)">Rs. ${emi.toFixed(2)}</strong></p>
+                <p>Total Interest Payable: <strong>Rs. ${totalInterest.toFixed(2)}</strong></p>
+                <p>Total Repayment over ${years} Years: <strong>Rs. ${totalPayment.toFixed(2)}</strong></p>
+            `;
+        }
+
+        // Invoice Generator
+        function generateInvoicePreview() {
+            const client = document.getElementById('inv-client').value || "Valued Client";
+            const desc = document.getElementById('inv-desc').value || "Professional Services";
+            const qty = parseFloat(document.getElementById('inv-qty').value) || 1;
+            const price = parseFloat(document.getElementById('inv-price').value) || 0;
+            const vatRate = parseFloat(document.getElementById('inv-vat').value) || 0;
+
+            const subtotal = qty * price;
+            const vatAmount = subtotal * (vatRate / 100);
+            const grandTotal = subtotal + vatAmount;
+
+            const invoiceHtml = `
+                <html>
+                <head><title>Invoice - ${client}</title>
+                <style>body{font-family:sans-serif;padding:40px;color:#222;}table{width:100%;border-collapse:collapse;margin-top:30px;}th,td{border:1px solid #ddd;padding:12px;text-align:left;}th{background:#f8f8f8;}</style>
+                </head>
+                <body>
+                    <h2>INVOICE</h2>
+                    <p><strong>Billed To:</strong> ${client} | Date: ${new Date().toLocaleDateString()}</p>
+                    <table>
+                        <thead><tr><th>Description</th><th>Qty</th><th>Unit Price (LKR)</th><th>Total (LKR)</th></tr></thead>
+                        <tbody><tr><td>${desc}</td><td>${qty}</td><td>${price.toLocaleString()}</td><td>${subtotal.toLocaleString()}</td></tr></tbody>
+                    </table>
+                    <div style="text-align:right; margin-top:20px;">
+                        <p>Subtotal: Rs. ${subtotal.toLocaleString()}</p>
+                        <p>VAT (${vatRate}%): Rs. ${vatAmount.toLocaleString()}</p>
+                        <h3>Grand Total: Rs. ${grandTotal.toLocaleString()}</h3>
+                    </div>
+                    <script>window.onload=function(){window.print();}<\/script>
+                </body>
+                </html>
+            `;
+            const win = window.open('', '_blank');
+            win.document.write(invoiceHtml);
+            win.document.close();
+        }
+
+        // Ratio Analyzer
+        function calculateRatios() {
+            const ca = parseFloat(document.getElementById('ratio-ca').value) || 1;
+            const cl = parseFloat(document.getElementById('ratio-cl').value) || 1;
+            const inv = parseFloat(document.getElementById('ratio-inv').value) || 0;
+            const debt = parseFloat(document.getElementById('ratio-debt').value) || 0;
+            const equity = parseFloat(document.getElementById('ratio-eq').value) || 1;
+            const np = parseFloat(document.getElementById('ratio-np').value) || 0;
+            const rev = parseFloat(document.getElementById('ratio-rev').value) || 1;
+
+            const currentRatio = (ca / cl).toFixed(2);
+            const quickRatio = ((ca - inv) / cl).toFixed(2);
+            const deRatio = (debt / equity).toFixed(2);
+            const netMargin = ((np / rev) * 100).toFixed(1);
+
+            document.getElementById('ratios-result').innerHTML = `
+                <h4>Financial Health Overview</h4>
+                <p>Current Ratio: <strong>${currentRatio}</strong></p>
+                <p>Quick Ratio: <strong>${quickRatio}</strong></p>
+                <p>Debt-to-Equity Ratio: <strong>${deRatio}</strong></p>
+                <p>Net Profit Margin: <strong>${netMargin}%</strong></p>
+            `;
+        }
+
+        // Expense Tracker
+        let transactions = JSON.parse(localStorage.getItem('user_transactions')) || [];
+        function renderTransactions() {
+            const listEl = document.getElementById('expense-list');
+            const balanceEl = document.getElementById('total-balance');
+            listEl.innerHTML = '';
+            let total = 0;
+            transactions.forEach(item => {
+                total += item.type === 'income' ? item.amount : -item.amount;
+                const entry = document.createElement('div');
+                entry.style.display = 'flex';
+                entry.style.justifyContent = 'space-between';
+                entry.style.fontSize = '12px';
+                entry.style.marginBottom = '5px';
+                entry.innerHTML = `<span>${item.desc}</span><strong style="color:${item.type==='income'?'var(--success-color)':'var(--primary-color)'}">${item.type==='income'?'+':'-'} Rs. ${item.amount.toLocaleString()}</strong>`;
+                listEl.appendChild(entry);
+            });
+            balanceEl.textContent = `Rs. ${total.toLocaleString()}`;
+        }
+        function addTransaction() {
+            const desc = document.getElementById('exp-desc').value.trim();
+            const amount = parseFloat(document.getElementById('exp-amount').value);
+            const type = document.getElementById('exp-type').value;
+            if (!desc || isNaN(amount) || amount <= 0) return;
+            transactions.push({ desc, amount, type });
+            localStorage.setItem('user_transactions', JSON.stringify(transactions));
+            document.getElementById('exp-desc').value = '';
+            document.getElementById('exp-amount').value = '';
+            renderTransactions();
+        }
+        function clearTransactions() {
+            if (confirm("Clear all transaction logs?")) {
+                transactions = [];
+                localStorage.removeItem('user_transactions');
+                renderTransactions();
+            }
+        }
+        renderTransactions();
+
+        // Customs Calculator
+        function calculateCustoms() {
+            const cif = parseFloat(document.getElementById('cust-cif').value) || 0;
+            const cidRate = parseFloat(document.getElementById('cust-cid').value) || 0;
+            const palRate = parseFloat(document.getElementById('cust-pal').value) || 0;
+            const vatRate = parseFloat(document.getElementById('cust-vat').value) || 0;
+
+            const cidAmount = cif * (cidRate / 100);
+            const palAmount = cif * (palRate / 100);
+            const vatBase = (cif + cidAmount + palAmount) * 1.10;
+            const vatAmount = vatBase * (vatRate / 100);
+            const totalDuties = cidAmount + palAmount + vatAmount;
+            const landedCost = cif + totalDuties;
+
+            document.getElementById('customs-result').innerHTML = `
+                <h4>Landed Cost Estimation</h4>
+                <p>CID: Rs. ${cidAmount.toFixed(2)} | PAL: Rs. ${palAmount.toFixed(2)}</p>
+                <p>Import VAT: Rs. ${vatAmount.toFixed(2)}</p>
+                <p>Total Levies & Taxes: <strong style="color:var(--primary-color)">Rs. ${totalDuties.toFixed(2)}</strong></p>
+                <p>Total Estimated Landed Cost: <strong>Rs. ${landedCost.toFixed(2)}</strong></p>
+            `;
+        }
+    </script>
+</body>
+</html>
