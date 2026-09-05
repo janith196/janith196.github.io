@@ -3,39 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Janith Madumal | Portfolio</title>
+    <title>Janith Madumal | Portfolio & Financial Tech Tools</title>
+    <meta name="description" content="Portfolio and interactive financial web utilities by Janith Madumal - CA Level 1 Student & Tech Enthusiast from Sri Lanka.">
     
-    <!-- Google Fonts for modern typography -->
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Janith Madumal | Financial Web Tools & Portfolio">
+    <meta property="og:description" content="Explore live tools: Sri Lanka APIT Calculator, Loan Amortizer, AI Teacher, CBT Simulators, and more.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
+
     <style>
-        /* Modern CSS Variables */
         :root {
             --bg-color: #0b0914;
-            --header-bg: rgba(26, 22, 49, 0.7);
+            --header-bg: rgba(26, 22, 49, 0.85);
             --text-color: #ffffff;
             --text-muted: #a0a0b5;
             --primary-color: #ff3c3c;
             --primary-hover: #e62e2e;
-            --card-bg: rgba(22, 18, 44, 0.6);
-            --border-color: rgba(255, 255, 255, 0.05);
-            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-bg: rgba(22, 18, 44, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
         }
 
         [data-theme="light"] {
             --bg-color: #f4f5f9;
-            --header-bg: rgba(255, 255, 255, 0.8);
+            --header-bg: rgba(255, 255, 255, 0.9);
             --text-color: #1a1a24;
             --text-muted: #6b6b7b;
             --primary-color: #ff3c3c;
             --primary-hover: #e62e2e;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --border-color: rgba(0, 0, 0, 0.08);
             --shadow-color: rgba(0, 0, 0, 0.05);
+            --input-bg: rgba(0, 0, 0, 0.04);
         }
 
         * {
@@ -50,7 +61,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.7;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
             overflow-x: hidden;
         }
 
@@ -69,33 +80,26 @@
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 4px 20px var(--shadow-color);
-            transition: all 0.4s ease;
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-color);
             text-decoration: none;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
-        .logo span {
-            color: var(--primary-color);
-        }
+        .logo span { color: var(--primary-color); }
 
-        .navbar {
-            display: flex;
-            align-items: center;
-        }
-
+        .navbar { display: flex; align-items: center; }
         .navbar a {
             font-size: 15px;
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            margin: 0 15px;
+            margin: 0 14px;
             position: relative;
-            transition: 0.3s;
+            transition: color 0.3s;
         }
 
         .navbar a::after {
@@ -106,21 +110,16 @@
             background: var(--primary-color);
             bottom: -4px;
             left: 0;
-            transition: 0.3s;
+            transition: width 0.3s;
         }
 
-        .navbar a:hover::after, .navbar a.active::after {
-            width: 100%;
-        }
-
-        .navbar a:hover, .navbar a.active {
-            color: var(--primary-color);
-        }
+        .navbar a:hover::after, .navbar a.active::after { width: 100%; }
+        .navbar a:hover, .navbar a.active { color: var(--primary-color); }
 
         .nav-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .live-clock {
@@ -129,47 +128,43 @@
             gap: 6px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-color);
             background: var(--card-bg);
             padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px var(--shadow-color);
             border-left: 3px solid var(--primary-color);
-            transition: 0.3s;
         }
 
         #theme-toggle {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
+            width: 36px;
+            height: 36px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--text-color);
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            transition: 0.3s;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         #theme-toggle:hover {
             color: var(--primary-color);
-            transform: rotate(15deg);
+            transform: rotate(20deg);
         }
 
         #menu-icon {
             display: none;
-            font-size: 24px;
+            font-size: 22px;
             color: var(--text-color);
             cursor: pointer;
         }
 
         section {
             min-height: 100vh;
-            padding: 8rem 8% 4rem;
+            padding: 7rem 8% 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -177,11 +172,11 @@
 
         .heading {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .heading span { color: var(--primary-color); }
 
@@ -196,23 +191,23 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 28px;
+            padding: 10px 24px;
             background: var(--primary-color);
             border-radius: 30px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(255, 60, 60, 0.3);
+            box-shadow: 0 6px 18px rgba(255, 60, 60, 0.25);
             border: 2px solid var(--primary-color);
             cursor: pointer;
         }
 
         .btn:hover { 
             background: var(--primary-hover); 
-            transform: translateY(-3px);
+            border-color: var(--primary-hover);
+            transform: translateY(-2px);
         }
         
         .btn.btn-sec { 
@@ -224,7 +219,7 @@
         .btn.btn-sec:hover { 
             background: var(--primary-color); 
             color: #fff; 
-            box-shadow: 0 8px 20px rgba(255, 60, 60, 0.3);
+            box-shadow: 0 6px 18px rgba(255, 60, 60, 0.25);
         }
 
         .home {
@@ -233,23 +228,23 @@
         }
 
         .home-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 500;
             color: var(--text-muted);
         }
 
         .home-content h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
             line-height: 1.2;
-            margin: 0.5rem 0;
+            margin: 0.4rem 0;
             background: linear-gradient(45deg, var(--text-color), var(--text-muted));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .home-content p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-muted);
             max-width: 600px;
         }
@@ -257,34 +252,49 @@
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1.8rem;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 18px;
+            padding: 1.8rem;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover { 
-            transform: translateY(-10px); 
+            transform: translateY(-6px); 
             border-color: var(--primary-color);
         }
 
         .card h3 { 
-            font-size: 1.3rem;
-            margin-bottom: 1rem; 
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem; 
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .card h3 i { color: var(--primary-color); }
-        .card p { color: var(--text-muted); font-size: 0.95rem; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 12px;
+            background: rgba(255, 60, 60, 0.15);
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
 
         .progress-bar {
             background: rgba(255,255,255,0.1);
@@ -292,43 +302,32 @@
             border-radius: 4px;
             margin-top: 15px;
             overflow: hidden;
-            position: relative;
         }
         [data-theme="light"] .progress-bar { background: rgba(0,0,0,0.1); }
-        
         .progress {
             background: var(--primary-color);
             height: 100%;
             border-radius: 4px;
-            position: relative;
         }
-        .progress::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1.5rem;
             margin-top: 3rem;
         }
         .stat-item {
             text-align: center;
             background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 1.5rem;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
         }
-        .stat-item h2 { font-size: 3rem; color: var(--primary-color); line-height: 1; }
-        .stat-item p { margin-top: 0.5rem; font-weight: 500; color: var(--text-muted); }
+        .stat-item h2 { font-size: 2.6rem; color: var(--primary-color); line-height: 1; }
+        .stat-item p { margin-top: 0.5rem; font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
 
-        /* --- AI Teacher Fully Done Modal --- */
-        .ai-modal {
+        /* Universal Tool Modal Styles */
+        .tool-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -338,149 +337,131 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-y: auto;
         }
-        .ai-modal-content {
+        .tool-modal-content {
             background: var(--card-bg);
-            border: 1px solid var(--primary-color);
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 550px;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 18px;
+            max-width: 650px;
             width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-        .ai-modal-content h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 1.6rem; }
-        .ai-modal-content p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
-        .close-modal {
+        .tool-modal-content h3 { color: var(--primary-color); margin-bottom: 8px; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; }
+        .tool-modal-content p.desc { color: var(--text-muted); margin-bottom: 15px; font-size: 0.9rem; }
+        .close-tool-modal {
             position: absolute;
             top: 15px; right: 20px;
-            font-size: 26px;
+            font-size: 24px;
             color: var(--text-color);
             cursor: pointer;
-            transition: 0.3s;
         }
-        .close-modal:hover { color: var(--primary-color); }
+        .close-tool-modal:hover { color: var(--primary-color); }
         
-        .tutor-interface {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
+        .tool-form-group {
+            margin-bottom: 12px;
             text-align: left;
         }
-        [data-theme="light"] .tutor-interface { background: rgba(255,255,255,0.7); }
-        
-        .tutor-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .tool-form-group label {
+            display: block;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
         }
-        .status-dot {
-            width: 12px; height: 12px;
-            background-color: #ff3c3c;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ff3c3c;
-            animation: pulse-dot 1.5s infinite;
-        }
-        .status-dot.active { background-color: #2ecc71; box-shadow: 0 0 15px #2ecc71; }
-        @keyframes pulse-dot { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
-        .chat-transcript {
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-            padding: 12px;
-            height: 140px;
-            overflow-y: auto;
-            font-size: 0.9rem;
-            color: var(--text-color);
-            margin-bottom: 15px;
+        .tool-form-group input, .tool-form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--input-bg);
             border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            outline: none;
+            font-size: 13px;
+        }
+        .tool-form-group input:focus, .tool-form-group select:focus {
+            border-color: var(--primary-color);
         }
 
-        /* --- Contact Form --- */
+        .tool-result-box {
+            background: var(--input-bg);
+            border: 1px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        .tool-result-box h4 { margin-bottom: 8px; color: var(--primary-color); }
+        
+        /* Contact Form */
         .contact-form {
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
             background: var(--card-bg);
-            padding: 3rem;
-            border-radius: 20px;
+            padding: 2.5rem;
+            border-radius: 18px;
             border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px var(--shadow-color);
         }
 
-        .form-group { margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.2rem; }
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
+            padding: 14px;
+            background: var(--input-bg);
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            border-radius: 10px;
+            border-radius: 8px;
             outline: none;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-        [data-theme="light"] .form-group input, [data-theme="light"] .form-group textarea {
-            background: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
         }
         
         .form-group input:focus, .form-group textarea:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(255, 60, 60, 0.2);
         }
-
-        .form-group textarea { height: 160px; resize: none; }
+        .form-group textarea { height: 140px; resize: vertical; }
 
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 2.5rem;
+            gap: 15px;
+            margin-top: 2rem;
         }
         .social-icons a {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            font-size: 20px;
+            font-size: 18px;
             color: var(--text-color);
-            transition: 0.3s;
+            transition: all 0.3s;
         }
         .social-icons a:hover { 
             background: var(--primary-color); 
-            color: #fff;
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
+            color: #fff; 
+            transform: translateY(-4px);
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 1.8rem;
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 991px) {
-            header { padding: 15px 5%; }
-            section { padding: 7rem 5% 3rem; }
-            .home-content h1 { font-size: 3rem; }
+            font-size: 0.85rem;
         }
 
         @media (max-width: 768px) {
             #menu-icon { display: block; }
-            
             .navbar {
                 position: absolute;
                 top: 100%;
@@ -491,35 +472,16 @@
                 -webkit-backdrop-filter: blur(15px);
                 flex-direction: column;
                 padding: 20px 0;
-                transition: 0.4s ease;
+                transition: left 0.3s ease;
                 border-bottom: 1px solid var(--border-color);
             }
             .navbar.active { left: 0; }
-            .navbar a { 
-                margin: 15px 0; 
-                font-size: 1.1rem; 
-                display: block; 
-            }
-
-            .home { flex-direction: column; text-align: center; margin-top: 2rem; }
-            .home-content p { margin: 0 auto 2rem; }
+            .navbar a { margin: 12px 0; font-size: 1.05rem; }
+            .home { flex-direction: column; text-align: center; margin-top: 1rem; }
+            .home-content p { margin: 0 auto 1.5rem; }
             .btn-box { justify-content: center; flex-wrap: wrap; }
-            
-            .live-clock {
-                font-size: 11px;
-                padding: 5px 10px;
-            }
-            
-            .contact-form { padding: 2rem; }
-            .heading { font-size: 2rem; }
-        }
-
-        @media (max-width: 480px) {
-            .nav-controls { gap: 10px; }
-            #theme-toggle { width: 30px; height: 30px; font-size: 14px; }
-            .home-content h1 { font-size: 2.5rem; }
-            .live-clock { gap: 4px; padding: 4px 8px; font-size: 10px; }
-            .live-clock span { display: inline; } 
+            .contact-form { padding: 1.8rem; }
+            .heading { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -533,7 +495,7 @@
             <a href="#about">About</a>
             <a href="#education">Education</a>
             <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
+            <a href="#projects">Projects & Tools</a>
             <a href="#contact">Contact</a>
         </nav>
 
@@ -550,10 +512,10 @@
         <div class="home-content">
             <h3>Hello, I'm</h3>
             <h1>Janith Madumal</h1>
-            <h3>Commerce Student & Tech Enthusiast ⚡</h3>
-            <p>19-year-old student from Badalkumbura, Sri Lanka. Passionate about bridging the gap between finance, business accounting, and modern technology.</p>
+            <h3>Chartered Accounting (CA) Student & Tech Builder ⚡</h3>
+            <p>19-year-old student from Badalkumbura, Sri Lanka. Passionate about bridging corporate finance, auditing, and modern software development.</p>
             <div class="btn-box">
-                <a href="#contact" class="btn">Hire Me <i class="fas fa-paper-plane"></i></a>
+                <a href="#projects" class="btn">Explore All Tools <i class="fas fa-arrow-down"></i></a>
                 <a href="Janith_Madumal_CV.pdf" download class="btn btn-sec">Download CV <i class="fas fa-download"></i></a>
             </div>
         </div>
@@ -561,12 +523,12 @@
 
     <section class="about" id="about">
         <h2 class="heading">About <span>Me</span></h2>
-        <div class="card" style="max-width: 900px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text-color);">
-                My name is <strong>S.M. Janith Madumal Premasiri</strong>. I completed my A/L examination in 2025 under the Commerce stream.
+        <div class="card" style="max-width: 850px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.15rem; margin-bottom: 1.2rem; color: var(--text-color);">
+                My name is <strong>S.M. Janith Madumal Premasiri</strong>.
             </p>
-            <p style="color: var(--text-muted); font-size: 1.05rem;">
-                I studied Accounting, Business Studies, and ICT. I am currently following Chartered Accounting (CA) Level 1 while waiting for my university admission. My ultimate vision is to become a successful leader and entrepreneur in the fintech and business management space.
+            <p style="color: var(--text-muted); font-size: 1rem;">
+                I studied Accounting, Business Studies, and ICT in the Commerce stream. I placed <strong>District Rank 100</strong> in Monaragala (Z-score 1.3436). Currently following <strong>Chartered Accounting (CA) Level 1</strong>, I construct real-world tools that automate tax, ratio analysis, billing, and learning simulations.
             </p>
         </div>
     </section>
@@ -576,20 +538,20 @@
         <div class="grid-container">
             <div class="card">
                 <h3><i class="fas fa-graduation-cap"></i> 2025 A/L Results</h3>
-                <p>Completed under the Commerce Stream with excellent standing.</p>
-                <div style="margin-top: 15px; color: var(--text-color);">
+                <p>Completed under Commerce Stream with strong standing:</p>
+                <div style="margin-top: 12px; color: var(--text-color);">
                     <div>Accounting: <strong style="color: var(--primary-color)">A</strong></div>
                     <div>Business Studies: <strong style="color: var(--primary-color)">B</strong></div>
                     <div>ICT: <strong style="color: var(--primary-color)">C</strong></div>
                 </div>
             </div>
             <div class="card">
-                <h3><i class="fas fa-trophy"></i> District Achievement</h3>
-                <p>Demonstrated outstanding academic performance by securing <strong>District Rank 100</strong> in the Monaragala District for the 2025 batch.</p>
+                <h3><i class="fas fa-trophy"></i> District Standing</h3>
+                <p>Secured <strong>District Rank 100</strong> in the Monaragala District for the 2025 examination batch with a Z-score of 1.3436.</p>
             </div>
             <div class="card">
                 <h3><i class="fas fa-book-open"></i> Professional Studies</h3>
-                <p>Currently pursuing <strong>Chartered Accounting (CA) Level 1</strong>. Actively building a strong foundational knowledge in corporate finance and auditing.</p>
+                <p>Currently pursuing <strong>Chartered Accounting (CA) Level 1</strong> at CA Sri Lanka, building a solid foundation in accounting theory and auditing.</p>
             </div>
         </div>
     </section>
@@ -606,11 +568,11 @@
                 <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
             </div>
             <div class="card">
-                <h3>ICT & Web Design</h3>
+                <h3>Web Development & ICT</h3>
                 <div class="progress-bar"><div class="progress" style="width: 75%;"></div></div>
             </div>
             <div class="card">
-                <h3>Leadership</h3>
+                <h3>Leadership & Problem Solving</h3>
                 <div class="progress-bar"><div class="progress" style="width: 90%;"></div></div>
             </div>
         </div>
@@ -623,323 +585,790 @@
         </div>
     </section>
 
+    <!-- Projects & Working Tools Section -->
     <section class="projects" id="projects">
-        <h2 class="heading">My <span>Projects & Insights</span></h2>
+        <h2 class="heading">Projects & <span>Working Tools</span></h2>
         <div class="grid-container">
             
+            <!-- 1. AI English Teacher (Original Project) -->
             <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
-                <h3><i class="fas fa-laptop-code"></i> CA Sri Lanka Simulator</h3>
-                <p>Interactive real-time CBT exam simulator for BL-25-1: Fundamentals of Financial Reporting featuring automated scoring and randomized questions.</p>
-                <a href="CA_SriLanka_BL251_Fundamentals_Financial_Reporting_CBT_Simulator.html" target="_blank" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
-                <h3><i class="fas fa-laptop-code"></i> CA Sri Lanka Simulator</h3>
-                <p>Interactive real-time CBT exam simulator for Business Fundamentals, Law & Tax featuring automated scoring and bilingual reviews.</p>
-                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch Simulator <i class="fas fa-arrow-right"></i></a>
+                <div>
+                    <span class="badge">AI & EdTech</span>
+                    <h3><i class="fas fa-headset"></i> AI English Spoken Teacher</h3>
+                    <p>Voice- and text-enabled AI assistant designed to help practice English speaking, sentence formation, and conversation fluency.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-ai-teacher">Launch AI Teacher <i class="fas fa-microphone"></i></button>
             </div>
 
-            <!-- AI English Spoken Teacher Card -->
-            <div class="card" style="border-color: rgba(255, 60, 60, 0.6); background: rgba(255, 60, 60, 0.05);">
-                <h3><i class="fas fa-headset"></i> AI English Spoken Teacher</h3>
-                <p>An interactive AI-powered speaking assistant designed to help learners practice English conversation, improve pronunciation, and build fluency 24/7.</p>
-                <button id="open-ai-modal" class="btn" style="padding: 8px 15px; font-size: 13px; margin-top: 15px;">Launch AI Teacher <i class="fas fa-microphone"></i></button>
+            <!-- 2. CA Sri Lanka Simulator BL251 (Original Project) -->
+            <div class="card">
+                <div>
+                    <span class="badge">CA Sri Lanka</span>
+                    <h3><i class="fas fa-laptop-code"></i> CA BL251 CBT Simulator</h3>
+                    <p>Real-time mock exam simulator for BL-25-1: Fundamentals of Financial Reporting featuring automated scoring and question banks.</p>
+                </div>
+                <a href="CA_SriLanka_BL251_Fundamentals_Financial_Reporting_CBT_Simulator.html" target="_blank" class="btn">Launch Simulator <i class="fas fa-arrow-right"></i></a>
             </div>
+
+            <!-- 3. CA Sri Lanka Simulator BL254 (Original Project) -->
+            <div class="card">
+                <div>
+                    <span class="badge">CA Sri Lanka</span>
+                    <h3><i class="fas fa-laptop-code"></i> CA BL254 Law & Tax Simulator</h3>
+                    <p>Real-time CBT exam simulator for Business Fundamentals, Law & Taxation featuring bilingual question reviews.</p>
+                </div>
+                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn">Launch Simulator <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 4. APIT Tax Calculator (New) -->
+            <div class="card">
+                <div>
+                    <span class="badge">Sri Lanka Taxation</span>
+                    <h3><i class="fas fa-calculator"></i> SL APIT Income Tax Calculator</h3>
+                    <p>Computes Advance Personal Income Tax (APIT) based on monthly remuneration, personal relief allowances, and statutory tax slabs.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-apit">Launch Tool <i class="fas fa-sliders-h"></i></button>
+            </div>
+
+            <!-- 5. Loan & Lease Amortizer (New) -->
+            <div class="card">
+                <div>
+                    <span class="badge">Banking & Loans</span>
+                    <h3><i class="fas fa-chart-line"></i> Loan & Lease Amortizer</h3>
+                    <p>Calculates compound reducing balance monthly repayments (EMI) and complete interest amortizations over multi-year terms.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-loan">Launch Tool <i class="fas fa-sliders-h"></i></button>
+            </div>
+
+            <!-- 6. Invoice Generator (New) -->
+            <div class="card">
+                <div>
+                    <span class="badge">Billing & Invoicing</span>
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Instant Invoice Generator</h3>
+                    <p>Draft professional itemized client invoices with automated VAT/SSCL computation and instant browser print/PDF export.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-invoice">Launch Tool <i class="fas fa-sliders-h"></i></button>
+            </div>
+
+            <!-- 7. Corporate Ratio Analyzer (New) -->
+            <div class="card">
+                <div>
+                    <span class="badge">Financial Analysis</span>
+                    <h3><i class="fas fa-balance-scale"></i> Corporate Ratio Analyzer</h3>
+                    <p>Evaluates corporate balance sheet health across Current, Quick (Acid-Test), Debt-to-Equity, and Net Profit margins.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-ratios">Launch Tool <i class="fas fa-sliders-h"></i></button>
+            </div>
+
+            <!-- 8. Expense Tracker (New) -->
+            <div class="card">
+                <div>
+                    <span class="badge">Personal Finance</span>
+                    <h3><i class="fas fa-wallet"></i> Smart Budget & Expense Log</h3>
+                    <p>Manage daily income and expenditures with category tracking and automatic local persistent storage in the browser.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-budget">Launch Tool <i class="fas fa-sliders-h"></i></button>
+            </div>
+
+            <!-- 9. Customs Duty & Import Estimator (New) -->
+            <div class="card">
+                <div>
+                    <span class="badge">Trade & Customs</span>
+                    <h3><i class="fas fa-ship"></i> Customs Duty & Import Estimator</h3>
+                    <p>Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.</p>
+                </div>
+                <button class="btn open-modal-btn" data-target="modal-customs">Launch Tool <i class="fas fa-sliders-h"></i></button>
+            </div>
+
         </div>
     </section>
 
-    <!-- Fully Done AI Teacher Modal Popup -->
-    <div class="ai-modal" id="aiModal">
-        <div class="ai-modal-content">
-            <span class="close-modal" id="close-ai-modal">&times;</span>
+    <!-- ================= TOOL MODALS ================= -->
+
+    <!-- Modal 1: AI English Teacher -->
+    <div class="tool-modal" id="modal-ai-teacher">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
             <h3><i class="fas fa-headset"></i> Live AI English Tutor</h3>
-            <p>Practice speaking English live with your virtual mentor.</p>
+            <p class="desc">Practice conversational English live via voice or text.</p>
             
-            <div class="tutor-interface">
-                <div class="tutor-status">
-                    <div class="status-dot" id="status-dot"></div>
-                    <span id="status-text">Status: Ready to Connect</span>
+            <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left;">
+                <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 10px; font-size: 0.85rem;">
+                    <div id="ai-status-dot" style="width: 10px; height: 10px; background-color: var(--primary-color); border-radius: 50%;"></div>
+                    <span id="ai-status-text">Status: Ready</span>
                 </div>
-                <div class="chat-transcript" id="chat-transcript">
-                    <strong>AI Teacher:</strong> Hello! Click "Start Speaking" below to start talking with me in English. I will listen and respond back to you!
+                <div id="ai-chat-transcript" style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; height: 150px; overflow-y: auto; font-size: 0.88rem; color: var(--text-color); margin-bottom: 10px; border: 1px solid var(--border-color);">
+                    <strong>AI Teacher:</strong> Hello Janith! Click "Voice Speak" or type below to practice talking with me in English!
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="ai-chat-input" placeholder="Type message..." style="flex:1; padding: 8px 12px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; outline: none; font-size: 13px;">
+                    <button class="btn" id="ai-send-btn" style="padding: 8px 14px; font-size: 13px;"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
 
-            <button class="btn" id="voice-action-btn"><i class="fas fa-microphone-alt"></i> <span id="btn-label">Start Speaking</span></button>
+            <button class="btn" id="ai-voice-btn" style="width: 100%;"><i class="fas fa-microphone"></i> <span id="ai-voice-label">Voice Speak</span></button>
         </div>
     </div>
 
+    <!-- Modal 2: APIT Tax Calculator -->
+    <div class="tool-modal" id="modal-apit">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-calculator"></i> SL APIT Tax Calculator</h3>
+            <p class="desc">Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.</p>
+            
+            <div class="tool-form-group">
+                <label>Monthly Gross Salary / Remuneration (LKR)</label>
+                <input type="number" id="tax-salary" value="200000">
+            </div>
+            <div class="tool-form-group">
+                <label>Monthly Tax-Free Relief Allowance (LKR)</label>
+                <input type="number" id="tax-relief" value="100000">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateAPIT()">Calculate Tax</button>
+
+            <div class="tool-result-box" id="tax-result">
+                <h4>Calculation Breakdown</h4>
+                <p>Enter your figures and click calculate.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Loan Amortizer -->
+    <div class="tool-modal" id="modal-loan">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-chart-line"></i> Loan & Lease Amortizer</h3>
+            <p class="desc">Computes monthly repayments (EMI) on standard reducing balance bank financing.</p>
+            
+            <div class="tool-form-group">
+                <label>Loan Amount (Principal - LKR)</label>
+                <input type="number" id="loan-amount" value="1000000">
+            </div>
+            <div class="tool-form-group">
+                <label>Annual Interest Rate (%)</label>
+                <input type="number" id="loan-rate" step="0.1" value="13.5">
+            </div>
+            <div class="tool-form-group">
+                <label>Tenure (Years)</label>
+                <input type="number" id="loan-years" value="5">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateLoan()">Calculate Schedule</button>
+
+            <div class="tool-result-box" id="loan-result">
+                <h4>Loan Summary</h4>
+                <p>Click calculate to see your monthly EMI breakdown.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Invoice Generator -->
+    <div class="tool-modal" id="modal-invoice">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-file-invoice-dollar"></i> Instant Invoice Generator</h3>
+            <p class="desc">Draft an itemized invoice and print or export to PDF directly.</p>
+            
+            <div class="tool-form-group">
+                <label>Customer Name</label>
+                <input type="text" id="inv-client" placeholder="e.g. Commercial Client Ltd">
+            </div>
+            <div class="tool-form-group">
+                <label>Item Description</label>
+                <input type="text" id="inv-desc" placeholder="e.g. Accounting Consultation & Bookkeeping">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Qty</label>
+                    <input type="number" id="inv-qty" value="1">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Unit Price (LKR)</label>
+                    <input type="number" id="inv-price" value="50000">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>VAT % (Optional)</label>
+                    <input type="number" id="inv-vat" value="18">
+                </div>
+            </div>
+            <button class="btn" style="width: 100%;" onclick="generateInvoicePreview()">Generate & Print Invoice</button>
+        </div>
+    </div>
+
+    <!-- Modal 5: Ratio Analysis -->
+    <div class="tool-modal" id="modal-ratios">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-balance-scale"></i> Corporate Ratio Analyzer</h3>
+            <p class="desc">Evaluate balance sheet and income performance.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tool-form-group">
+                    <label>Current Assets (LKR)</label>
+                    <input type="number" id="ratio-ca" value="500000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Current Liabilities (LKR)</label>
+                    <input type="number" id="ratio-cl" value="250000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Inventory (LKR)</label>
+                    <input type="number" id="ratio-inv" value="100000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Total Debt (LKR)</label>
+                    <input type="number" id="ratio-debt" value="600000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Total Equity (LKR)</label>
+                    <input type="number" id="ratio-eq" value="800000">
+                </div>
+                <div class="tool-form-group">
+                    <label>Net Profit (LKR)</label>
+                    <input type="number" id="ratio-np" value="150000">
+                </div>
+                <div class="tool-form-group" style="grid-column: span 2;">
+                    <label>Total Revenue (LKR)</label>
+                    <input type="number" id="ratio-rev" value="1200000">
+                </div>
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateRatios()">Compute Financial Health</button>
+
+            <div class="tool-result-box" id="ratios-result">
+                <h4>Health Overview</h4>
+                <p>Awaiting figures.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Budget & Expense Tracker -->
+    <div class="tool-modal" id="modal-budget">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-wallet"></i> Smart Budget & Expense Log</h3>
+            <p class="desc">Tracks transactions saved in your browser's persistent LocalStorage.</p>
+            
+            <div style="display: flex; gap: 10px;">
+                <div class="tool-form-group" style="flex:2;">
+                    <label>Description</label>
+                    <input type="text" id="exp-desc" placeholder="e.g. Course Materials, Fuel">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Amount (LKR)</label>
+                    <input type="number" id="exp-amount" placeholder="5000">
+                </div>
+                <div class="tool-form-group" style="flex:1;">
+                    <label>Type</label>
+                    <select id="exp-type">
+                        <option value="expense">Expense (-)</option>
+                        <option value="income">Income (+)</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" style="width: 100%; margin-bottom: 15px;" onclick="addTransaction()">Add Entry</button>
+
+            <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px;">
+                <span>Total Balance: <strong id="total-balance" style="color:var(--primary-color)">Rs. 0.00</strong></span>
+                <button onclick="clearTransactions()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px;">Clear All</button>
+            </div>
+            <div id="expense-list" style="height: 140px; overflow-y:auto; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; background: var(--input-bg);">
+                <!-- Dynamic Items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 7: Customs Duty Estimator -->
+    <div class="tool-modal" id="modal-customs">
+        <div class="tool-modal-content">
+            <span class="close-tool-modal">&times;</span>
+            <h3><i class="fas fa-ship"></i> Customs Duty & Import Estimator</h3>
+            <p class="desc">Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.</p>
+            
+            <div class="tool-form-group">
+                <label>CIF Value (Cost, Insurance & Freight in LKR)</label>
+                <input type="number" id="cust-cif" value="1000000">
+            </div>
+            <div class="tool-form-group">
+                <label>Customs Import Duty - CID Rate (%)</label>
+                <input type="number" id="cust-cid" value="15">
+            </div>
+            <div class="tool-form-group">
+                <label>PAL Rate (%)</label>
+                <input type="number" id="cust-pal" value="10">
+            </div>
+            <div class="tool-form-group">
+                <label>Import VAT Rate (%)</label>
+                <input type="number" id="cust-vat" value="18">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="calculateCustoms()">Compute Landed Cost</button>
+
+            <div class="tool-result-box" id="customs-result">
+                <h4>Tariff Breakdown</h4>
+                <p>Click compute to calculate duty.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form Section -->
     <section class="contact" id="contact">
         <h2 class="heading">Get in <span>Touch</span></h2>
         <form class="contact-form" id="contact-form">
             <div class="form-group">
-                <input type="text" id="user_name" placeholder="Your Full Name" required>
+                <input type="text" name="user_name" id="user_name" placeholder="Your Full Name" required>
             </div>
             <div class="form-group">
-                <input type="email" id="user_email" placeholder="Your Email Address" required>
+                <input type="email" name="user_email" id="user_email" placeholder="Your Email Address" required>
             </div>
             <div class="form-group">
-                <textarea id="user_message" placeholder="Write your message here..." required></textarea>
+                <textarea name="user_message" id="user_message" placeholder="Write your message here..." required></textarea>
             </div>
-            <button type="submit" class="btn" style="width: 100%;">Send Message <i class="fas fa-paper-plane"></i></button>
+            <button type="submit" id="submit-btn" class="btn" style="width: 100%;">Send Message <i class="fas fa-paper-plane"></i></button>
         </form>
 
         <div class="social-icons">
-            <a href="https://instagram.com/jkzz._.z" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://facebook.com/Janith Madumal" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://tiktok.com/@jkzz._.z" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://instagram.com/jkzz._.z" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com/JanithMadumal" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://tiktok.com/@jkzz._.z" target="_blank" rel="noopener" title="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Janith Madumal </p>
+        <p>&copy; 2026 Janith Madumal. All rights reserved.</p>
     </footer>
 
-  <script>
-        // 1. Mobile Hamburger Menu Toggle
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 1. Mobile Menu Toggle
         const menuIcon = document.getElementById('menu-icon');
         const navbar = document.getElementById('navbar');
-        const navLinksArr = document.querySelectorAll('.navbar a');
+        const navLinks = document.querySelectorAll('.navbar a');
 
         menuIcon.addEventListener('click', () => {
             navbar.classList.toggle('active');
-            let icon = menuIcon.querySelector('i');
-            if(navbar.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
+            menuIcon.querySelector('i').classList.toggle('fa-bars');
+            menuIcon.querySelector('i').classList.toggle('fa-times');
         });
 
-        navLinksArr.forEach(link => {
+        navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 navbar.classList.remove('active');
-                menuIcon.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                menuIcon.querySelector('i').className = 'fas fa-bars';
             });
         });
 
-        // 2. Theme Configuration & Auto Time-Based Theme
+        // 2. Persistent Theme Settings
         const themeToggleBtn = document.getElementById('theme-toggle');
-        const icon = themeToggleBtn.querySelector('i');
+        const themeIcon = themeToggleBtn.querySelector('i');
 
-        function setAutoTheme() {
-            const hour = new Date().getHours();
-            const isDayTime = hour >= 6 && hour < 18;
-
-            if (isDayTime) {
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-sun';
+                themeIcon.className = 'fas fa-sun';
             } else {
                 document.documentElement.removeAttribute('data-theme');
-                icon.className = 'fas fa-moon';
+                themeIcon.className = 'fas fa-moon';
             }
         }
-
-        setAutoTheme();
+        initTheme();
 
         themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            if (isLight) {
                 document.documentElement.removeAttribute('data-theme');
-                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+                themeIcon.className = 'fas fa-moon';
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+                themeIcon.className = 'fas fa-sun';
             }
         });
 
-        // 3. Live Clock Update
+        // 3. Live Header Clock
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-            let ampm = hours >= 12 ? 'PM' : 'AM';
-
-            hours = hours % 12;
-            hours = hours ? hours : 12; 
-
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-            document.getElementById('time-display').textContent = timeString;
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            document.getElementById('time-display').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
         }
-
         updateClock();
         setInterval(updateClock, 1000);
 
-        // 4. Navigation Active State on Scroll
-        const sections = document.querySelectorAll('section');
-        
-        window.onscroll = () => {
-            sections.forEach(sec => {
-                let top = window.scrollY;
-                let offset = sec.offsetTop - 200;
-                let height = sec.offsetHeight;
-                let id = sec.getAttribute('id');
-
-                if(top >= offset && top < offset + height) {
-                    navLinksArr.forEach(links => {
-                        links.classList.remove('active');
-                        let targetLink = document.querySelector('.navbar a[href*=' + id + ']');
-                        if(targetLink) targetLink.classList.add('active');
-                    });
-                }
+        // 4. Modal Handlers
+        document.querySelectorAll('.open-modal-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetModal = document.getElementById(btn.getAttribute('data-target'));
+                if (targetModal) targetModal.style.display = 'flex';
             });
-        };
-
-        // 5. Real Gemini-Powered AI Teacher Integration
-        const aiModal = document.getElementById('aiModal');
-        const openAiModalBtn = document.getElementById('open-ai-modal');
-        const closeAiModalBtn = document.getElementById('close-ai-modal');
-        const voiceActionBtn = document.getElementById('voice-action-btn');
-        const btnLabel = document.getElementById('btn-label');
-        const statusDot = document.getElementById('status-dot');
-        const statusText = document.getElementById('status-text');
-        const chatTranscript = document.getElementById('chat-transcript');
-
-        openAiModalBtn.addEventListener('click', () => {
-            aiModal.style.display = 'flex';
         });
 
-        closeAiModalBtn.addEventListener('click', () => {
-            aiModal.style.display = 'none';
-            stopSpeechSession();
+        document.querySelectorAll('.close-tool-modal').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.tool-modal');
+                modal.style.display = 'none';
+                if (modal.id === 'modal-ai-teacher') {
+                    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                }
+            });
         });
 
         window.addEventListener('click', (e) => {
-            if (e.target === aiModal) {
-                aiModal.style.display = 'none';
-                stopSpeechSession();
+            if (e.target.classList.contains('tool-modal')) {
+                e.target.style.display = 'none';
+                if (e.target.id === 'modal-ai-teacher') {
+                    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                }
             }
         });
 
-        function stopSpeechSession() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            statusDot.classList.remove('active');
-            statusText.textContent = "Status: Ready to Talk";
-            btnLabel.textContent = "Start Speaking";
-        }
+        // ================= 5. AI TEACHER INTEGRATION =================
+        const aiVoiceBtn = document.getElementById('ai-voice-btn');
+        const aiVoiceLabel = document.getElementById('ai-voice-label');
+        const aiStatusDot = document.getElementById('ai-status-dot');
+        const aiStatusText = document.getElementById('ai-status-text');
+        const aiTranscript = document.getElementById('ai-chat-transcript');
+        const aiChatInput = document.getElementById('ai-chat-input');
+        const aiSendBtn = document.getElementById('ai-send-btn');
 
-        function speakAIResponse(text) {
+        function speakAI(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'en-US';
-                utterance.rate = 1.0;
-                
                 utterance.onstart = () => {
-                    statusText.textContent = "Status: AI Teacher Speaking...";
-                    statusDot.classList.add('active');
+                    aiStatusText.textContent = "Status: Speaking...";
+                    aiStatusDot.style.backgroundColor = "#2ecc71";
                 };
-                
                 utterance.onend = () => {
-                    statusText.textContent = "Status: Listening for you...";
+                    aiStatusText.textContent = "Status: Ready";
+                    aiStatusDot.style.backgroundColor = "var(--primary-color)";
                 };
-
                 window.speechSynthesis.speak(utterance);
             }
         }
 
-        // Function to query the Gemini API
-        async function askGeminiAI(promptText) {
-            const apiKey = "AQ.Ab8RN6K0giM5TJgBdMaW0jSDLeEWEDPmWobKLJtRPrCMa9k4Ag"; // Get free key from Google AI Studio
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        async function askGemini(promptText) {
+            let key = sessionStorage.getItem('gemini_api_key');
+            if (!key) {
+                key = prompt("Enter your Gemini API key to activate spoken practice (saved in tab memory only):");
+                if (key) sessionStorage.setItem('gemini_api_key', key.trim());
+                else return;
+            }
 
-            const systemPrompt = `You are a helpful English spoken teacher and a knowledgeable AI assistant on Janith Madumal's portfolio website. 
-            Janith Madumal is 19 years old, a commerce student from Badalkumbura, Sri Lanka, studying Chartered Accounting Level 1. He scored District Rank 100 in Monaragala for his 2025 A/Ls (Accounting A, Business Studies B, ICT C).
-            Answer any general question about the world accurately, or answer questions about Janith. Keep responses friendly, concise, and easy to read aloud.`;
+            aiStatusText.textContent = "Status: Thinking...";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
 
             try {
-                statusText.textContent = "Status: Thinking...";
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [
-                            { role: "user", parts: [{ text: systemPrompt + "\n\nUser Question: " + promptText }] }
-                        ]
+                        contents: [{ role: "user", parts: [{ text: `You are an encouraging English spoken coach on Janith's portfolio. Keep answers short (1-2 sentences) and easy to say aloud.\n\nStudent: ${promptText}` }] }]
                     })
                 });
-
                 const data = await response.json();
-                const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't process that right now.";
-                
-                chatTranscript.innerHTML += `<br><strong>AI Teacher:</strong> ${aiReply}`;
-                chatTranscript.scrollTop = chatTranscript.scrollHeight;
+                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't catch that. Could you please say it again?";
 
-                btnLabel.textContent = "Start Speaking";
-                speakAIResponse(aiReply);
-
-            } catch (error) {
-                statusText.textContent = "Status: Error connecting";
-                chatTranscript.innerHTML += `<br><strong>System:</strong> Failed to reach Gemini AI API.`;
-                btnLabel.textContent = "Start Speaking";
+                aiTranscript.innerHTML += `<div style="margin-top:5px;"><strong style="color:var(--primary-color);">AI:</strong> ${reply}</div>`;
+                aiTranscript.scrollTop = aiTranscript.scrollHeight;
+                speakAI(reply);
+            } catch(err) {
+                aiStatusText.textContent = "Status: Error";
+                aiTranscript.innerHTML += `<div style="color:red; margin-top:5px;">Could not connect to AI service. Please verify your API key.</div>`;
             }
         }
 
-        // Web Speech Recognition setup
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-        if (SpeechRecognition) {
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'en-US';
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-
-            voiceActionBtn.addEventListener('click', () => {
-                try {
-                    recognition.start();
-                    statusText.textContent = "Status: Listening to you...";
-                    statusDot.classList.add('active');
-                    btnLabel.textContent = "Listening...";
-                } catch(err) {
-                    console.log("Already listening");
-                }
-            });
-
-            recognition.onresult = (event) => {
-                const userText = event.results[0][0].transcript;
-                chatTranscript.innerHTML += `<br><strong style="color: var(--primary-color);">You:</strong> ${userText}`;
-                chatTranscript.scrollTop = chatTranscript.scrollHeight;
-
-                // Send speech text to real Gemini API
-                askGeminiAI(userText);
-            };
-
-            recognition.onerror = () => {
-                statusText.textContent = "Status: Mic permission needed";
-                statusDot.classList.remove('active');
-                btnLabel.textContent = "Start Speaking";
-            };
-
-            recognition.onend = () => {
-                if (statusText.textContent.includes("Listening")) {
-                    statusText.textContent = "Status: Ready";
-                    statusDot.classList.remove('active');
-                    btnLabel.textContent = "Start Speaking";
-                }
-            };
-
-        } else {
-            voiceActionBtn.addEventListener('click', () => {
-                alert("Speech recognition is not supported in this browser. Please use Google Chrome.");
-            });
+        function submitAiText() {
+            const text = aiChatInput.value.trim();
+            if (!text) return;
+            aiTranscript.innerHTML += `<div style="margin-top:5px;"><strong>You:</strong> ${text}</div>`;
+            aiChatInput.value = '';
+            askGemini(text);
         }
 
-        // 6. EmailJS Contact Form Setup
+        if (aiSendBtn) aiSendBtn.onclick = submitAiText;
+        if (aiChatInput) aiChatInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') submitAiText(); });
+
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRec && aiVoiceBtn) {
+            const rec = new SpeechRec();
+            rec.lang = 'en-US';
+            aiVoiceBtn.onclick = () => {
+                try {
+                    rec.start();
+                    aiStatusText.textContent = "Status: Listening...";
+                    aiVoiceLabel.textContent = "Listening...";
+                } catch(e) { console.log(e); }
+            };
+            rec.onresult = (e) => {
+                const spoken = e.results[0][0].transcript;
+                aiTranscript.innerHTML += `<div style="margin-top:5px;"><strong>You:</strong> ${spoken}</div>`;
+                askGemini(spoken);
+            };
+            rec.onend = () => {
+                aiVoiceLabel.textContent = "Voice Speak";
+            };
+        } else if (aiVoiceBtn) {
+            aiVoiceBtn.style.display = 'none';
+        }
+
+        // ================= 6. FINANCIAL TOOLS CODE =================
+
+        // Tool: APIT Sri Lanka Tax Calculation
+        function calculateAPIT() {
+            const salary = parseFloat(document.getElementById('tax-salary').value) || 0;
+            const relief = parseFloat(document.getElementById('tax-relief').value) || 100000;
+            let taxable = Math.max(0, salary - relief);
+            let tax = 0;
+
+            const slabs = [
+                { limit: 41667, rate: 0.06 },
+                { limit: 41667, rate: 0.12 },
+                { limit: 41667, rate: 0.18 },
+                { limit: 41667, rate: 0.24 },
+                { limit: 41667, rate: 0.30 }
+            ];
+
+            let remainingTaxable = taxable;
+            for (let i = 0; i < slabs.length; i++) {
+                if (remainingTaxable > 0) {
+                    let taxableInSlab = Math.min(remainingTaxable, slabs[i].limit);
+                    tax += taxableInSlab * slabs[i].rate;
+                    remainingTaxable -= taxableInSlab;
+                }
+            }
+            if (remainingTaxable > 0) {
+                tax += remainingTaxable * 0.36;
+            }
+
+            const netSalary = salary - tax;
+            document.getElementById('tax-result').innerHTML = `
+                <h4>Tax Calculation Summary</h4>
+                <p>Gross Monthly Salary: <strong>Rs. ${salary.toLocaleString()}</strong></p>
+                <p>Taxable Income after Relief: <strong>Rs. ${taxable.toLocaleString()}</strong></p>
+                <p style="color:var(--primary-color); font-size:15px; margin-top:5px;">Estimated APIT Payable: <strong>Rs. ${tax.toFixed(2)}</strong></p>
+                <p style="color:var(--success-color)">Net Take-Home Salary: <strong>Rs. ${netSalary.toFixed(2)}</strong></p>
+            `;
+        }
+
+        // Tool: Reducing Balance Loan Calculator
+        function calculateLoan() {
+            const p = parseFloat(document.getElementById('loan-amount').value) || 0;
+            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
+            const years = parseFloat(document.getElementById('loan-years').value) || 1;
+
+            const monthlyRate = (annualRate / 100) / 12;
+            const totalMonths = years * 12;
+
+            const emi = (p * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            const totalPayment = emi * totalMonths;
+            const totalInterest = totalPayment - p;
+
+            document.getElementById('loan-result').innerHTML = `
+                <h4>Loan Schedule Breakdown</h4>
+                <p>Monthly Repayment (EMI): <strong style="color:var(--primary-color)">Rs. ${emi.toFixed(2)}</strong></p>
+                <p>Total Interest Payable: <strong>Rs. ${totalInterest.toFixed(2)}</strong></p>
+                <p>Total Repayment over ${years} Years: <strong>Rs. ${totalPayment.toFixed(2)}</strong></p>
+            `;
+        }
+
+        // Tool: Instant Invoice Generator
+        function generateInvoicePreview() {
+            const client = document.getElementById('inv-client').value || "Valued Client";
+            const desc = document.getElementById('inv-desc').value || "Professional Services";
+            const qty = parseFloat(document.getElementById('inv-qty').value) || 1;
+            const price = parseFloat(document.getElementById('inv-price').value) || 0;
+            const vatRate = parseFloat(document.getElementById('inv-vat').value) || 0;
+
+            const subtotal = qty * price;
+            const vatAmount = subtotal * (vatRate / 100);
+            const grandTotal = subtotal + vatAmount;
+
+            const invoiceHtml = `
+                <html>
+                <head>
+                    <title>Invoice - ${client}</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 40px; color: #222; }
+                        .inv-header { display: flex; justify-content: space-between; border-bottom: 2px solid #ff3c3c; padding-bottom: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+                        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                        th { background: #f8f8f8; }
+                        .total-box { margin-top: 20px; text-align: right; }
+                    </style>
+                </head>
+                <body>
+                    <div class="inv-header">
+                        <div>
+                            <h2>INVOICE</h2>
+                            <p><strong>Billed To:</strong> ${client}</p>
+                            <p>Date: ${new Date().toLocaleDateString()}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <h3>Janith Madumal</h3>
+                            <p>Financial Consulting & Tech</p>
+                            <p>Badalkumbura, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>Description</th><th>Qty</th><th>Unit Price (LKR)</th><th>Total (LKR)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>${desc}</td><td>${qty}</td><td>${price.toLocaleString()}</td><td>${subtotal.toLocaleString()}</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="total-box">
+                        <p>Subtotal: Rs. ${subtotal.toLocaleString()}</p>
+                        <p>VAT (${vatRate}%): Rs. ${vatAmount.toLocaleString()}</p>
+                        <h3>Grand Total: Rs. ${grandTotal.toLocaleString()}</h3>
+                    </div>
+                    <script>window.onload = function() { window.print(); }<\/script>
+                </body>
+                </html>
+            `;
+            const win = window.open('', '_blank');
+            win.document.write(invoiceHtml);
+            win.document.close();
+        }
+
+        // Tool: Financial Ratio Analysis
+        function calculateRatios() {
+            const ca = parseFloat(document.getElementById('ratio-ca').value) || 1;
+            const cl = parseFloat(document.getElementById('ratio-cl').value) || 1;
+            const inv = parseFloat(document.getElementById('ratio-inv').value) || 0;
+            const debt = parseFloat(document.getElementById('ratio-debt').value) || 0;
+            const equity = parseFloat(document.getElementById('ratio-eq').value) || 1;
+            const np = parseFloat(document.getElementById('ratio-np').value) || 0;
+            const rev = parseFloat(document.getElementById('ratio-rev').value) || 1;
+
+            const currentRatio = (ca / cl).toFixed(2);
+            const quickRatio = ((ca - inv) / cl).toFixed(2);
+            const deRatio = (debt / equity).toFixed(2);
+            const netMargin = ((np / rev) * 100).toFixed(1);
+
+            let liquidityStatus = currentRatio >= 1.5 ? "<span style='color:var(--success-color)'>Strong</span>" : "<span style='color:var(--primary-color)'>Constrained</span>";
+
+            document.getElementById('ratios-result').innerHTML = `
+                <h4>Financial Health Overview</h4>
+                <p>Current Ratio: <strong>${currentRatio}</strong> (Status: ${liquidityStatus})</p>
+                <p>Quick Ratio (Acid-Test): <strong>${quickRatio}</strong></p>
+                <p>Debt-to-Equity Ratio: <strong>${deRatio}</strong></p>
+                <p>Net Profit Margin: <strong>${netMargin}%</strong></p>
+            `;
+        }
+
+        // Tool: Expense Tracker
+        let transactions = JSON.parse(localStorage.getItem('user_transactions')) || [];
+
+        function renderTransactions() {
+            const listEl = document.getElementById('expense-list');
+            const balanceEl = document.getElementById('total-balance');
+            listEl.innerHTML = '';
+
+            let total = 0;
+            transactions.forEach((item) => {
+                total += item.type === 'income' ? item.amount : -item.amount;
+                const entry = document.createElement('div');
+                entry.style.display = 'flex';
+                entry.style.justifyContent = 'space-between';
+                entry.style.marginBottom = '6px';
+                entry.style.fontSize = '12px';
+                entry.innerHTML = `
+                    <span>${item.desc}</span>
+                    <strong style="color:${item.type === 'income' ? 'var(--success-color)' : 'var(--primary-color)'}">
+                        ${item.type === 'income' ? '+' : '-'} Rs. ${item.amount.toLocaleString()}
+                    </strong>
+                `;
+                listEl.appendChild(entry);
+            });
+
+            balanceEl.textContent = `Rs. ${total.toLocaleString()}`;
+        }
+
+        function addTransaction() {
+            const desc = document.getElementById('exp-desc').value.trim();
+            const amount = parseFloat(document.getElementById('exp-amount').value);
+            const type = document.getElementById('exp-type').value;
+
+            if (!desc || isNaN(amount) || amount <= 0) {
+                alert("Please provide a valid description and amount.");
+                return;
+            }
+
+            transactions.push({ desc, amount, type });
+            localStorage.setItem('user_transactions', JSON.stringify(transactions));
+            document.getElementById('exp-desc').value = '';
+            document.getElementById('exp-amount').value = '';
+            renderTransactions();
+        }
+
+        function clearTransactions() {
+            if (confirm("Clear transaction records?")) {
+                transactions = [];
+                localStorage.removeItem('user_transactions');
+                renderTransactions();
+            }
+        }
+        renderTransactions();
+
+        // Tool: Customs Duty & Import Estimator
+        function calculateCustoms() {
+            const cif = parseFloat(document.getElementById('cust-cif').value) || 0;
+            const cidRate = parseFloat(document.getElementById('cust-cid').value) || 0;
+            const palRate = parseFloat(document.getElementById('cust-pal').value) || 0;
+            const vatRate = parseFloat(document.getElementById('cust-vat').value) || 0;
+
+            const cidAmount = cif * (cidRate / 100);
+            const palAmount = cif * (palRate / 100);
+            const vatBase = (cif + cidAmount + palAmount) * 1.10;
+            const vatAmount = vatBase * (vatRate / 100);
+            const totalDuties = cidAmount + palAmount + vatAmount;
+            const landedCost = cif + totalDuties;
+
+            document.getElementById('customs-result').innerHTML = `
+                <h4>Landed Cost Estimation</h4>
+                <p>CID: Rs. ${cidAmount.toFixed(2)} | PAL: Rs. ${palAmount.toFixed(2)}</p>
+                <p>Import VAT: Rs. ${vatAmount.toFixed(2)}</p>
+                <p>Total Levies & Taxes: <strong style="color:var(--primary-color)">Rs. ${totalDuties.toFixed(2)}</strong></p>
+                <p>Total Estimated Landed Cost: <strong>Rs. ${landedCost.toFixed(2)}</strong></p>
+            `;
+        }
+
+        // ================= 7. CONTACT FORM EMAILJS =================
         (function() {
-            emailjs.init("wJ-Xok6dB93S48oql"); 
+            emailjs.init("wJ-Xok6dB93S48oql");
         })();
 
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert("Thank you! Your message has been sent successfully.");
-            this.reset();
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+
+            const templateParams = {
+                from_name: document.getElementById('user_name').value,
+                reply_to: document.getElementById('user_email').value,
+                message: document.getElementById('user_message').value
+            };
+
+            emailjs.send('service_portfolio', 'template_contact', templateParams)
+                .then(() => {
+                    alert("Message sent successfully!");
+                    document.getElementById('contact-form').reset();
+                })
+                .catch(() => {
+                    alert("Unable to deliver via EmailJS. Please reach out via my social media links.");
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+                });
         });
     </script>
+</body>
+</html>
