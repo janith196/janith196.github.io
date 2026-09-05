@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Janith Madumal | Portfolio & Financial Tech Tools</title>
-    <meta name="description" content="Portfolio and interactive web utilities by Janith Madumal - Undergrad at Rajarata University (Faculty of Management Studies), CA Level 1 Student & Tech Enthusiast from Sri Lanka.">
+    <title>Janith Madumal | Portfolio</title>
+    <meta name="description" content="Portfolio of Janith Madumal - Management Undergraduate at Rajarata University, CA Sri Lanka Level 1 Student, and Tech Creator.">
     
     <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Janith Madumal | Financial Web Tools & Portfolio">
-    <meta property="og:description" content="Management Undergraduate at Rajarata University, CA Level 1 Student & Tech Creator. Features Sri Lankan UniPredictor & Compare Tool.">
+    <meta property="og:title" content="Janith Madumal | Portfolio">
+    <meta property="og:description" content="Management Undergraduate at Rajarata University & CA Level 1 Student. Discover my projects and financial tech utilities.">
     <meta property="og:type" content="website">
 
     <!-- Fonts & Icons -->
@@ -135,7 +135,6 @@
             border-left: 3px solid var(--primary-color);
         }
 
-        /* Language Toggle Button */
         #lang-toggle {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -351,7 +350,28 @@
         .stat-item h2 { font-size: 2.4rem; color: var(--primary-color); line-height: 1.1; }
         .stat-item p { margin-top: 0.5rem; font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
 
-        /* Universal Tool Modal Styles */
+        /* Banner for Tools Hub */
+        .tools-banner {
+            background: linear-gradient(135deg, rgba(255, 60, 60, 0.15), rgba(26, 22, 49, 0.8));
+            border: 2px dashed var(--primary-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .tools-banner h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+        .tools-banner p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Predictor Modal */
         .tool-modal {
             display: none;
             position: fixed;
@@ -369,7 +389,7 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             border-radius: 18px;
-            max-width: 750px;
+            max-width: 700px;
             width: 100%;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             position: relative;
@@ -435,23 +455,8 @@
         }
         .uni-match-card.moderate { border-left-color: var(--warning-color); }
         .uni-match-card.borderline { border-left-color: var(--primary-color); }
-        
-        .compare-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 12px;
-        }
-        .compare-table th, .compare-table td {
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            text-align: left;
-        }
-        .compare-table th {
-            background: rgba(255, 60, 60, 0.1);
-            color: var(--primary-color);
-        }
-        
+
+        /* Contact Form */
         .contact-form {
             max-width: 650px;
             margin: 0 auto;
@@ -549,16 +554,15 @@
             <a href="#about" data-i18n="nav_about">About</a>
             <a href="#education" data-i18n="nav_education">Education</a>
             <a href="#skills" data-i18n="nav_skills">Skills</a>
-            <a href="#projects" data-i18n="nav_projects">Projects & Tools</a>
+            <a href="#projects" data-i18n="nav_projects">Featured Projects</a>
+            <a href="tools.html" data-i18n="nav_tools">Toolkit Hub ⚡</a>
             <a href="#contact" data-i18n="nav_contact">Contact</a>
         </nav>
 
         <div class="nav-controls">
-            <!-- Dual Language Switcher Button -->
             <button id="lang-toggle" title="Switch Language / භාෂාව මාරු කරන්න">
                 <i class="fas fa-globe"></i> <span id="lang-label">සිංහල</span>
             </button>
-
             <div id="clock" class="live-clock">
                 <i class="far fa-clock"></i> <span id="time-display">--:--:--</span>
             </div>
@@ -574,8 +578,8 @@
             <h3 data-i18n="hero_title">Management Undergrad & CA Student ⚡</h3>
             <p data-i18n="hero_desc">Selected to Faculty of Management Studies, Rajarata University of Sri Lanka and CA Level 1 Student. Creator of Sri Lankan University Prediction and Financial tools.</p>
             <div class="btn-box">
-                <a href="#projects" class="btn"><span data-i18n="btn_explore">Explore All Tools</span> <i class="fas fa-arrow-down"></i></a>
-                <a href="Janith_Madumal_CV.pdf" download class="btn btn-sec"><span data-i18n="btn_cv">Download CV</span> <i class="fas fa-download"></i></a>
+                <a href="#projects" class="btn"><span data-i18n="btn_explore">Featured Work</span> <i class="fas fa-arrow-down"></i></a>
+                <a href="tools.html" class="btn btn-sec"><span data-i18n="btn_tools_page">Student & Finance Toolkit</span> <i class="fas fa-tools"></i></a>
             </div>
         </div>
     </section>
@@ -595,7 +599,6 @@
     <section class="education" id="education">
         <h2 class="heading" data-i18n-html="heading_education">My <span>Education</span></h2>
         <div class="grid-container">
-            <!-- Rajarata Management Selection Card -->
             <div class="card" style="border-color: rgba(255, 60, 60, 0.4);">
                 <div>
                     <span class="badge" data-i18n="badge_higher_edu">Higher Education</span>
@@ -604,7 +607,6 @@
                 </div>
             </div>
 
-            <!-- Professional CA Studies -->
             <div class="card">
                 <div>
                     <span class="badge" data-i18n="badge_pro_edu">Professional</span>
@@ -613,7 +615,6 @@
                 </div>
             </div>
 
-            <!-- 2025 A/L Performance -->
             <div class="card">
                 <div>
                     <span class="badge" data-i18n="badge_al_edu">A/L Examination</span>
@@ -658,13 +659,13 @@
         </div>
     </section>
 
-    <!-- Projects & Working Tools Section -->
+    <!-- Top 3 Showcase Projects Section -->
     <section class="projects" id="projects">
-        <h2 class="heading" data-i18n-html="heading_projects">Projects & <span>Working Tools</span></h2>
+        <h2 class="heading" data-i18n-html="heading_projects">Featured <span>Projects</span></h2>
         <div class="grid-container">
             
-            <!-- FEATURED TOOL 1: University Z-Score Predictor -->
-            <div class="card" style="border-color: rgba(255, 60, 60, 0.6); background: rgba(255, 60, 60, 0.04);">
+            <!-- 1. University Predictor -->
+            <div class="card" style="border-color: rgba(255, 60, 60, 0.5);">
                 <div>
                     <span class="badge badge-special" data-i18n="badge_featured">Featured Education Tool</span>
                     <h3><i class="fas fa-graduation-cap"></i> <span data-i18n="tool_unipredict_title">SL University Z-Score Predictor</span></h3>
@@ -673,27 +674,7 @@
                 <button class="btn open-modal-btn" data-target="modal-unipredict"><span data-i18n="btn_launch_pred">Launch Predictor</span> <i class="fas fa-search"></i></button>
             </div>
 
-            <!-- FEATURED TOOL 2: University & Course Comparator -->
-            <div class="card" style="border-color: rgba(255, 60, 60, 0.6); background: rgba(255, 60, 60, 0.04);">
-                <div>
-                    <span class="badge badge-special" data-i18n="badge_featured">Featured Education Tool</span>
-                    <h3><i class="fas fa-balance-scale-right"></i> <span data-i18n="tool_unicompare_title">SL University Course Comparator</span></h3>
-                    <p data-i18n="tool_unicompare_desc">Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and more side-by-side (Duration, Specializations, Career paths).</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-unicompare"><span data-i18n="btn_launch_comp">Launch Comparator</span> <i class="fas fa-columns"></i></button>
-            </div>
-
-            <!-- AI English Teacher -->
-            <div class="card">
-                <div>
-                    <span class="badge">AI & EdTech</span>
-                    <h3><i class="fas fa-headset"></i> <span data-i18n="tool_ai_title">AI English Spoken Teacher</span></h3>
-                    <p data-i18n="tool_ai_desc">Voice- and text-enabled AI assistant designed to help students practice English speaking, sentence structure, and conversation fluency 24/7.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-ai-teacher"><span data-i18n="btn_launch_ai">Launch AI Teacher</span> <i class="fas fa-microphone"></i></button>
-            </div>
-
-            <!-- CA Sri Lanka Simulator BL251 -->
+            <!-- 2. CA BL Exam Simulator -->
             <div class="card">
                 <div>
                     <span class="badge">CA Sri Lanka</span>
@@ -703,82 +684,27 @@
                 <a href="CA_SriLanka_BL251_Fundamentals_Financial_Reporting_CBT_Simulator.html" target="_blank" class="btn"><span data-i18n="btn_launch_sim">Launch Simulator</span> <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <!-- CA Sri Lanka Simulator BL254 -->
+            <!-- 3. AI English Teacher -->
             <div class="card">
                 <div>
-                    <span class="badge">CA Sri Lanka</span>
-                    <h3><i class="fas fa-laptop-code"></i> CA BL254 Law & Tax Simulator</h3>
-                    <p data-i18n="tool_cbt2_desc">Real-time CBT exam simulator for Business Fundamentals, Law & Taxation featuring bilingual question reviews.</p>
+                    <span class="badge">AI & EdTech</span>
+                    <h3><i class="fas fa-headset"></i> <span data-i18n="tool_ai_title">AI English Spoken Teacher</span></h3>
+                    <p data-i18n="tool_ai_desc">Voice- and text-enabled AI assistant designed to help students practice English speaking, sentence structure, and conversation fluency 24/7.</p>
                 </div>
-                <a href="CA_SriLanka_BL254_CBT_Real_Exam_Simulator_Sinhala.html" target="_blank" class="btn"><span data-i18n="btn_launch_sim">Launch Simulator</span> <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- APIT Tax Calculator -->
-            <div class="card">
-                <div>
-                    <span class="badge" data-i18n="badge_sl_tax">Sri Lanka Taxation</span>
-                    <h3><i class="fas fa-calculator"></i> <span data-i18n="tool_tax_title">SL APIT Income Tax Calculator</span></h3>
-                    <p data-i18n="tool_tax_desc">Computes Advance Personal Income Tax (APIT) based on monthly remuneration, personal relief allowances, and statutory tax slabs.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-apit"><span data-i18n="btn_launch_tool">Launch Tool</span> <i class="fas fa-sliders-h"></i></button>
-            </div>
-
-            <!-- Loan & Lease Amortizer -->
-            <div class="card">
-                <div>
-                    <span class="badge" data-i18n="badge_banking">Banking & Loans</span>
-                    <h3><i class="fas fa-chart-line"></i> <span data-i18n="tool_loan_title">Loan & Lease Amortizer</span></h3>
-                    <p data-i18n="tool_loan_desc">Calculates compound reducing balance monthly repayments (EMI) and complete interest amortizations over multi-year terms.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-loan"><span data-i18n="btn_launch_tool">Launch Tool</span> <i class="fas fa-sliders-h"></i></button>
-            </div>
-
-            <!-- Invoice Generator -->
-            <div class="card">
-                <div>
-                    <span class="badge" data-i18n="badge_billing">Billing & Invoicing</span>
-                    <h3><i class="fas fa-file-invoice-dollar"></i> <span data-i18n="tool_inv_title">Instant Invoice Generator</span></h3>
-                    <p data-i18n="tool_inv_desc">Draft professional itemized client invoices with automated VAT/SSCL computation and instant browser print/PDF export.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-invoice"><span data-i18n="btn_launch_tool">Launch Tool</span> <i class="fas fa-sliders-h"></i></button>
-            </div>
-
-            <!-- Corporate Ratio Analyzer -->
-            <div class="card">
-                <div>
-                    <span class="badge" data-i18n="badge_ratio">Financial Analysis</span>
-                    <h3><i class="fas fa-balance-scale"></i> <span data-i18n="tool_ratio_title">Corporate Ratio Analyzer</span></h3>
-                    <p data-i18n="tool_ratio_desc">Evaluates corporate balance sheet health across Current, Quick (Acid-Test), Debt-to-Equity, and Net Profit margins.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-ratios"><span data-i18n="btn_launch_tool">Launch Tool</span> <i class="fas fa-sliders-h"></i></button>
-            </div>
-
-            <!-- Expense Tracker -->
-            <div class="card">
-                <div>
-                    <span class="badge" data-i18n="badge_pfinance">Personal Finance</span>
-                    <h3><i class="fas fa-wallet"></i> <span data-i18n="tool_exp_title">Smart Budget & Expense Log</span></h3>
-                    <p data-i18n="tool_exp_desc">Manage daily income and expenditures with category tracking and automatic local persistent storage in the browser.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-budget"><span data-i18n="btn_launch_tool">Launch Tool</span> <i class="fas fa-sliders-h"></i></button>
-            </div>
-
-            <!-- Customs Duty & Import Estimator -->
-            <div class="card">
-                <div>
-                    <span class="badge" data-i18n="badge_customs">Trade & Customs</span>
-                    <h3><i class="fas fa-ship"></i> <span data-i18n="tool_customs_title">Customs Duty & Import Estimator</span></h3>
-                    <p data-i18n="tool_customs_desc">Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.</p>
-                </div>
-                <button class="btn open-modal-btn" data-target="modal-customs"><span data-i18n="btn_launch_tool">Launch Tool</span> <i class="fas fa-sliders-h"></i></button>
+                <button class="btn open-modal-btn" data-target="modal-ai-teacher"><span data-i18n="btn_launch_ai">Launch AI Teacher</span> <i class="fas fa-microphone"></i></button>
             </div>
 
         </div>
+
+        <!-- Clean Call-to-Action linking to the separate Tools Page -->
+        <div class="tools-banner">
+            <h3 data-i18n="banner_title">Looking for Sri Lankan Tax, Business & Student Tools?</h3>
+            <p data-i18n="banner_desc">I've built a full dedicated suite of utilities including the University Course Comparator, APIT Income Tax Calculator, Loan Amortizer, Invoice Generator, and more.</p>
+            <a href="tools.html" class="btn"><span data-i18n="banner_btn">Explore the Complete Toolkit Hub</span> <i class="fas fa-arrow-right"></i></a>
+        </div>
     </section>
 
-    <!-- ================= TOOL MODALS ================= -->
-
-    <!-- TOOL MODAL 1: University Z-Score Predictor -->
+    <!-- Predictor Modal -->
     <div class="tool-modal" id="modal-unipredict">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
@@ -797,7 +723,7 @@
                     </select>
                 </div>
                 <div class="tool-form-group">
-                    <label data-i18n="lbl_district">Your District (දිස්ත්‍රික්කය)</label>
+                    <label data-i18n="lbl_district">Your District</label>
                     <select id="pred-district">
                         <option value="monaragala" selected>Monaragala (මොනරාගල)</option>
                         <option value="colombo">Colombo (කොළඹ)</option>
@@ -815,7 +741,7 @@
             </div>
 
             <div class="tool-form-group">
-                <label data-i18n="lbl_zscore">Your A/L Z-Score (ඔබේ Z-ලකුණ)</label>
+                <label data-i18n="lbl_zscore">Your A/L Z-Score</label>
                 <input type="number" id="pred-zscore" step="0.0001" placeholder="e.g. 1.3436" value="1.3436">
             </div>
 
@@ -828,52 +754,12 @@
         </div>
     </div>
 
-    <!-- TOOL MODAL 2: University Course Comparator -->
-    <div class="tool-modal" id="modal-unicompare">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-balance-scale-right"></i> <span data-i18n="modal_comp_title">University Course Comparator</span></h3>
-            <p class="desc" data-i18n="modal_comp_desc">Compare Management, IT, and Commerce degree faculties in Sri Lanka side-by-side.</p>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div class="tool-form-group">
-                    <label data-i18n="lbl_uni1">First Degree / University</label>
-                    <select id="comp-course-1">
-                        <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
-                        <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
-                        <option value="cmb_mgt">UoC (Colombo) - Faculty of Management & Finance</option>
-                        <option value="kln_com">Kelaniya - Commerce & Financial Management</option>
-                        <option value="rusl_it">Rajarata University - Applied Sciences (ICT)</option>
-                        <option value="mor_it">Moratuwa - Faculty of Information Technology</option>
-                    </select>
-                </div>
-                <div class="tool-form-group">
-                    <label data-i18n="lbl_uni2">Second Degree / University</label>
-                    <select id="comp-course-2">
-                        <option value="sjp_mgt">USJ (J'pura) - Business Administration (B.Sc)</option>
-                        <option value="rusl_mgmt">Rajarata University - Management Studies (B.Sc Mgt)</option>
-                        <option value="cmb_mgt">UoC (Colombo) - Faculty of Management & Finance</option>
-                        <option value="kln_com">Kelaniya - Commerce & Financial Management</option>
-                        <option value="rusl_it">Rajarata University - Applied Sciences (ICT)</option>
-                        <option value="mor_it">Moratuwa - Faculty of Information Technology</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="btn" style="width: 100%; margin-top: 5px;" onclick="compareUniversities()"><span data-i18n="btn_calc_comp">Compare Now</span> <i class="fas fa-exchange-alt"></i></button>
-
-            <div id="comparison-output" style="margin-top: 15px; overflow-x: auto;">
-                <!-- Comparison table loads dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 3: AI English Teacher -->
+    <!-- AI Teacher Modal -->
     <div class="tool-modal" id="modal-ai-teacher">
         <div class="tool-modal-content">
             <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-headset"></i> <span data-i18n="modal_ai_title">Live AI English Tutor</span></h3>
-            <p class="desc" data-i18n="modal_ai_desc">Practice conversational English live via voice or text.</p>
+            <h3><i class="fas fa-headset"></i> Live AI English Tutor</h3>
+            <p class="desc">Practice conversational English live via voice or text.</p>
             
             <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left;">
                 <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 10px; font-size: 0.85rem;">
@@ -893,206 +779,7 @@
         </div>
     </div>
 
-    <!-- Modal 4: APIT Tax Calculator -->
-    <div class="tool-modal" id="modal-apit">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-calculator"></i> <span data-i18n="modal_tax_title">SL APIT Tax Calculator</span></h3>
-            <p class="desc" data-i18n="modal_tax_desc">Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.</p>
-            
-            <div class="tool-form-group">
-                <label data-i18n="lbl_tax_sal">Monthly Gross Salary / Remuneration (LKR)</label>
-                <input type="number" id="tax-salary" value="200000">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_tax_rel">Monthly Tax-Free Relief Allowance (LKR)</label>
-                <input type="number" id="tax-relief" value="100000">
-            </div>
-            <button class="btn" style="width: 100%;" onclick="calculateAPIT()"><span data-i18n="btn_calc_tax">Calculate Tax</span></button>
-
-            <div class="tool-result-box" id="tax-result">
-                <h4>Calculation Breakdown</h4>
-                <p>Enter your figures and click calculate.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 5: Loan Amortizer -->
-    <div class="tool-modal" id="modal-loan">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-chart-line"></i> <span data-i18n="modal_loan_title">Loan & Lease Amortizer</span></h3>
-            <p class="desc" data-i18n="modal_loan_desc">Computes monthly repayments (EMI) on standard reducing balance bank financing.</p>
-            
-            <div class="tool-form-group">
-                <label data-i18n="lbl_loan_p">Loan Amount (Principal - LKR)</label>
-                <input type="number" id="loan-amount" value="1000000">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_loan_r">Annual Interest Rate (%)</label>
-                <input type="number" id="loan-rate" step="0.1" value="13.5">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_loan_y">Tenure (Years)</label>
-                <input type="number" id="loan-years" value="5">
-            </div>
-            <button class="btn" style="width: 100%;" onclick="calculateLoan()"><span data-i18n="btn_calc_loan">Calculate Schedule</span></button>
-
-            <div class="tool-result-box" id="loan-result">
-                <h4>Loan Summary</h4>
-                <p>Click calculate to see your monthly EMI breakdown.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 6: Invoice Generator -->
-    <div class="tool-modal" id="modal-invoice">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-file-invoice-dollar"></i> <span data-i18n="modal_inv_title">Instant Invoice Generator</span></h3>
-            <p class="desc" data-i18n="modal_inv_desc">Draft an itemized invoice and print or export to PDF directly.</p>
-            
-            <div class="tool-form-group">
-                <label data-i18n="lbl_inv_client">Customer Name</label>
-                <input type="text" id="inv-client" placeholder="e.g. Commercial Client Ltd">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_inv_desc">Item Description</label>
-                <input type="text" id="inv-desc" placeholder="e.g. Accounting Consultation & Bookkeeping">
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <div class="tool-form-group" style="flex:1;">
-                    <label data-i18n="lbl_inv_qty">Qty</label>
-                    <input type="number" id="inv-qty" value="1">
-                </div>
-                <div class="tool-form-group" style="flex:1;">
-                    <label data-i18n="lbl_inv_price">Unit Price (LKR)</label>
-                    <input type="number" id="inv-price" value="50000">
-                </div>
-                <div class="tool-form-group" style="flex:1;">
-                    <label data-i18n="lbl_inv_vat">VAT % (Optional)</label>
-                    <input type="number" id="inv-vat" value="18">
-                </div>
-            </div>
-            <button class="btn" style="width: 100%;" onclick="generateInvoicePreview()"><span data-i18n="btn_calc_inv">Generate & Print Invoice</span></button>
-        </div>
-    </div>
-
-    <!-- Modal 7: Ratio Analysis -->
-    <div class="tool-modal" id="modal-ratios">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-balance-scale"></i> <span data-i18n="modal_ratio_title">Corporate Ratio Analyzer</span></h3>
-            <p class="desc" data-i18n="modal_ratio_desc">Evaluate balance sheet and income performance.</p>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div class="tool-form-group">
-                    <label>Current Assets (LKR)</label>
-                    <input type="number" id="ratio-ca" value="500000">
-                </div>
-                <div class="tool-form-group">
-                    <label>Current Liabilities (LKR)</label>
-                    <input type="number" id="ratio-cl" value="250000">
-                </div>
-                <div class="tool-form-group">
-                    <label>Inventory (LKR)</label>
-                    <input type="number" id="ratio-inv" value="100000">
-                </div>
-                <div class="tool-form-group">
-                    <label>Total Debt (LKR)</label>
-                    <input type="number" id="ratio-debt" value="600000">
-                </div>
-                <div class="tool-form-group">
-                    <label>Total Equity (LKR)</label>
-                    <input type="number" id="ratio-eq" value="800000">
-                </div>
-                <div class="tool-form-group">
-                    <label>Net Profit (LKR)</label>
-                    <input type="number" id="ratio-np" value="150000">
-                </div>
-                <div class="tool-form-group" style="grid-column: span 2;">
-                    <label>Total Revenue (LKR)</label>
-                    <input type="number" id="ratio-rev" value="1200000">
-                </div>
-            </div>
-            <button class="btn" style="width: 100%;" onclick="calculateRatios()"><span data-i18n="btn_calc_ratio">Compute Financial Health</span></button>
-
-            <div class="tool-result-box" id="ratios-result">
-                <h4>Health Overview</h4>
-                <p>Awaiting figures.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 8: Budget & Expense Tracker -->
-    <div class="tool-modal" id="modal-budget">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-wallet"></i> <span data-i18n="modal_exp_title">Smart Budget & Expense Log</span></h3>
-            <p class="desc" data-i18n="modal_exp_desc">Tracks transactions saved in your browser's persistent LocalStorage.</p>
-            
-            <div style="display: flex; gap: 10px;">
-                <div class="tool-form-group" style="flex:2;">
-                    <label data-i18n="lbl_exp_desc">Description</label>
-                    <input type="text" id="exp-desc" placeholder="e.g. University Fees, Textbooks, Fuel">
-                </div>
-                <div class="tool-form-group" style="flex:1;">
-                    <label data-i18n="lbl_exp_amt">Amount (LKR)</label>
-                    <input type="number" id="exp-amount" placeholder="5000">
-                </div>
-                <div class="tool-form-group" style="flex:1;">
-                    <label data-i18n="lbl_exp_type">Type</label>
-                    <select id="exp-type">
-                        <option value="expense">Expense (-)</option>
-                        <option value="income">Income (+)</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn" style="width: 100%; margin-bottom: 15px;" onclick="addTransaction()"><span data-i18n="btn_add_entry">Add Entry</span></button>
-
-            <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px;">
-                <span>Total Balance: <strong id="total-balance" style="color:var(--primary-color)">Rs. 0.00</strong></span>
-                <button onclick="clearTransactions()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:12px;" data-i18n="btn_clear_all">Clear All</button>
-            </div>
-            <div id="expense-list" style="height: 140px; overflow-y:auto; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; background: var(--input-bg);">
-                <!-- Dynamic Items -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 9: Customs Duty Estimator -->
-    <div class="tool-modal" id="modal-customs">
-        <div class="tool-modal-content">
-            <span class="close-tool-modal">&times;</span>
-            <h3><i class="fas fa-ship"></i> <span data-i18n="modal_customs_title">Customs Duty & Import Estimator</span></h3>
-            <p class="desc" data-i18n="modal_customs_desc">Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.</p>
-            
-            <div class="tool-form-group">
-                <label data-i18n="lbl_cif">CIF Value (Cost, Insurance & Freight in LKR)</label>
-                <input type="number" id="cust-cif" value="1000000">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_cid">Customs Import Duty - CID Rate (%)</label>
-                <input type="number" id="cust-cid" value="15">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_pal">PAL Rate (%)</label>
-                <input type="number" id="cust-pal" value="10">
-            </div>
-            <div class="tool-form-group">
-                <label data-i18n="lbl_vat">Import VAT Rate (%)</label>
-                <input type="number" id="cust-vat" value="18">
-            </div>
-            <button class="btn" style="width: 100%;" onclick="calculateCustoms()"><span data-i18n="btn_calc_customs">Compute Landed Cost</span></button>
-
-            <div class="tool-result-box" id="customs-result">
-                <h4>Tariff Breakdown</h4>
-                <p>Click compute to calculate duty.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Form Section -->
+    <!-- Contact Section -->
     <section class="contact" id="contact">
         <h2 class="heading" data-i18n-html="heading_contact">Get in <span>Touch</span></h2>
         <form class="contact-form" id="contact-form">
@@ -1119,22 +806,22 @@
         <p data-i18n="footer_copy">&copy; 2026 Janith Madumal. Faculty of Management Studies, Rajarata University of Sri Lanka.</p>
     </footer>
 
-    <!-- JavaScript Application Logic -->
     <script>
-        // ================= 1. DUAL LANGUAGE SYSTEM (I18N) =================
+        // Language Dictionary
         const translations = {
             en: {
                 nav_home: "Home",
                 nav_about: "About",
                 nav_education: "Education",
                 nav_skills: "Skills",
-                nav_projects: "Projects & Tools",
+                nav_projects: "Featured Projects",
+                nav_tools: "Toolkit Hub ⚡",
                 nav_contact: "Contact",
                 hero_hello: "Hello, I'm",
                 hero_title: "Management Undergrad & CA Student ⚡",
                 hero_desc: "Selected to Faculty of Management Studies, Rajarata University of Sri Lanka and CA Level 1 Student. Creator of Sri Lankan University Prediction and Financial tools.",
-                btn_explore: "Explore All Tools",
-                btn_cv: "Download CV",
+                btn_explore: "Featured Work",
+                btn_tools_page: "Student & Finance Toolkit",
                 heading_about: 'About <span>Me</span>',
                 about_name_prefix: "My name is",
                 about_body: "I am an Undergraduate selected to the Faculty of Management Studies at Rajarata University of Sri Lanka (RUSL), and actively following Chartered Accounting (CA) Level 1. I completed my 2025 A/Ls with Accounting (A), Business Studies (B), and ICT (C), securing District Rank 100 in Monaragala (Z-score 1.3436). My passion is developing real-world web utilities that empower students and business owners.",
@@ -1160,90 +847,27 @@
                 stat_ca: "Level 1 Student",
                 stat_rank: "District Rank",
                 stat_z: "A/L Z-Score",
-                heading_projects: 'Projects & <span>Working Tools</span>',
+                heading_projects: 'Featured <span>Projects</span>',
                 badge_featured: "Featured Education Tool",
                 tool_unipredict_title: "SL University Z-Score Predictor",
                 tool_unipredict_desc: "Enter your A/L stream, district, and Z-score to predict eligible State Universities & Courses based on previous UGC cut-off trends (Inspired by Thush.lk).",
                 btn_launch_pred: "Launch Predictor",
-                tool_unicompare_title: "SL University Course Comparator",
-                tool_unicompare_desc: "Compare degree programs across Rajarata (RUSL), Jayewardenepura, Colombo, Kelaniya, and more side-by-side (Duration, Specializations, Career paths).",
-                btn_launch_comp: "Launch Comparator",
                 tool_ai_title: "AI English Spoken Teacher",
                 tool_ai_desc: "Voice- and text-enabled AI assistant designed to help students practice English speaking, sentence structure, and conversation fluency 24/7.",
                 btn_launch_ai: "Launch AI Teacher",
                 tool_cbt1_desc: "Real-time mock exam simulator for BL-25-1: Fundamentals of Financial Reporting featuring automated scoring and question banks.",
-                tool_cbt2_desc: "Real-time CBT exam simulator for Business Fundamentals, Law & Taxation featuring bilingual question reviews.",
                 btn_launch_sim: "Launch Simulator",
-                badge_sl_tax: "Sri Lanka Taxation",
-                tool_tax_title: "SL APIT Income Tax Calculator",
-                tool_tax_desc: "Computes Advance Personal Income Tax (APIT) based on monthly remuneration, personal relief allowances, and statutory tax slabs.",
-                btn_launch_tool: "Launch Tool",
-                badge_banking: "Banking & Loans",
-                tool_loan_title: "Loan & Lease Amortizer",
-                tool_loan_desc: "Calculates compound reducing balance monthly repayments (EMI) and complete interest amortizations over multi-year terms.",
-                badge_billing: "Billing & Invoicing",
-                tool_inv_title: "Instant Invoice Generator",
-                tool_inv_desc: "Draft professional itemized client invoices with automated VAT/SSCL computation and instant browser print/PDF export.",
-                badge_ratio: "Financial Analysis",
-                tool_ratio_title: "Corporate Ratio Analyzer",
-                tool_ratio_desc: "Evaluates corporate balance sheet health across Current, Quick (Acid-Test), Debt-to-Equity, and Net Profit margins.",
-                badge_pfinance: "Personal Finance",
-                tool_exp_title: "Smart Budget & Expense Log",
-                tool_exp_desc: "Manage daily income and expenditures with category tracking and automatic local persistent storage in the browser.",
-                badge_customs: "Trade & Customs",
-                tool_customs_title: "Customs Duty & Import Estimator",
-                tool_customs_desc: "Calculates landed import costs into Sri Lanka with CIF value, Customs Import Duty (CID), PAL, and applicable VAT.",
+                banner_title: "Looking for Sri Lankan Tax, Business & Student Tools?",
+                banner_desc: "I've built a full dedicated suite of utilities including the University Course Comparator, APIT Income Tax Calculator, Loan Amortizer, Invoice Generator, and more.",
+                banner_btn: "Explore the Complete Toolkit Hub",
                 modal_pred_title: "SL University Z-Score Predictor",
                 modal_pred_desc: "Enter your A/L results to predict eligible degree courses and campuses based on UGC cut-off benchmarks.",
                 lbl_stream: "A/L Stream",
-                lbl_district: "Your District (දිස්ත්‍රික්කය)",
-                lbl_zscore: "Your A/L Z-Score (ඔබේ Z-ලකුණ)",
+                lbl_district: "Your District",
+                lbl_zscore: "Your A/L Z-Score",
                 btn_calc_pred: "Predict Universities & Courses",
                 pred_box_title: "Prediction Status",
                 pred_box_default: 'Click "Predict Universities & Courses" to view matching faculties.',
-                modal_comp_title: "University Course Comparator",
-                modal_comp_desc: "Compare Management, IT, and Commerce degree faculties in Sri Lanka side-by-side.",
-                lbl_uni1: "First Degree / University",
-                lbl_uni2: "Second Degree / University",
-                btn_calc_comp: "Compare Now",
-                modal_ai_title: "Live AI English Tutor",
-                modal_ai_desc: "Practice conversational English live via voice or text.",
-                modal_tax_title: "SL APIT Tax Calculator",
-                modal_tax_desc: "Computes monthly Advance Personal Income Tax (APIT) according to progressive tax slabs.",
-                lbl_tax_sal: "Monthly Gross Salary / Remuneration (LKR)",
-                lbl_tax_rel: "Monthly Tax-Free Relief Allowance (LKR)",
-                btn_calc_tax: "Calculate Tax",
-                modal_loan_title: "Loan & Lease Amortizer",
-                modal_loan_desc: "Computes monthly repayments (EMI) on standard reducing balance bank financing.",
-                lbl_loan_p: "Loan Amount (Principal - LKR)",
-                lbl_loan_r: "Annual Interest Rate (%)",
-                lbl_loan_y: "Tenure (Years)",
-                btn_calc_loan: "Calculate Schedule",
-                modal_inv_title: "Instant Invoice Generator",
-                modal_inv_desc: "Draft an itemized invoice and print or export to PDF directly.",
-                lbl_inv_client: "Customer Name",
-                lbl_inv_desc: "Item Description",
-                lbl_inv_qty: "Qty",
-                lbl_inv_price: "Unit Price (LKR)",
-                lbl_inv_vat: "VAT % (Optional)",
-                btn_calc_inv: "Generate & Print Invoice",
-                modal_ratio_title: "Corporate Ratio Analyzer",
-                modal_ratio_desc: "Evaluate balance sheet and income performance.",
-                btn_calc_ratio: "Compute Financial Health",
-                modal_exp_title: "Smart Budget & Expense Log",
-                modal_exp_desc: "Tracks transactions saved in your browser's persistent LocalStorage.",
-                lbl_exp_desc: "Description",
-                lbl_exp_amt: "Amount (LKR)",
-                lbl_exp_type: "Type",
-                btn_add_entry: "Add Entry",
-                btn_clear_all: "Clear All",
-                modal_customs_title: "Customs Duty & Import Estimator",
-                modal_customs_desc: "Estimates import tariffs, Port and Airport Development Levy (PAL), and VAT.",
-                lbl_cif: "CIF Value (Cost, Insurance & Freight in LKR)",
-                lbl_cid: "Customs Import Duty - CID Rate (%)",
-                lbl_pal: "PAL Rate (%)",
-                lbl_vat: "Import VAT Rate (%)",
-                btn_calc_customs: "Compute Landed Cost",
                 heading_contact: 'Get in <span>Touch</span>',
                 btn_send_msg: "Send Message",
                 footer_copy: "© 2026 Janith Madumal. Faculty of Management Studies, Rajarata University of Sri Lanka."
@@ -1253,13 +877,14 @@
                 nav_about: "මා ගැන",
                 nav_education: "අධ්‍යාපනය",
                 nav_skills: "දක්ෂතා",
-                nav_projects: "ප්‍රොජෙක්ට් සහ මෙවලම්",
+                nav_projects: "ප්‍රධාන නිර්මාණ",
+                nav_tools: "මෙවලම් කට්ටලය ⚡",
                 nav_contact: "සම්බන්ධ වන්න",
                 hero_hello: "ආයුබෝවන්, මම",
                 hero_title: "කළමනාකරණ උපාධි අපේක්ෂක & CA ශිෂ්‍ය ⚡",
                 hero_desc: "ශ්‍රී ලංකා රජරට විශ්වවිද්‍යාලයේ කළමනාකරණ අධ්‍යයන පීඨයේ උපාධි අපේක්ෂකයෙකු මෙන්ම CA Level 1 ශිෂ්‍යයෙකි. ශ්‍රී ලාංකේය සරසවි තේරීම් හා මූල්‍ය තාක්ෂණික මෙවලම් නිර්මාතෘ.",
-                btn_explore: "මෙවලම් බලන්න",
-                btn_cv: "CV එක බාගන්න",
+                btn_explore: "ප්‍රධාන නිර්මාණ",
+                btn_tools_page: "මූල්‍ය & ශිෂ්‍ය මෙවලම්",
                 heading_about: 'මා <span>ගැන</span>',
                 about_name_prefix: "මගේ නම",
                 about_body: "මම ශ්‍රී ලංකා රජරට විශ්වවිද්‍යාලයේ කළමනාකරණ අධ්‍යයන පීඨයට (RUSL) තේරී පත්වූ උපාධි අපේක්ෂකයෙකු වන අතර, වරලත් ගණකාධිකරණ (CA) 1 වන අදියර හදාරමි. 2025 උසස් පෙළ වාණිජ අංශයෙන් ගිණුම්කරණය (A), ව්‍යාපාර අධ්‍යයනය (B), තොරතුරු තාක්ෂණය (C) සහිතව මොනරාගල දිස්ත්‍රික්කයෙන් 100 වන ස්ථානය (Z-score 1.3436) ලබා ගත්තෙමි. මගේ අරමුණ ශිෂ්‍යයින්ට සහ ව්‍යාපාරවලට ප්‍රයෝජනවත් මෘදුකාංග නිර්මාණය කිරීමයි.",
@@ -1285,38 +910,19 @@
                 stat_ca: "CA Level 1 ශිෂ්‍ය",
                 stat_rank: "දිස්ත්‍රික් කුසලතාව",
                 stat_z: "A/L Z-ලකුණ",
-                heading_projects: 'ප්‍රොජෙක්ට් සහ <span>මෙවලම්</span>',
+                heading_projects: 'ප්‍රධාන <span>නිර්මාණ</span>',
                 badge_featured: "විශේෂ අධ්‍යාපනික මෙවලම",
                 tool_unipredict_title: "විශ්වවිද්‍යාල Z-Score පුරෝකථන මෙවලම",
                 tool_unipredict_desc: "පසුගිය UGC Z-ලකුණු සීමාවන් පාදක කරගනිමින් ඔබේ දිස්ත්‍රික්කයට හා Z අගයට තේරෙන රජයේ සරසවි සහ පාඨමාලා බලාගන්න (Thush.lk ආදර්ශයෙන්).",
                 btn_launch_pred: "මෙවලම අරඹන්න",
-                tool_unicompare_title: "විශ්වවිද්‍යාල පාඨමාලා සංසන්දකය",
-                tool_unicompare_desc: "රජරට, ජයවර්ධනපුර, කොළඹ, කැලණිය ඇතුළු ප්‍රධාන විශ්වවිද්‍යාලවල පාඨමාලාවන් එකිනෙක සසඳා බලන්න (කාලසීමාව, විශේෂීකරණ, රැකියා අවස්ථා).",
-                btn_launch_comp: "සංසන්දනය අරඹන්න",
                 tool_ai_title: "AI ඉංග්‍රීසි කථන පුහුණුකරු",
                 tool_ai_desc: "කථන සහ පෙළ තාක්ෂණය මඟින් ඔබේ ඉංග්‍රීසි කතා කිරීමේ හැකියාව සහ වාක්‍ය රටා 24/7 දියුණු කරගන්න.",
+                btn_launch_ai: "පුහුණුකරු අරඹන්න",
                 tool_cbt1_desc: "BL-25-1: මූල්‍ය වාර්තාකරණ මූලධර්ම විෂය සඳහා ස්වයංක්‍රීය ලකුණු ලබාදෙන සජීවී ආදර්ශ පරිගණක විභාග අනුකරණය.",
-                tool_cbt2_desc: "ව්‍යාපාර මූලධර්ම, නීතිය සහ බදුකරණය සඳහා ද්විභාෂා විභාග පුහුණු පද්ධතිය.",
                 btn_launch_sim: "විභාගය අරඹන්න",
-                badge_sl_tax: "ශ්‍රී ලංකා බදුකරණය",
-                tool_tax_title: "ශ්‍රී ලංකා APIT ආදායම් බදු කැල්කියුලේටරය",
-                tool_tax_desc: "මාසික වැටුප, පෞද්ගලික බදු සහන සහ බදු සීමාවන් අනුව ගෙවිය යුතු APIT බදු මුදල ගණනය කරන්න.",
-                btn_launch_tool: "මෙවලම අරඹන්න",
-                badge_banking: "බැංකු සහ ණය",
-                tool_loan_title: "ණය සහ ලීසිං ගණක යන්ත්‍රය",
-                tool_loan_desc: "අඩුවන ශේෂ ක්‍රමය යටතේ මාසික වාරිකය (EMI) සහ සමස්ත පොලී කාලසටහන නිවැරදිව ගණනය කරන්න.",
-                badge_billing: "බිල්පත් සහ ඉන්වොයිස්",
-                tool_inv_title: "ක්ෂණික ඉන්වොයිස් සාදනය",
-                tool_inv_desc: "භාණ්ඩ හා සේවා ලැයිස්තුගත කර VAT ඇතුළත් කර ක්ෂණිකව මුද්‍රණය කරගත හැකි හෝ PDF බාගත හැකි ඉන්වොයිස් සාදන්න.",
-                badge_ratio: "මූල්‍ය විශ්ලේෂණය",
-                tool_ratio_title: "සමාගම් අනුපාත විශ්ලේෂකය",
-                tool_ratio_desc: "වත්කම් සහ බැරකම් ඇතුළත් කර Current, Quick, Debt-to-Equity සහ ලාභ ආන්තික අනුපාත ගණනය කරන්න.",
-                badge_pfinance: "පෞද්ගලික මූල්‍ය",
-                tool_exp_title: "ස්මාර්ට් ආදායම්/වියදම් සටහන",
-                tool_exp_desc: "දෛනික ආදායම් සහ වියදම් සටහන් කරගන්න (දත්ත ඔබගේ Browser එකෙහි ස්ථිරව සුරැකේ).",
-                badge_customs: "රේගුව සහ වෙළඳාම",
-                tool_customs_title: "රේගු බදු සහ ආනයන ගණකය",
-                tool_customs_desc: "CIF අගය, රේගු ආනයන බද්ද (CID), PAL සහ VAT එකතු කර ශ්‍රී ලංකාවට භාණ්ඩ ගොඩබෑමේ වියදම ගණනය කරන්න.",
+                banner_title: "ශ්‍රී ලංකා බදු, ව්‍යාපාරික හා ශිෂ්‍ය මෙවලම් අවශ්‍යද?",
+                banner_desc: "විශ්වවිද්‍යාල සංසන්දකය, APIT ආදායම් බදු කැල්කියුලේටරය, ණය වාරික ගණකය, ඉන්වොයිස් සාදනය ඇතුළු මෙවලම් රැසක් මාගේ වෙනම මෙවලම් පිටුවෙහි ඇත.",
+                banner_btn: "සම්පූර්ණ මෙවලම් කට්ටලයට පිවිසෙන්න",
                 modal_pred_title: "විශ්වවිද්‍යාල Z-Score පුරෝකථන මෙවලම",
                 modal_pred_desc: "UGC පසුගිය Z-ලකුණු සීමාවන් පදනම් කරගෙන සුදුසු විශ්වවිද්‍යාල සහ පාඨමාලා පුරෝකථනය කරන්න.",
                 lbl_stream: "A/L විෂය ධාරාව",
@@ -1325,49 +931,6 @@
                 btn_calc_pred: "විශ්වවිද්‍යාල පුරෝකථනය කරන්න",
                 pred_box_title: "පුරෝකථන තත්ත්වය",
                 pred_box_default: 'සුදුසු පීඨ බැලීමට "විශ්වවිද්‍යාල පුරෝකථනය කරන්න" ඔබන්න.',
-                modal_comp_title: "විශ්වවිද්‍යාල පාඨමාලා සංසන්දකය",
-                modal_comp_desc: "ශ්‍රී ලංකාවේ ප්‍රමුඛ කළමනාකරණ, IT සහ වාණිජ උපාධි පාඨමාලා සංසන්දනය කරන්න.",
-                lbl_uni1: "පළමු උපාධිය / සරසවිය",
-                lbl_uni2: "දෙවන උපාධිය / සරසවිය",
-                btn_calc_comp: "දැන් සංසන්දනය කරන්න",
-                modal_ai_title: "සජීවී AI ඉංග්‍රීසි පුහුණුකරු",
-                modal_ai_desc: "කටහඬින් හෝ Text මඟින් සජීවීව ඉංග්‍රීසි කතාබස් පුහුණු වන්න.",
-                modal_tax_title: "ශ්‍රී ලංකා APIT ආදායම් බදු කැල්කියුලේටරය",
-                modal_tax_desc: "ප්‍රගතිශීලී බදු සීමාවන් අනුව මාසික උපයන විට ගෙවීමේ බද්ද (APIT) ගණනය කරන්න.",
-                lbl_tax_sal: "මාසික දළ වැටුප / ආදායම (LKR)",
-                lbl_tax_rel: "මාසික බදු සහන මුදල (LKR)",
-                btn_calc_tax: "බදු මුදල ගණනය කරන්න",
-                modal_loan_title: "ණය සහ ලීසිං ගණක යන්ත්‍රය",
-                modal_loan_desc: "බැංකු ණය සඳහා මාසික වාරිකය (EMI) සහ පොලිය ගණනය කරන්න.",
-                lbl_loan_p: "ණය මුදල (Principal - LKR)",
-                lbl_loan_r: "වාර්ෂික පොලී අනුපාතය (%)",
-                lbl_loan_y: "කාලසීමාව (වසර)",
-                btn_calc_loan: "වාරිකය ගණනය කරන්න",
-                modal_inv_title: "ක්ෂණික ඉන්වොයිස් සාදනය",
-                modal_inv_desc: "ඉන්වොයිස් එකක් සාදා මුද්‍රණය කරගන්න හෝ PDF එකක් ලෙස බාගන්න.",
-                lbl_inv_client: "පාරිභෝගිකයාගේ නම",
-                lbl_inv_desc: "භාණ්ඩයේ / සේවාවේ විස්තරය",
-                lbl_inv_qty: "ප්‍රමාණය",
-                lbl_inv_price: "ඒකක මිල (LKR)",
-                lbl_inv_vat: "VAT ප්‍රතිශතය (%)",
-                btn_calc_inv: "ඉන්වොයිසිය සාදා Print කරන්න",
-                modal_ratio_title: "සමාගම් අනුපාත විශ්ලේෂකය",
-                modal_ratio_desc: "ශේෂ පත්‍රයේ සහ ආදායම් තොරතුරුවල මූල්‍ය සෞඛ්‍යය මැන බලන්න.",
-                btn_calc_ratio: "මූල්‍ය සෞඛ්‍යය ගණනය කරන්න",
-                modal_exp_title: "ස්මාර්ට් ආදායම්/වියදම් සටහන",
-                modal_exp_desc: "ඔබේ වියදම් බ්‍රවුසරයෙහි LocalStorage එකෙහි ස්ථිරව තබාගන්න.",
-                lbl_exp_desc: "විස්තරය",
-                lbl_exp_amt: "මුදල (LKR)",
-                lbl_exp_type: "වර්ගය",
-                btn_add_entry: "ඇතුළත් කරන්න",
-                btn_clear_all: "සියල්ල මකන්න",
-                modal_customs_title: "රේගු බදු සහ ආනයන ගණකය",
-                modal_customs_desc: "රේගු ආනයන බදු (CID), PAL සහ VAT ගණනය කර සමස්ත ගොඩබෑමේ වියදම බලන්න.",
-                lbl_cif: "CIF අගය (LKR)",
-                lbl_cid: "රේගු ආනයන බද්ද - CID (%)",
-                lbl_pal: "PAL අනුපාතය (%)",
-                lbl_vat: "ආනයන VAT අනුපාතය (%)",
-                btn_calc_customs: "ගොඩබෑමේ වියදම ගණනය කරන්න",
                 heading_contact: 'සම්බන්ධ <span>වන්න</span>',
                 btn_send_msg: "පණිවිඩය යවන්න",
                 footer_copy: "© 2026 ජනිත් මදුමාල්. කළමනාකරණ අධ්‍යයන පීඨය, ශ්‍රී ලංකා රජරට විශ්වවිද්‍යාලය."
@@ -1386,7 +949,6 @@
                 langLabel.textContent = lang === 'en' ? 'සිංහල' : 'English';
             }
 
-            // Text elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
@@ -1394,7 +956,6 @@
                 }
             });
 
-            // HTML content elements (e.g. headings with span)
             document.querySelectorAll('[data-i18n-html]').forEach(el => {
                 const key = el.getAttribute('data-i18n-html');
                 if (translations[lang] && translations[lang][key]) {
@@ -1403,54 +964,38 @@
             });
         }
 
-        const langToggleBtn = document.getElementById('lang-toggle');
-        if (langToggleBtn) {
-            langToggleBtn.addEventListener('click', () => {
-                const nextLang = currentLang === 'en' ? 'si' : 'en';
-                updateLanguage(nextLang);
-            });
-        }
-
-        // Initialize language
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            updateLanguage(currentLang === 'en' ? 'si' : 'en');
+        });
         updateLanguage(currentLang);
 
-        // ================= 2. MOBILE MENU =================
+        // Mobile Menu
         const menuIcon = document.getElementById('menu-icon');
         const navbar = document.getElementById('navbar');
-        const navLinks = document.querySelectorAll('.navbar a');
-
         menuIcon.addEventListener('click', () => {
             navbar.classList.toggle('active');
             menuIcon.querySelector('i').classList.toggle('fa-bars');
             menuIcon.querySelector('i').classList.toggle('fa-times');
         });
-
-        navLinks.forEach(link => {
+        document.querySelectorAll('.navbar a').forEach(link => {
             link.addEventListener('click', () => {
                 navbar.classList.remove('active');
                 menuIcon.querySelector('i').className = 'fas fa-bars';
             });
         });
 
-        // ================= 3. PERSISTENT THEME =================
+        // Theme Toggle
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = themeToggleBtn.querySelector('i');
-
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
+            if (localStorage.getItem('theme') === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
                 themeIcon.className = 'fas fa-sun';
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
             }
         }
         initTheme();
-
         themeToggleBtn.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            if (isLight) {
+            if (document.documentElement.getAttribute('data-theme') === 'light') {
                 document.documentElement.removeAttribute('data-theme');
                 localStorage.setItem('theme', 'dark');
                 themeIcon.className = 'fas fa-moon';
@@ -1461,7 +1006,7 @@
             }
         });
 
-        // ================= 4. LIVE CLOCK =================
+        // Clock
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -1474,14 +1019,13 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-        // ================= 5. MODAL HANDLERS =================
+        // Modal triggers
         document.querySelectorAll('.open-modal-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const targetModal = document.getElementById(btn.getAttribute('data-target'));
-                if (targetModal) targetModal.style.display = 'flex';
+                const target = document.getElementById(btn.getAttribute('data-target'));
+                if (target) target.style.display = 'flex';
             });
         });
-
         document.querySelectorAll('.close-tool-modal').forEach(closeBtn => {
             closeBtn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.tool-modal');
@@ -1491,7 +1035,6 @@
                 }
             });
         });
-
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('tool-modal')) {
                 e.target.style.display = 'none';
@@ -1501,9 +1044,8 @@
             }
         });
 
-        // ================= 6. SL UNIVERSITY PREDICTOR & COMPARATOR =================
+        // UGC Predictor Logic
         const ugcBenchmarks = [
-            // Commerce Stream
             { stream: "commerce", course: "Management / Business Administration", uni: "Rajarata University (RUSL)", baseCutoff: 1.28 },
             { stream: "commerce", course: "Management Studies", uni: "University of Sri Jayewardenepura (USJ)", baseCutoff: 1.72 },
             { stream: "commerce", course: "Management & Finance", uni: "University of Colombo (UoC)", baseCutoff: 1.78 },
@@ -1512,28 +1054,15 @@
             { stream: "commerce", course: "Management Studies", uni: "Eastern University (EUSL)", baseCutoff: 1.12 },
             { stream: "commerce", course: "Business Management", uni: "Sabaragamuwa University (SUSL)", baseCutoff: 1.30 },
             { stream: "commerce", course: "Management Studies", uni: "Wayamba University (WUSL)", baseCutoff: 1.35 },
-            { stream: "commerce", course: "Information Technology & Management", uni: "University of Moratuwa", baseCutoff: 1.82 },
-
-            // Tech Stream
             { stream: "tech", course: "Engineering Technology (ET)", uni: "University of Sri Jayewardenepura", baseCutoff: 1.48 },
             { stream: "tech", course: "Biosystems Technology (BST)", uni: "Rajarata University (RUSL)", baseCutoff: 1.20 },
             { stream: "tech", course: "Information & Communication Technology (BICT)", uni: "Rajarata University (RUSL)", baseCutoff: 1.25 },
-            { stream: "tech", course: "Information & Communication Technology (BICT)", uni: "University of Kelaniya", baseCutoff: 1.52 },
-
-            // Physical Science (Maths)
-            { stream: "maths", course: "Engineering (Civil, Electrical, Mech)", uni: "University of Moratuwa", baseCutoff: 1.95 },
-            { stream: "maths", course: "Computer Science", uni: "University of Colombo School of Computing (UCSC)", baseCutoff: 1.88 },
+            { stream: "maths", course: "Engineering", uni: "University of Moratuwa", baseCutoff: 1.95 },
+            { stream: "maths", course: "Computer Science", uni: "UCSC", baseCutoff: 1.88 },
             { stream: "maths", course: "Physical Science", uni: "Rajarata University (RUSL)", baseCutoff: 1.05 },
-            { stream: "maths", course: "Physical Science", uni: "University of Peradeniya", baseCutoff: 1.42 },
-
-            // Biological Science
             { stream: "bio", course: "Medicine (MBBS)", uni: "Rajarata University (RUSL)", baseCutoff: 1.58 },
-            { stream: "bio", course: "Medicine (MBBS)", uni: "University of Colombo", baseCutoff: 1.92 },
             { stream: "bio", course: "Biological Science", uni: "Rajarata University (RUSL)", baseCutoff: 1.15 },
-            
-            // Arts Stream
             { stream: "arts", course: "Arts / Social Sciences", uni: "University of Peradeniya", baseCutoff: 1.35 },
-            { stream: "arts", course: "Arts / Humanities", uni: "University of Colombo", baseCutoff: 1.45 },
             { stream: "arts", course: "Arts (Social Sciences)", uni: "Rajarata University (RUSL)", baseCutoff: 1.05 }
         ];
 
@@ -1544,51 +1073,32 @@
             const resultsBox = document.getElementById('prediction-results');
 
             if (isNaN(zScore)) {
-                resultsBox.innerHTML = currentLang === 'si' 
-                    ? "<p style='color:red;'>කරුණාකර නිවැරදි Z-score අගයක් ඇතුළත් කරන්න.</p>" 
-                    : "<p style='color:red;'>Please enter a valid Z-score.</p>";
+                resultsBox.innerHTML = "<p style='color:red;'>Please enter a valid Z-score.</p>";
                 return;
             }
 
-            let districtAdjustment = 0;
-            if (district === 'colombo' || district === 'gampaha') districtAdjustment = 0.12;
-            else if (district === 'monaragala' || district === 'badulla') districtAdjustment = -0.08;
+            let adj = 0;
+            if (district === 'colombo' || district === 'gampaha') adj = 0.12;
+            else if (district === 'monaragala' || district === 'badulla') adj = -0.08;
 
-            const matches = ugcBenchmarks.filter(item => item.stream === stream);
-            
-            if (matches.length === 0) {
-                resultsBox.innerHTML = currentLang === 'si'
-                    ? "<p>තෝරාගත් ධාරාව සඳහා දත්ත හමු නොවීය.</p>"
-                    : "<p>No data found for selected stream.</p>";
-                return;
-            }
-
-            let titleTxt = currentLang === 'si' ? `Z-ලකුණ සඳහා සුදුසු සරසවි (${zScore.toFixed(4)}):` : `Predicted University Matches for Z-Score: ${zScore.toFixed(4)}`;
-            let html = `<h4>${titleTxt}</h4>`;
-            html += `<p style='font-size:11px; color:var(--text-muted); margin-bottom:10px;'>District: <strong>${district.toUpperCase()}</strong> | Stream: <strong>${stream.toUpperCase()}</strong></p>`;
-
+            const matches = ugcBenchmarks.filter(i => i.stream === stream);
+            let html = `<h4>Prediction for Z: ${zScore.toFixed(4)} (${district.toUpperCase()})</h4>`;
             let count = 0;
+
             matches.forEach(item => {
-                const adjustedCutoff = item.baseCutoff + districtAdjustment;
-                const diff = zScore - adjustedCutoff;
+                const cutoff = item.baseCutoff + adj;
+                const diff = zScore - cutoff;
                 let statusClass = "uni-match-card";
                 let statusBadge = "";
 
                 if (diff >= 0.05) {
-                    statusClass += "";
-                    statusBadge = currentLang === 'si'
-                        ? "<span style='color:var(--success-color); font-weight:700;'><i class='fas fa-check-circle'></i> ඉහළ සම්භාවිතාවක් (High)</span>"
-                        : "<span style='color:var(--success-color); font-weight:700;'><i class='fas fa-check-circle'></i> High Chance</span>";
+                    statusBadge = "<span style='color:var(--success-color); font-weight:700;'>High Chance</span>";
                 } else if (diff >= -0.04 && diff < 0.05) {
                     statusClass += " moderate";
-                    statusBadge = currentLang === 'si'
-                        ? "<span style='color:var(--warning-color); font-weight:700;'><i class='fas fa-exclamation-circle'></i> මධ්‍යම මට්ටමේ (Moderate)</span>"
-                        : "<span style='color:var(--warning-color); font-weight:700;'><i class='fas fa-exclamation-circle'></i> Moderate Chance</span>";
+                    statusBadge = "<span style='color:var(--warning-color); font-weight:700;'>Moderate Chance</span>";
                 } else if (diff >= -0.12 && diff < -0.04) {
                     statusClass += " borderline";
-                    statusBadge = currentLang === 'si'
-                        ? "<span style='color:var(--primary-color); font-weight:700;'><i class='fas fa-info-circle'></i> අවම ඉඩක් (Borderline)</span>"
-                        : "<span style='color:var(--primary-color); font-weight:700;'><i class='fas fa-info-circle'></i> Borderline</span>";
+                    statusBadge = "<span style='color:var(--primary-color); font-weight:700;'>Borderline</span>";
                 } else {
                     return;
                 }
@@ -1599,122 +1109,19 @@
                         <div>
                             <strong style="color:var(--text-color); font-size:13px;">${item.uni}</strong>
                             <div style="color:var(--text-muted); font-size:12px;">${item.course}</div>
-                            <div style="font-size:11px; margin-top:3px;">Est. Cut-off: ~${adjustedCutoff.toFixed(4)}</div>
                         </div>
-                        <div style="text-align:right; font-size:12px;">
-                            ${statusBadge}
-                        </div>
+                        <div style="text-align:right; font-size:12px;">${statusBadge}</div>
                     </div>
                 `;
             });
 
             if (count === 0) {
-                html += `<p style="color:var(--text-muted); margin-top:10px;">${currentLang === 'si' ? 'මෙම Z-අගය සඳහා ප්‍රධාන පාඨමාලා කිසිවක් හමු නොවීය.' : 'No major course matches found below the predicted threshold.'}</p>`;
+                html += `<p style="color:var(--text-muted); margin-top:10px;">No matching faculties found for this score.</p>`;
             }
-
             resultsBox.innerHTML = html;
         }
 
-        const uniDetails = {
-            rusl_mgmt: {
-                name: "Faculty of Management Studies - Rajarata University (RUSL)",
-                degree: "B.Sc. in Management (General & Special)",
-                duration: "4 Years (Honours Degree)",
-                specs: "Accountancy, Finance, Business Management, Tourism & Hospitality, Marketing",
-                location: "Mihintale, Anuradhapura",
-                careers: "Auditor, Financial Analyst, Bank Executive, Chartered Accountant, HR Manager"
-            },
-            sjp_mgt: {
-                name: "Faculty of Management Studies & Commerce - USJ (J'pura)",
-                degree: "B.Sc. in Business Administration / Finance",
-                duration: "4 Years (Honours Degree)",
-                specs: "Accounting, Finance, Marketing, HRM, Business Economics, IT",
-                location: "Nugegoda, Colombo",
-                careers: "Investment Banker, Corporate Strategist, Chartered Accountant, Brand Manager"
-            },
-            cmb_mgt: {
-                name: "Faculty of Management & Finance - University of Colombo (UoC)",
-                degree: "BBA (Bachelor of Business Administration)",
-                duration: "4 Years (Honours Degree)",
-                specs: "Accounting, Finance, Marketing, International Business, Management Information Systems",
-                location: "Colombo 03",
-                careers: "Fintech Analyst, Multinational Consultant, Financial Planner, Operations Lead"
-            },
-            kln_com: {
-                name: "Faculty of Commerce & Management - University of Kelaniya",
-                degree: "B.Com / B.Sc in Accountancy",
-                duration: "4 Years (Honours Degree)",
-                specs: "Commerce, Financial Management, Auditing, Forensic Accounting",
-                location: "Dalugama, Kelaniya",
-                careers: "Tax Advisor, Chief Financial Officer (CFO), Stockbroker, Compliance Officer"
-            },
-            rusl_it: {
-                name: "Faculty of Applied Sciences - Rajarata University",
-                degree: "B.Sc in Information & Communication Technology",
-                duration: "3 - 4 Years",
-                specs: "Software Development, Networking, Cloud Computing, Database Administration",
-                location: "Mihintale",
-                careers: "Full-stack Developer, Software Engineer, Network Architect, Data Analyst"
-            },
-            mor_it: {
-                name: "Faculty of Information Technology - University of Moratuwa",
-                degree: "B.Sc. (Hons) in Information Technology",
-                duration: "4 Years",
-                specs: "Software Engineering, AI & Machine Learning, Cyber Security",
-                location: "Katubedda, Moratuwa",
-                careers: "Software Architect, Cloud Engineer, Tech Lead, AI Engineer"
-            }
-        };
-
-        function compareUniversities() {
-            const id1 = document.getElementById('comp-course-1').value;
-            const id2 = document.getElementById('comp-course-2').value;
-            const c1 = uniDetails[id1];
-            const c2 = uniDetails[id2];
-
-            const html = `
-                <table class="compare-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Criteria</th>
-                            <th style="width: 37.5%;">${c1.name}</th>
-                            <th style="width: 37.5%;">${c2.name}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Degree Awarded</strong></td>
-                            <td>${c1.degree}</td>
-                            <td>${c2.degree}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Duration</strong></td>
-                            <td>${c1.duration}</td>
-                            <td>${c2.duration}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Specializations</strong></td>
-                            <td>${c1.specs}</td>
-                            <td>${c2.specs}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Campus Location</strong></td>
-                            <td>${c1.location}</td>
-                            <td>${c2.location}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Key Career Roles</strong></td>
-                            <td>${c1.careers}</td>
-                            <td>${c2.careers}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-
-            document.getElementById('comparison-output').innerHTML = html;
-        }
-
-        // ================= 7. AI TEACHER INTEGRATION =================
+        // AI Teacher Logic
         const aiVoiceBtn = document.getElementById('ai-voice-btn');
         const aiVoiceLabel = document.getElementById('ai-voice-label');
         const aiStatusDot = document.getElementById('ai-status-dot');
@@ -1743,7 +1150,7 @@
         async function askGemini(promptText) {
             let key = sessionStorage.getItem('gemini_api_key');
             if (!key) {
-                key = prompt("Enter your Gemini API key to activate spoken practice (saved in tab memory only):");
+                key = prompt("Enter your Gemini API key to activate spoken practice:");
                 if (key) sessionStorage.setItem('gemini_api_key', key.trim());
                 else return;
             }
@@ -1756,18 +1163,18 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ role: "user", parts: [{ text: `You are an encouraging English spoken coach on Janith's portfolio. Janith is an undergraduate in Management at Rajarata University and a CA student. Keep answers short (1-2 sentences) and easy to say aloud.\n\nStudent: ${promptText}` }] }]
+                        contents: [{ role: "user", parts: [{ text: `You are an encouraging English coach on Janith's portfolio (Management Undergrad at Rajarata University). Keep answers short (1-2 sentences).\n\nStudent: ${promptText}` }] }]
                     })
                 });
                 const data = await response.json();
-                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't catch that. Could you please say it again?";
+                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't catch that.";
 
                 aiTranscript.innerHTML += `<div style="margin-top:5px;"><strong style="color:var(--primary-color);">AI:</strong> ${reply}</div>`;
                 aiTranscript.scrollTop = aiTranscript.scrollHeight;
                 speakAI(reply);
             } catch(err) {
                 aiStatusText.textContent = "Status: Error";
-                aiTranscript.innerHTML += `<div style="color:red; margin-top:5px;">Could not connect to AI service. Please verify your API key.</div>`;
+                aiTranscript.innerHTML += `<div style="color:red; margin-top:5px;">Connection error.</div>`;
             }
         }
 
@@ -1791,249 +1198,22 @@
                     rec.start();
                     aiStatusText.textContent = "Status: Listening...";
                     aiVoiceLabel.textContent = "Listening...";
-                } catch(e) { console.log(e); }
+                } catch(e) {}
             };
             rec.onresult = (e) => {
                 const spoken = e.results[0][0].transcript;
                 aiTranscript.innerHTML += `<div style="margin-top:5px;"><strong>You:</strong> ${spoken}</div>`;
                 askGemini(spoken);
             };
-            rec.onend = () => {
-                aiVoiceLabel.textContent = "Voice Speak";
-            };
+            rec.onend = () => { aiVoiceLabel.textContent = "Voice Speak"; };
         } else if (aiVoiceBtn) {
             aiVoiceBtn.style.display = 'none';
         }
 
-        // ================= 8. FINANCIAL TOOLS CODE =================
-
-        // Tool: APIT Sri Lanka Tax Calculation
-        function calculateAPIT() {
-            const salary = parseFloat(document.getElementById('tax-salary').value) || 0;
-            const relief = parseFloat(document.getElementById('tax-relief').value) || 100000;
-            let taxable = Math.max(0, salary - relief);
-            let tax = 0;
-
-            const slabs = [
-                { limit: 41667, rate: 0.06 },
-                { limit: 41667, rate: 0.12 },
-                { limit: 41667, rate: 0.18 },
-                { limit: 41667, rate: 0.24 },
-                { limit: 41667, rate: 0.30 }
-            ];
-
-            let remainingTaxable = taxable;
-            for (let i = 0; i < slabs.length; i++) {
-                if (remainingTaxable > 0) {
-                    let taxableInSlab = Math.min(remainingTaxable, slabs[i].limit);
-                    tax += taxableInSlab * slabs[i].rate;
-                    remainingTaxable -= taxableInSlab;
-                }
-            }
-            if (remainingTaxable > 0) {
-                tax += remainingTaxable * 0.36;
-            }
-
-            const netSalary = salary - tax;
-            document.getElementById('tax-result').innerHTML = `
-                <h4>${currentLang === 'si' ? 'බදු ගණනය කිරීමේ සාරාංශය' : 'Tax Calculation Summary'}</h4>
-                <p>${currentLang === 'si' ? 'මාසික දළ ආදායම' : 'Gross Monthly Salary'}: <strong>Rs. ${salary.toLocaleString()}</strong></p>
-                <p>${currentLang === 'si' ? 'බදු අදාළ වන ආදායම' : 'Taxable Income after Relief'}: <strong>Rs. ${taxable.toLocaleString()}</strong></p>
-                <p style="color:var(--primary-color); font-size:15px; margin-top:5px;">${currentLang === 'si' ? 'අයවන APIT බද්ද' : 'Estimated APIT Payable'}: <strong>Rs. ${tax.toFixed(2)}</strong></p>
-                <p style="color:var(--success-color)">${currentLang === 'si' ? 'අතට ලැබෙන ශුද්ධ වැටුප' : 'Net Take-Home Salary'}: <strong>Rs. ${netSalary.toFixed(2)}</strong></p>
-            `;
-        }
-
-        // Tool: Reducing Balance Loan Calculator
-        function calculateLoan() {
-            const p = parseFloat(document.getElementById('loan-amount').value) || 0;
-            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
-            const years = parseFloat(document.getElementById('loan-years').value) || 1;
-
-            const monthlyRate = (annualRate / 100) / 12;
-            const totalMonths = years * 12;
-
-            const emi = (p * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
-            const totalPayment = emi * totalMonths;
-            const totalInterest = totalPayment - p;
-
-            document.getElementById('loan-result').innerHTML = `
-                <h4>${currentLang === 'si' ? 'ණය කාලසටහන් සාරාංශය' : 'Loan Schedule Breakdown'}</h4>
-                <p>${currentLang === 'si' ? 'මාසික වාරිකය (EMI)' : 'Monthly Repayment (EMI)'}: <strong style="color:var(--primary-color)">Rs. ${emi.toFixed(2)}</strong></p>
-                <p>${currentLang === 'si' ? 'මුළු පොලිය' : 'Total Interest Payable'}: <strong>Rs. ${totalInterest.toFixed(2)}</strong></p>
-                <p>${currentLang === 'si' ? 'වසර ' + years + ' කදී සම්පූර්ණ ගෙවීම' : 'Total Repayment over ' + years + ' Years'}: <strong>Rs. ${totalPayment.toFixed(2)}</strong></p>
-            `;
-        }
-
-        // Tool: Instant Invoice Generator
-        function generateInvoicePreview() {
-            const client = document.getElementById('inv-client').value || "Valued Client";
-            const desc = document.getElementById('inv-desc').value || "Professional Services";
-            const qty = parseFloat(document.getElementById('inv-qty').value) || 1;
-            const price = parseFloat(document.getElementById('inv-price').value) || 0;
-            const vatRate = parseFloat(document.getElementById('inv-vat').value) || 0;
-
-            const subtotal = qty * price;
-            const vatAmount = subtotal * (vatRate / 100);
-            const grandTotal = subtotal + vatAmount;
-
-            const invoiceHtml = `
-                <html>
-                <head>
-                    <title>Invoice - ${client}</title>
-                    <style>
-                        body { font-family: sans-serif; padding: 40px; color: #222; }
-                        .inv-header { display: flex; justify-content: space-between; border-bottom: 2px solid #ff3c3c; padding-bottom: 20px; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-                        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-                        th { background: #f8f8f8; }
-                        .total-box { margin-top: 20px; text-align: right; }
-                    </style>
-                </head>
-                <body>
-                    <div class="inv-header">
-                        <div>
-                            <h2>INVOICE</h2>
-                            <p><strong>Billed To:</strong> ${client}</p>
-                            <p>Date: ${new Date().toLocaleDateString()}</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <h3>Janith Madumal</h3>
-                            <p>Financial Consulting & Tech</p>
-                            <p>Faculty of Management Studies - RUSL</p>
-                        </div>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr><th>Description</th><th>Qty</th><th>Unit Price (LKR)</th><th>Total (LKR)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>${desc}</td><td>${qty}</td><td>${price.toLocaleString()}</td><td>${subtotal.toLocaleString()}</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="total-box">
-                        <p>Subtotal: Rs. ${subtotal.toLocaleString()}</p>
-                        <p>VAT (${vatRate}%): Rs. ${vatAmount.toLocaleString()}</p>
-                        <h3>Grand Total: Rs. ${grandTotal.toLocaleString()}</h3>
-                    </div>
-                    <script>window.onload = function() { window.print(); }<\/script>
-                </body>
-                </html>
-            `;
-            const win = window.open('', '_blank');
-            win.document.write(invoiceHtml);
-            win.document.close();
-        }
-
-        // Tool: Financial Ratio Analysis
-        function calculateRatios() {
-            const ca = parseFloat(document.getElementById('ratio-ca').value) || 1;
-            const cl = parseFloat(document.getElementById('ratio-cl').value) || 1;
-            const inv = parseFloat(document.getElementById('ratio-inv').value) || 0;
-            const debt = parseFloat(document.getElementById('ratio-debt').value) || 0;
-            const equity = parseFloat(document.getElementById('ratio-eq').value) || 1;
-            const np = parseFloat(document.getElementById('ratio-np').value) || 0;
-            const rev = parseFloat(document.getElementById('ratio-rev').value) || 1;
-
-            const currentRatio = (ca / cl).toFixed(2);
-            const quickRatio = ((ca - inv) / cl).toFixed(2);
-            const deRatio = (debt / equity).toFixed(2);
-            const netMargin = ((np / rev) * 100).toFixed(1);
-
-            let liquidityStatus = currentRatio >= 1.5 ? "<span style='color:var(--success-color)'>Strong</span>" : "<span style='color:var(--primary-color)'>Constrained</span>";
-
-            document.getElementById('ratios-result').innerHTML = `
-                <h4>${currentLang === 'si' ? 'මූල්‍ය සෞඛ්‍ය සමාලෝචනය' : 'Financial Health Overview'}</h4>
-                <p>Current Ratio: <strong>${currentRatio}</strong> (${liquidityStatus})</p>
-                <p>Quick Ratio (Acid-Test): <strong>${quickRatio}</strong></p>
-                <p>Debt-to-Equity Ratio: <strong>${deRatio}</strong></p>
-                <p>Net Profit Margin: <strong>${netMargin}%</strong></p>
-            `;
-        }
-
-        // Tool: Expense Tracker
-        let transactions = JSON.parse(localStorage.getItem('user_transactions')) || [];
-
-        function renderTransactions() {
-            const listEl = document.getElementById('expense-list');
-            const balanceEl = document.getElementById('total-balance');
-            listEl.innerHTML = '';
-
-            let total = 0;
-            transactions.forEach((item) => {
-                total += item.type === 'income' ? item.amount : -item.amount;
-                const entry = document.createElement('div');
-                entry.style.display = 'flex';
-                entry.style.justifyContent = 'space-between';
-                entry.style.marginBottom = '6px';
-                entry.style.fontSize = '12px';
-                entry.innerHTML = `
-                    <span>${item.desc}</span>
-                    <strong style="color:${item.type === 'income' ? 'var(--success-color)' : 'var(--primary-color)'}">
-                        ${item.type === 'income' ? '+' : '-'} Rs. ${item.amount.toLocaleString()}
-                    </strong>
-                `;
-                listEl.appendChild(entry);
-            });
-
-            balanceEl.textContent = `Rs. ${total.toLocaleString()}`;
-        }
-
-        function addTransaction() {
-            const desc = document.getElementById('exp-desc').value.trim();
-            const amount = parseFloat(document.getElementById('exp-amount').value);
-            const type = document.getElementById('exp-type').value;
-
-            if (!desc || isNaN(amount) || amount <= 0) {
-                alert(currentLang === 'si' ? "කරුණාකර නිවැරදි විස්තරයක් සහ මුදලක් ඇතුළත් කරන්න." : "Please provide a valid description and amount.");
-                return;
-            }
-
-            transactions.push({ desc, amount, type });
-            localStorage.setItem('user_transactions', JSON.stringify(transactions));
-            document.getElementById('exp-desc').value = '';
-            document.getElementById('exp-amount').value = '';
-            renderTransactions();
-        }
-
-        function clearTransactions() {
-            const confirmMsg = currentLang === 'si' ? "සියලුම සටහන් ඉවත් කිරීමට අවශ්‍යද?" : "Clear transaction records?";
-            if (confirm(confirmMsg)) {
-                transactions = [];
-                localStorage.removeItem('user_transactions');
-                renderTransactions();
-            }
-        }
-        renderTransactions();
-
-        // Tool: Customs Duty & Import Estimator
-        function calculateCustoms() {
-            const cif = parseFloat(document.getElementById('cust-cif').value) || 0;
-            const cidRate = parseFloat(document.getElementById('cust-cid').value) || 0;
-            const palRate = parseFloat(document.getElementById('cust-pal').value) || 0;
-            const vatRate = parseFloat(document.getElementById('cust-vat').value) || 0;
-
-            const cidAmount = cif * (cidRate / 100);
-            const palAmount = cif * (palRate / 100);
-            const vatBase = (cif + cidAmount + palAmount) * 1.10;
-            const vatAmount = vatBase * (vatRate / 100);
-            const totalDuties = cidAmount + palAmount + vatAmount;
-            const landedCost = cif + totalDuties;
-
-            document.getElementById('customs-result').innerHTML = `
-                <h4>${currentLang === 'si' ? 'ආනයන වියදම් ගණනය කිරීම' : 'Landed Cost Estimation'}</h4>
-                <p>CID: Rs. ${cidAmount.toFixed(2)} | PAL: Rs. ${palAmount.toFixed(2)}</p>
-                <p>Import VAT: Rs. ${vatAmount.toFixed(2)}</p>
-                <p>${currentLang === 'si' ? 'මුළු බදු සහ ගාස්තු' : 'Total Levies & Taxes'}: <strong style="color:var(--primary-color)">Rs. ${totalDuties.toFixed(2)}</strong></p>
-                <p>${currentLang === 'si' ? 'මුළු ගොඩබෑමේ පිරිවැය' : 'Total Estimated Landed Cost'}: <strong>Rs. ${landedCost.toFixed(2)}</strong></p>
-            `;
-        }
-
-        // ================= 9. CONTACT FORM EMAILJS =================
+        // Contact EmailJS
         (function() {
             emailjs.init("wJ-Xok6dB93S48oql");
         })();
-
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -2048,15 +1228,15 @@
 
             emailjs.send('service_portfolio', 'template_contact', templateParams)
                 .then(() => {
-                    alert(currentLang === 'si' ? "ඔබගේ පණිවිඩය සාර්ථකව යවන ලදී!" : "Message sent successfully!");
+                    alert("Message sent successfully!");
                     document.getElementById('contact-form').reset();
                 })
                 .catch(() => {
-                    alert(currentLang === 'si' ? "පණිවිඩය යැවීමට නොහැකි විය. කරුණාකර සමාජ මාධ්‍ය හරහා සම්බන්ධ වන්න." : "Unable to deliver via EmailJS. Please reach out via my social media links.");
+                    alert("Unable to deliver via EmailJS. Please reach out via my social media links.");
                 })
                 .finally(() => {
                     btn.disabled = false;
-                    btn.innerHTML = (currentLang === 'si' ? 'පණිවිඩය යවන්න' : 'Send Message') + ' <i class="fas fa-paper-plane"></i>';
+                    btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
                 });
         });
     </script>
